@@ -2,6 +2,7 @@
 using ATHENA.Database;
 using ATHENA.Models;
 using SQLite;
+using System.Linq.Expressions;
 
 namespace ATHENA.Metas.xaml;
 
@@ -26,11 +27,18 @@ public partial class EscolherMeta : ContentPage
     }
     protected override async void OnAppearing()
     {
-        base.OnAppearing();
+        try
+        {
+            base.OnAppearing();
 
-        List<Meta> metas = await db.Table<Meta>().ToListAsync();
+            List<Meta> metas = await db.Table<Meta>().ToListAsync();
 
-        listaMetas.ItemsSource = metas;
+            listaMetas.ItemsSource = metas;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
     private async void Button_Clicked_1(object sender, EventArgs e)

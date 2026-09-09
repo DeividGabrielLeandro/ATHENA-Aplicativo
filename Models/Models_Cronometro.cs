@@ -20,7 +20,7 @@ namespace ATHENA.Models
 
                 Meta meta = await db.GetAsync<Meta>(idMeta);
 
-                meta.metaMinutos += (int)resultadoSessao.MinutosLiquidos;
+                meta.minutosEstudados += (int)resultadoSessao.MinutosLiquidos;
 
                 await db.UpdateAsync(meta);
             }

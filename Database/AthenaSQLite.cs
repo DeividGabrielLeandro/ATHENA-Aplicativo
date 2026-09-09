@@ -131,7 +131,7 @@ namespace ATHENA.Database
 
         public DateTime inicioPausa { get; set; } //Hora do início da pausa
 
-        public DateTime? fimPausa { get; set;  } //Hora do fim da pausa
+        public DateTime? fimPausa { get; set; } //Hora do fim da pausagit log --oneline -4git log --oneline -4git log --oneline -4git log --oneline -4
 
         public int duracaoMinutos { get; set; } //Duração da pausa
 
