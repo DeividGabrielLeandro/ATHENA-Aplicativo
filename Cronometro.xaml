@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.NewPage1"
+              BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+ VerticalOptions="Center"
+ Spacing="20">
+
+            <Image Source="logo_athena.png"
+       WidthRequest="240"
+       HeightRequest="36"
+       HorizontalOptions="Start"
+       VerticalOptions="Start" 
+                    Margin="10"                   
+                  />
+
+            <Label Text="CRONOMETRE SEU TEMPO DE ESTUDO
+        " 
+        HorizontalOptions="Start"  
+        VerticalOptions="Start" 
+        TextColor="{StaticResource AthenaTextPrimary}"
+        FontSize="12"
+        Margin="0,-15,0,0"
+       
+  />
+            <Label
+x:Name="TxtCronometro"
+Text="00:00:00"
+FontSize="48"
+FontAttributes="Bold"
+HorizontalOptions="Center"
+TextColor="{StaticResource AthenaTextPrimary}" />
+
+            <HorizontalStackLayout
+HorizontalOptions="Center"
+Spacing="10">
+
+                <Button
+    x:Name="BtnIniciar"
+    Text="Iniciar"
+    Clicked="BtnIniciar_Click" />
+
+                <Button
+    x:Name="BtnPausar"
+    Text="Pausar"
+    Clicked="BtnPausar_Click" />
+
+                <Button
+    x:Name="BtnParar"
+    Text="Parar"
+    Clicked="BtnParar_Clicked" />
+                
+                <Label x:Name="CronometroParadoTXT"
+TextColor="{StaticResource AthenaTextPrimary}" />
+
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+    </ScrollView>
+</ContentPage>
+
+

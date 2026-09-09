@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.Metas.xaml.EscolherMeta"
+             BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Start"
+            Padding="8,8,16,0"
+            Spacing="20">
+
+            <Image Source="logo_athena.png"
+                   WidthRequest="240"
+                   HeightRequest="36"
+                   HorizontalOptions="Start"
+                   Margin="10" />
+
+            <Label Text="ESCOLHA SUA META DE ESTUDO"
+                   HorizontalOptions="Start"
+                   TextColor="{StaticResource AthenaTextPrimary}"
+                   FontSize="12"
+                   Margin="0,-15,0,0" />
+
+            <Label Text="Inspirado em Atena, a deusa grega da sabedoria, estratégia e conhecimento,
+o Athena foi criado para auxiliar estudantes na organização dos estudos,
+no acompanhamento do progresso e na construção de uma jornada de aprendizado
+mais eficiente e disciplinada."
+                   TextColor="{StaticResource AthenaTextPrimary}" />
+
+            <CollectionView x:Name="listaMetas">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <VerticalStackLayout Spacing="10">
+
+                            <Label Text="Titulo da meta:" 
+                                   TextColor="{StaticResource AthenaTextPrimary}"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding tituloMeta}"
+                                   TextColor="{StaticResource AthenaTextPrimary}"
+                                   FontSize="20"
+                                   FontAttributes="Bold" />
+                            
+
+                            <Label Text="Descrição da meta:" 
+                                   TextColor="{StaticResource AthenaTextPrimary}"
+                                   FontSize="15"
+                                   FontAttributes="Bold" />
+                            <Label Text="{Binding descricaoMeta}"
+                                   TextColor="{StaticResource AthenaTextPrimary}" />
+                            
+                            
+                            <Label Text="Meta definida para ser estudada:" 
+                                   TextColor="{StaticResource AthenaTextPrimary}"
+                                   FontSize="15"
+                                   FontAttributes="Bold" /> 
+                            <Label Text="{Binding metaMinutos}"
+                                   TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Label Text="Minutos estudados:" 
+       TextColor="{StaticResource AthenaTextPrimary}"
+       FontSize="15"
+       FontAttributes="Bold" />
+                            <Label Text="{Binding minutosEstudados}"
+       TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Button Text="Escolher meta"
+                                    Clicked="Button_Clicked_1" />
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

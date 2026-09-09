@@ -1,17 +1,21 @@
-﻿
-namespace ATHENA
-{
-    public partial class MainPage : ContentPage
-    {
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+﻿using ATHENA.Metas.xaml;
 
-        private void OnCounterClicked(object sender, EventArgs e)
-        {
-            CounterBtn.Text = "Clicked!";
-        }
+namespace ATHENA;
+
+public partial class MainPage : ContentPage
+{
+    public MainPage()
+    {
+        InitializeComponent();
+    }
+
+    private async void Button_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(NewPage2));
+    }
+
+    private async void Button_Clicked_1(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync(nameof(EscolherMeta));
     }
 }
-

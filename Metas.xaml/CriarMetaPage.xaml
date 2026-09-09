@@ -1,11 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-    
-    
-    <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATHENA.MainPage"
-                 BackgroundColor="{StaticResource AthenaBackground}">
+             x:Class="ATHENA.NewPage2"
+    BackgroundColor="{StaticResource AthenaBackground}">
 
     <ScrollView>
         <VerticalStackLayout
@@ -14,7 +11,7 @@
 Padding="8,8,16,0"
         Spacing="20">
 
-            <Image Source="logo_athena.png" 
+            <Image Source="logo_athena.png"
        WidthRequest="240"
        HeightRequest="36"
        HorizontalOptions="Start"
@@ -22,8 +19,9 @@ Padding="8,8,16,0"
                     Margin="10"
                    
                   />
-            
-            <Label Text="PAINEL DE ESTUDO" 
+
+            <Label Text="DEFINA SUA META DE ESTUDO
+                   " 
                    HorizontalOptions="Start"  
                    VerticalOptions="Start" 
                    TextColor="{StaticResource AthenaTextPrimary}"
@@ -38,17 +36,23 @@ o Athena foi criado para auxiliar estudantes na organização dos estudos,
 no acompanhamento do progresso e na construção de uma jornada de aprendizado 
 mais eficiente e disciplinada." TextColor="{StaticResource AthenaTextPrimary}"/>
 
+            <Label Text="Escolha um título" TextColor="{StaticResource AthenaTextPrimary}" />
+            <Entry x:Name="TituloTXT" Placeholder="Titulo" />
 
-            <Label Text="Olá, {Usuario}!" TextColor="{StaticResource AthenaTextPrimary}"/>
-            <Label Text="O que deseja fazer agora?" TextColor="{StaticResource AthenaTextPrimary}"/>
+            <Label Text="Defina uma descrição" TextColor="{StaticResource AthenaTextPrimary}" />
+            <Editor x:Name="DescricaoTXT" Placeholder="Descrição" />
 
-            <Button Text="Definir nova meta" Clicked="Button_Clicked" BorderColor="{StaticResource AthenaGold}"/>
-            <Button Text="Escolher uma meta para começar a estudar" Clicked="Button_Clicked_1" BorderColor="{StaticResource AthenaGold}" />
+            <Label Text="Defina um objetivo de tempo em minutos" TextColor="{StaticResource AthenaTextPrimary}" />
+            <Entry x:Name="MetaMinutosTXT" Placeholder="Minutos" />
 
+            <Button Text="Criar meta" Clicked="Button_Clicked" />
+
+            <Label x:Name="ResultadoTXT"
+            TextColor="{StaticResource AthenaTextPrimary}" />
 
         </VerticalStackLayout>
 
-        
+
     </ScrollView>
 
 </ContentPage>
