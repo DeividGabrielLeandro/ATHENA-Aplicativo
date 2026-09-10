@@ -30,6 +30,8 @@ namespace ATHENA.Database
         public DateTime dataCriacao { get; set; } = DateTime.Now; //Criação da conta
     }
 
+
+
     [Table("Meta")]
     public class Meta
     {
@@ -63,9 +65,37 @@ namespace ATHENA.Database
         public DateTime? dataLimite { get; set; } //Pode ser adicionado uma data limite para completar a meta
 
         public DateTime? dataConclusao { get; set; } //Data da conclusão
+
+        [Ignore]
+        public double Progresso
+        {
+            get
+            {
+                if (metaMinutos <= 0)
+                    return 0;
+
+                double progresso =
+                    (double)(minutosEstudados ?? 0) / metaMinutos;
+
+                return Math.Min(progresso, 1);
+            }
+        }
+
+        [Ignore]
+        public string TextoDataLimite
+        {
+            get
+            {
+                if (dataLimite == null)
+                    return "Não possui prazo";
+
+                return dataLimite.Value.ToString("dd/MM/yyyy");
+            }
+        }
     }
 
-    [Table("Categoria")]
+
+        [Table("Categoria")]
     public class Categoria
     {
         [AutoIncrement,PrimaryKey]

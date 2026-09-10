@@ -85,6 +85,7 @@ public partial class NewPage1 : ContentPage
     {
         tempoLiquido.Stop();
         tempoBruto.Stop();
+        cronometro.Reset();
         cronometro.Stop();
         DateTime dataFim = DateTime.Now;
 

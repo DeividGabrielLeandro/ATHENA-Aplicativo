@@ -20,7 +20,7 @@
 
             <Label Text="CRONOMETRE SEU TEMPO DE ESTUDO
         " 
-        HorizontalOptions="Start"  
+        HorizontalOptions="Center"  
         VerticalOptions="Start" 
         TextColor="{StaticResource AthenaTextPrimary}"
         FontSize="12"

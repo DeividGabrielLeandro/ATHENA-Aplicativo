@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.Metas.xaml.InterfaceMeta"
+             BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Spacing="20"
+            Padding="10">
+
+            <Image
+            Source="logo_athena.png"
+            WidthRequest="240"
+            HeightRequest="36"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Aspect="AspectFit" />
+
+            <Label
+                Text="Sua meta de estudo"
+                TextColor="{StaticResource AthenaTextPrimary}"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <CollectionView
+                x:Name="listaMetas">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <VerticalStackLayout
+                            Spacing="8"
+                            Padding="10">
+
+                            <Label
+                                Text="Meta selecionada"
+                                TextColor="{StaticResource AthenaGold}"
+                                FontSize="16" />
+
+                            <Label
+                                Text="{Binding tituloMeta}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="22" />
+
+                            <Label
+                                Text="{Binding tituloCategoria}"
+                                TextColor="{StaticResource AthenaBlue}"
+                                FontSize="14" />
+
+                            <Label
+                                Text="Descrição da meta"
+                                TextColor="{StaticResource AthenaGold}"
+                                FontSize="16" />
+
+                            <Label
+                                Text="{Binding descricaoMeta}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="22" />
+
+                            <BoxView
+                                HeightRequest="1"
+                                HorizontalOptions="Fill"
+                                Color="Grey" />
+
+                            <Label 
+                                Text="Prioridade"
+                                FontSize="Micro"
+                                TextColor="{StaticResource AthenaGold}" />
+                            
+                            <Label
+                                Text="{Binding prioridadeMeta}"
+                                FontSize="Micro"
+                                TextColor="{StaticResource Gray100}" />
+
+                            <Label 
+                                Text="Status"
+                                FontSize="Micro"
+                                TextColor="{StaticResource AthenaGold}" />
+
+                            <Label
+                                Text="{Binding status}"
+                                FontSize="Micro"
+                                TextColor="{StaticResource Gray100}" />
+                            
+                            <BoxView
+                                HeightRequest="1"
+                                HorizontalOptions="Fill"
+                                Color="Grey" />
+
+                            <Label 
+                                Text="Progresso da meta"
+                                FontSize="16"
+                                TextColor="{StaticResource AthenaGold}" />
+
+
+                            <HorizontalStackLayout Spacing="10" >
+
+                                <Label 
+                                 Text="{Binding minutosEstudados}"
+                                 FontSize="Micro"
+                                 TextColor="{StaticResource AthenaTextPrimary}" />
+
+                                <Label 
+                                 Text="{Binding metaMinutos, StringFormat= '/ {0} min'}"
+                                 FontSize="Micro"
+                                 TextColor="{StaticResource AthenaTextPrimary}" />
+
+
+                            </HorizontalStackLayout>
+                            <Border
+                                Stroke="{StaticResource AthenaGold}"
+                                StrokeThickness="1"
+                                BackgroundColor="#111111"
+                                HeightRequest="60"
+                                HorizontalOptions="Fill"
+                                Padding="15">   
+
+                                <Grid ColumnDefinitions="*,Auto">
+
+                                    <VerticalStackLayout
+                                        Spacing="2"
+                                        VerticalOptions="Center">
+
+                                        <Label
+                                            Text="PROGRESSO"
+                                            FontSize="12"
+                                            TextColor="{StaticResource AthenaGold}" />
+
+                                        <Label
+                                            Text="{Binding minutosEstudados, StringFormat='{0} minutos estudados'}"
+                                            FontSize="16"
+                                            TextColor="{StaticResource AthenaTextPrimary}" />
+
+                                    </VerticalStackLayout>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding Progresso, StringFormat='{0:P0}'}"
+                                        FontSize="22"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaGold}"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+
+                            </Border>
+
+                            
+
+                            <BoxView
+                                HeightRequest="1"
+                                HorizontalOptions="Fill"
+                                Color="Grey" />
+                            
+                            <Label 
+                                Text="Criada em"
+                                FontSize="16"
+                                TextColor="{StaticResource AthenaGold}" />
+
+                            <Label
+                                Text="{Binding dataCriacao , StringFormat='{0:dd/MM/yyyy}'}"
+                                FontSize="Micro"
+                                TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Label 
+                                Text="Data limite"
+                                FontSize="16"
+                                TextColor="{StaticResource AthenaGold}" />
+
+                            <Label
+                                Text="{Binding TextoDataLimite, StringFormat='{0:dd/MM/yyyy}'}"
+                                FontSize="Micro"
+                                TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <BoxView
+                                HeightRequest="1"
+                                HorizontalOptions="Fill"
+                                Color="Grey" />
+                            
+                            <Label
+                                Text="O que deseja fazer agora?"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="24"
+                                HorizontalOptions="Center" />
+
+                            <Button 
+                                Text="Criar uma sessão de estudo"
+                                Clicked="Button_Clicked" />
+                            
+                            <Button 
+                                Text="Começar a contar o tempo"
+                                Clicked="Button_Clicked_1" />
+
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

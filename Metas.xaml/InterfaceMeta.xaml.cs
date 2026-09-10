@@ -1,18 +1,17 @@
 
 using ATHENA.Database;
-using ATHENA.Models;
 using SQLite;
-using System.Linq.Expressions;
 
 namespace ATHENA.Metas.xaml;
 
-public partial class EscolherMeta : ContentPage
+[QueryProperty(nameof(IdMeta), "idMeta")]
+public partial class InterfaceMeta : ContentPage
 {
-    private int idMeta;
+    public int IdMeta { get; set; }
 
     SQLiteAsyncConnection db;
 
-    public EscolherMeta()
+    public InterfaceMeta()
 	{
         InitializeComponent();
 
@@ -23,22 +22,30 @@ public partial class EscolherMeta : ContentPage
         );
 
         db = new SQLiteAsyncConnection(dbPath);
-
     }
+
     protected override async void OnAppearing()
     {
         try
         {
             base.OnAppearing();
 
-            List<Meta> metas = await db.Table<Meta>().ToListAsync();
+            List<Meta> metas = await db.Table<Meta>()
+                .Where(mbox  => mbox.idMeta == IdMeta)
+                .ToListAsync();
 
             listaMetas.ItemsSource = metas;
+
         }
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
         }
+    }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
     }
 
     private async void Button_Clicked_1(object sender, EventArgs e)
@@ -49,6 +56,6 @@ public partial class EscolherMeta : ContentPage
 
         int idMeta = meta.idMeta;
 
-        await Shell.Current.GoToAsync($"{nameof(InterfaceMeta)}?idMeta={idMeta}");
+        await Shell.Current.GoToAsync($"{nameof(NewPage1)}?idMeta={idMeta}");
     }
 }
