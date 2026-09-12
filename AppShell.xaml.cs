@@ -16,7 +16,7 @@ namespace ATHENA
 
             Routing.RegisterRoute(nameof(InterfaceMeta), typeof(InterfaceMeta));
 
-
+            Routing.RegisterRoute(nameof(EditarMeta), typeof(EditarMeta));
         }
     }
 }

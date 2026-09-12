@@ -197,6 +197,9 @@
                                 Text="Começar a contar o tempo"
                                 Clicked="Button_Clicked_1" />
 
+                            <Button Text="Editar meta"
+                                    Clicked="Button_Clicked_2"/>
+
 
                         </VerticalStackLayout>
 
