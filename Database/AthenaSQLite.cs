@@ -101,11 +101,11 @@ namespace ATHENA.Database
         [AutoIncrement,PrimaryKey]
         public int idCategoria { get; set; } //Id categoria
 
-        [NotNull]
-        public int idUsuario { get; set; } //Facilita pesquisas
+        //[NotNull]
+        public int? idUsuario { get; set; } //Facilita pesquisas
 
-        [NotNull]
-        public int idMeta { get; set; } //Uma categoria pode ter várias metas
+        //[NotNull]
+        public int? idMeta { get; set; } //Uma categoria pode ter várias metas
 
         [MaxLength(100), NotNull]
         public string tituloCategoria { get; set; } //Titulo

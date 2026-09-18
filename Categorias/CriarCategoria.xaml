@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.CriarCategoria"
+            BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+        VerticalOptions="Start"
+Padding="8,8,16,0"
+        Spacing="20">
+
+            <Image Source="logo_athena.png"
+       WidthRequest="240"
+       HeightRequest="36"
+       HorizontalOptions="Start"
+       VerticalOptions="Start" 
+                    Margin="10"
+                   
+                  />
+
+            <Label Text="DEFINA SUA META DE ESTUDO
+                   " 
+                   HorizontalOptions="Start"  
+                   VerticalOptions="Start" 
+                   TextColor="{StaticResource AthenaTextPrimary}"
+                   FontSize="12"
+                   Margin="0,-15,0,0"
+                  
+             />
+
+
+            <Label Text="Inspirado em Atena, a deusa grega da sabedoria, estratégia e conhecimento,
+o Athena foi criado para auxiliar estudantes na organização dos estudos,
+no acompanhamento do progresso e na construção de uma jornada de aprendizado 
+mais eficiente e disciplinada." TextColor="{StaticResource AthenaTextPrimary}"/>
+
+            <Label Text="Escolha um título" TextColor="{StaticResource AthenaTextPrimary}" />
+            <Entry x:Name="TituloTXT" Placeholder="Titulo" />
+
+            <Label Text="Defina uma descrição" TextColor="{StaticResource AthenaTextPrimary}" />
+            <Editor x:Name="DescricaoTXT" Placeholder="Descrição" />
+
+            <Button Text="Criar categoria" Clicked="Button_Clicked"/>
+
+            <Label x:Name="ResultadoTXT"
+            TextColor="{StaticResource AthenaTextPrimary}" />
+
+        </VerticalStackLayout>
+
+
+    </ScrollView>
+
+</ContentPage>

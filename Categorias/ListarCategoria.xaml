@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.Categorias.ListarCategoria"
+             BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+        <VerticalStackLayout
+             HorizontalOptions="Fill"
+ VerticalOptions="Start"
+ Padding="8,8,16,0"
+ Spacing="20">
+
+        
+            <Image 
+                Grid.Row="0"
+                Source="logo_athena.png"
+        WidthRequest="240"
+        HeightRequest="36"
+        HorizontalOptions="Start"
+        Margin="10" />
+
+        <Label 
+            Grid.Row="0"
+        Text="Suas Categorias"
+        HorizontalOptions="Fill"
+        FontSize="Title"
+        TextColor="{StaticResource AthenaTextPrimary}"/>
+
+
+        <CollectionView x:Name="lista" Grid.Row="2">
+
+                <CollectionView.ItemsLayout>
+
+                    <GridItemsLayout
+                        Orientation="Vertical"
+                        Span="2"
+                        HorizontalItemSpacing="8"
+                        VerticalItemSpacing="8" />
+
+
+                </CollectionView.ItemsLayout>
+
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                    <Border
+                            BackgroundColor="DarkCyan"
+                            Stroke="DarkBlue"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            Padding="14"
+                            HeightRequest="140">
+
+                            <VerticalStackLayout Spacing="8">
+
+                            <Label Text="{Binding tituloCategoria}"
+                           FontSize="17"
+                           TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Label Text="{Binding descricaoCategoria}"
+FontSize="17"
+TextColor="{StaticResource AthenaTextPrimary}" />
+
+
+                        </VerticalStackLayout>
+
+                        </Border>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Label 
+     Grid.Row="0"
+ Text="Ações rapidas"
+ HorizontalOptions="Fill"
+ FontSize="Title"
+ TextColor="{StaticResource AthenaTextPrimary}"/>
+            <Button Text="Criar nova categoria" Clicked="Button_Clicked" />
+
+    </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

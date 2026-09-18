@@ -72,7 +72,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Metas.xaml\CriarMetaPage.xaml.cs">
+	  <Compile Update="Metas\CriarMetaPage.xaml.cs">
 	    <DependentUpon>CriarMetaPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="Cronometro.xaml.cs">
@@ -81,19 +81,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Metas.xaml\CriarMetaPage.xaml">
+	  <MauiXaml Update="Categorias\CriarCategoria.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Categorias\ListarCategoria.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Metas\CriarMetaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Cronometro.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Metas.xaml\EditarMeta.xaml">
+	  <MauiXaml Update="Metas\EditarMeta.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Metas.xaml\EscolherMeta.xaml">
+	  <MauiXaml Update="Metas\EscolherMeta.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Metas.xaml\InterfaceMeta.xaml">
+	  <MauiXaml Update="Metas\InterfaceMeta.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

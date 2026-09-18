@@ -29,7 +29,7 @@ no acompanhamento do progresso e na construção de uma jornada de aprendizado
 mais eficiente e disciplinada."
                    TextColor="{StaticResource AthenaTextPrimary}" />
 
-            <CollectionView x:Name="listaMetas">
+            <CollectionView x:Name="lista">
 
                 <CollectionView.ItemTemplate>
 

@@ -33,7 +33,7 @@ public partial class EscolherMeta : ContentPage
 
             List<Meta> metas = await db.Table<Meta>().ToListAsync();
 
-            listaMetas.ItemsSource = metas;
+            lista.ItemsSource = metas;
         }
         catch (Exception ex)
         {

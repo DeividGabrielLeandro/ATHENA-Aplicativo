@@ -4,7 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ATHENA"
-    xmlns:metas="clr-namespace:ATHENA.Metas.xaml">
+    xmlns:metas="clr-namespace:ATHENA.Metas.xaml"
+    xmlns:categorias="clr-namespace:ATHENA.Categorias">
 
     <Shell.Resources>
         <Style TargetType="TabBar">
@@ -15,7 +16,6 @@
         </Style>
 
     </Shell.Resources>
-
     <TabBar>
 
         <ShellContent
@@ -29,6 +29,12 @@
          Icon="seta_de_alvo.png"
          ContentTemplate="{DataTemplate metas:EscolherMeta}"
          Route="EscolherMeta" />
+
+        <ShellContent
+         Title="Categoria"
+         Icon="seta_de_alvo.png"
+         ContentTemplate="{DataTemplate categorias:ListarCategoria}"
+         Route="ListarCategoria" />
 
         <ShellContent
          Title="Cronometro"

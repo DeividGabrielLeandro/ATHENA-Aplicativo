@@ -1,9 +1,11 @@
-﻿using ATHENA.Metas.xaml;
+﻿using ATHENA.Categorias;
+using ATHENA.Metas.xaml;
 
 namespace ATHENA
 {
     public partial class AppShell : Shell
     {
+
         public AppShell()
         {
             ///Paginas iniciais
@@ -14,6 +16,10 @@ namespace ATHENA
             Routing.RegisterRoute(nameof(NewPage1), typeof(NewPage1)); //Cronometro
 
             Routing.RegisterRoute(nameof(EscolherMeta), typeof(EscolherMeta));
+
+            Routing.RegisterRoute(nameof(ListarCategoria), typeof(ListarCategoria));
+
+            Routing.RegisterRoute(nameof(CriarCategoria), typeof(CriarCategoria));
 
             ///Paginas de navegação
 
