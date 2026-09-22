@@ -8,13 +8,17 @@ namespace ATHENA.Models
 {
     internal class Models_Meta
     {
+        public int? idCategoria { get; set; }
+
         public static async Task CriarMeta(
             string titulo,
             string descricao,
             int minutos,
             string prioridade,
-            string status)
+            string status,
+            int? idCategoria)
         {
+            
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
 );
 
@@ -29,9 +33,11 @@ namespace ATHENA.Models
                 metaMinutos = minutos,
                 prioridadeMeta = prioridade,
                 status = status,
+                idCategoria = idCategoria
             };
 
             await db.InsertAsync(CriaMeta);
+      
         }
         public static async Task EditarMeta(
             int idMeta,

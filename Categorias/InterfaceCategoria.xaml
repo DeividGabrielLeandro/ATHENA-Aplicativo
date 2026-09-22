@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.Categorias.InterfaceCategoria"
+             BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Spacing="20"
+            Padding="10">
+
+            <Image
+                Source="logo_athena.png"
+                WidthRequest="240"
+                HeightRequest="36"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                Aspect="AspectFit" />
+
+            <Label
+                Text="Categoria"
+                TextColor="{StaticResource AthenaTextPrimary}"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <CollectionView
+                x:Name="listaCategoria">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <VerticalStackLayout
+                            Spacing="8"
+                            Padding="10">
+
+                            <Label
+                                Text="Meta selecionada"
+                                TextColor="{StaticResource AthenaGold}"
+                                FontSize="16" />
+
+                            <Label
+                                Text="{Binding tituloCategoria}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="22" />
+
+                            <Label
+                                Text="Descrição da Categoria"
+                                TextColor="{StaticResource AthenaGold}"
+                                FontSize="16" />
+
+                            <Label
+                                Text="{Binding descricaoCategoria}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="22" />
+
+                           
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <CollectionView
+                x:Name="listaMeta">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <VerticalStackLayout
+                            Spacing="8"
+                            Padding="10">
+
+                            <Grid ColumnDefinitions="*,Auto" BackgroundColor="Black">
+
+                                <VerticalStackLayout
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+
+
+                                    <Label
+                                        Text="{Binding tituloMeta}"
+                                        FontSize="16"
+                                        TextColor="{StaticResource AthenaTextPrimary}" />
+
+                                </VerticalStackLayout>
+
+                                <Button 
+                                    x:Name="EscolherMeta"
+                                    Clicked="EscolherMeta_Clicked"
+                                    Text="Entrar na meta"
+                                    WidthRequest="150"
+HeightRequest="18"/>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding Progresso, StringFormat='{0:P0}'}"
+                                    FontSize="22"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AthenaGold}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <Button
+                x:Name="ButtonCriarMeta"
+                Clicked="ButtonCriarMeta_Clicked"
+                Text="Criar meta" />
+
+
+            <CollectionView
+    x:Name="listaMetaEscolha">
+
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+
+                        <VerticalStackLayout
+                Spacing="8"
+                Padding="10"
+               >
+
+                            <Label
+                    Text="{Binding tituloMeta}"
+                    TextColor="{StaticResource AthenaTextPrimary}"
+                    FontSize="18" />
+
+                            <Button
+                    Text="Adicionar à categoria"
+                    Clicked="Button_Clicked_2" />
+
+                        </VerticalStackLayout>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+
+            
+            <Button
+                Text="EXCLUIR META"
+                BackgroundColor="DarkRed"
+                Clicked="Button_Clicked_1" />
+
+            <Label
+                Text="Essa ação não pode ser desfeita."
+                FontSize="10"
+                TextColor="{StaticResource AthenaTextSecondary}"
+                HorizontalOptions="Center" />
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>
+

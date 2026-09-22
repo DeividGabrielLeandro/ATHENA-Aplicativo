@@ -4,17 +4,25 @@ using System.Diagnostics;
 
 namespace ATHENA;
 
-[QueryProperty(nameof(IdMeta), "idMeta")]
-public partial class NewPage1 : ContentPage
+    public partial class NewPage1 : ContentPage
 {
-    public int IdMeta { get; set; }
+    public int? IdMeta { get; set; }
+
+    public static int? MetaSelecionada { get; set; }
+
+    public void DefinirMeta(int idMeta)
+    {
+        IdMeta = idMeta;
+    }
 
     DateTime dataInicio = DateTime.Now;
 
     Stopwatch cronometro = new Stopwatch();  
     Stopwatch tempoBruto = new Stopwatch();
     Stopwatch tempoLiquido = new Stopwatch();
-     
+
+  
+
     public class ResultadoSessao
     {
         /// <summary>Data e hora de início da sessão de foco.</summary>
@@ -56,6 +64,12 @@ public partial class NewPage1 : ContentPage
     {
         InitializeComponent();
     }
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        IdMeta = MetaSelecionada;
+    }
 
     [Obsolete]
     private void BtnIniciar_Click(object sender, EventArgs e)
@@ -95,8 +109,28 @@ public partial class NewPage1 : ContentPage
             dataInicio,
             dataFim);
 
-if (resultadoSessao != null)
-        await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta);
-        
+
+        if (resultadoSessao != null)
+            if (IdMeta != null)
+            {
+                try { await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta.Value); }
+                catch(Exception ex)
+                {
+                    await DisplayAlert("Erro", ex.Message, "Ok");
+                }
+            }
+            else
+            {
+                try { await Models_Cronometro.AdicionaTempoEstudoLivre(resultadoSessao); }
+                catch (Exception ex)
+                {
+                    await DisplayAlert("Erro", ex.Message, "Ok");
+                }
+            }
+        await DisplayAlert(
+    "Teste",
+    $"IdMeta = {IdMeta}\nMetaSelecionada = {MetaSelecionada}",
+    "OK");
+
     }
 }

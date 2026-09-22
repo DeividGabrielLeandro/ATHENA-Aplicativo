@@ -25,6 +25,28 @@ namespace ATHENA.Models
                 await db.UpdateAsync(meta);
             }
         }
+
+        public static async Task AdicionaTempoEstudoLivre(NewPage1.ResultadoSessao resultadoSessao)
+        {
+
+            int minutosEstudados = ((int)resultadoSessao.MinutosLiquidos);
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
+ );
+
+            var db = new SQLiteAsyncConnection(dbPath);
+
+            await db.CreateTableAsync<SessaoEstudo>();
+
+            var sessao = new SessaoEstudo
+            {
+                tituloSessao = "Estudo livre",
+                duracaoMinutos = minutosEstudados,
+                idMeta = null,
+            };
+
+            await db.InsertAsync(sessao);
+        }
     }
-}
+    }
+
     

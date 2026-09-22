@@ -54,11 +54,10 @@ public partial class InterfaceMeta : ContentPage
 
         Meta meta = (Meta)botao.BindingContext;
 
-        int idMeta = meta.idMeta;
+        NewPage1.MetaSelecionada = meta.idMeta;
 
-        await Shell.Current.GoToAsync($"{nameof(NewPage1)}?idMeta={idMeta}");
+        await Shell.Current.GoToAsync("//NewPage1");
     }
-
     private async void Button_Clicked_2(object sender, EventArgs e)
     {
         Button botao = (Button)sender;

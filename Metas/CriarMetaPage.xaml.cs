@@ -1,11 +1,26 @@
 namespace ATHENA;
-using SQLite;
 using ATHENA.Database;
 using ATHENA.Models;
+using SQLite;
 
+[QueryProperty(nameof(IdCategoriaParametro), "idCategoria")]
 public partial class NewPage2 : ContentPage
 {
+
+    public int? IdCategoria { get; set; }
+
     SQLiteAsyncConnection db;
+
+    public string IdCategoriaParametro
+    {
+        set
+        {
+            if (int.TryParse(value, out int id))
+                IdCategoria = id;
+            else
+                IdCategoria = null;
+        }
+    }
 
     public NewPage2()
     {
@@ -31,7 +46,7 @@ public partial class NewPage2 : ContentPage
         string descricao = DescricaoTXT.Text;
         int minutos = int.Parse(MetaMinutosTXT.Text);
 
-        await Models_Meta.CriarMeta(titulo, descricao, minutos, prioridade, status);
+        await Models_Meta.CriarMeta(titulo, descricao, minutos, prioridade, status, IdCategoria);
 
 
         var metas = await db.Table<Meta>().ToListAsync();
@@ -48,6 +63,14 @@ public partial class NewPage2 : ContentPage
                 $"Status: {item.status}\n\n";
         }
 
+        try
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+        catch (Exception ex) {
+            await DisplayAlert("Erro", ex.Message, "Sair");
 
+        }
+            
     }
 }

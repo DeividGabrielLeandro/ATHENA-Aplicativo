@@ -16,6 +16,6 @@ public partial class MainPage : ContentPage
 
     private async void Button_Clicked_1(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync(nameof(EscolherMeta));
+        await Shell.Current.GoToAsync("//EscolherMeta");
     }
 }

@@ -64,8 +64,12 @@
 FontSize="17"
 TextColor="{StaticResource AthenaTextPrimary}" />
 
+                                <Button 
+                                    Text="Ver categoria"
+                                    Clicked="Button_Clicked_1" />
 
-                        </VerticalStackLayout>
+
+                            </VerticalStackLayout>
 
                         </Border>
 

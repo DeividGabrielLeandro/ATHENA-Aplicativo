@@ -125,16 +125,15 @@ namespace ATHENA.Database
         public int idSessao { get; set; }
 
         //[NotNull]
-        public int idUsuario { get; set; } //Facilita pesquisas
+        public int? idUsuario { get; set; } //Facilita pesquisas
 
-        [NotNull]
-        public int idMeta { get; set; } //Uma meta pode ter várias sessões
+        public int? idMeta { get; set; } //Uma meta pode ter várias sessões
 
         [MaxLength(100), NotNull]
         public string tituloSessao { get; set; } //Titulo
 
         [MaxLength(500)]
-        public string descricaoSessao { get; set; } //Descrição
+        public string? descricaoSessao { get; set; } //Descrição
 
         public DateTime? DataInicio { get; set; } //Inicio da sessão
 
@@ -147,7 +146,7 @@ namespace ATHENA.Database
         public int? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
 
         [MaxLength(20), NotNull]
-        public string status { get; set; } = "Em andamento"; //Em andamento, concluío
+        public string? status { get; set; } = "Em andamento"; //Em andamento, concluío
     }
 
     [Table("PausaSessao")]

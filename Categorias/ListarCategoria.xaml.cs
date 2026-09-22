@@ -42,4 +42,15 @@ public partial class ListarCategoria : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(CriarCategoria)}");
     }
+
+    private async void Button_Clicked_1(object sender, EventArgs e)
+    {
+        Button botao = (Button)sender;
+
+        Categoria categoria = (Categoria)botao.BindingContext;
+
+        int idCategoria = categoria.idCategoria;
+
+        await Shell.Current.GoToAsync($"{nameof(InterfaceCategoria)}?idCategoria={idCategoria}");
+    }
 }
