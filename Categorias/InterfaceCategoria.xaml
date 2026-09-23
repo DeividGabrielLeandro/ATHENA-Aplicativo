@@ -66,6 +66,10 @@
 
             </CollectionView>
 
+            <Button
+                x:Name="VerMetas"
+                Text="Ver todas as metas da categoria"
+                Clicked="VerMetas_Clicked"/>
             <CollectionView
                 x:Name="listaMeta">
 

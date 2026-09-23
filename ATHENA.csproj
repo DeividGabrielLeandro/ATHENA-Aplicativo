@@ -90,6 +90,9 @@
 	  <MauiXaml Update="Categorias\ListarCategoria.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Categorias\MetasCategoria.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Metas\CriarMetaPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

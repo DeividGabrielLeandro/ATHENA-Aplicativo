@@ -113,7 +113,13 @@ public partial class InterfaceCategoria : ContentPage
            .Where(m => m.idCategoria == IdCategoria)
            .ToListAsync();
 
-            listaMeta.ItemsSource = metas;
+            listaMeta.ItemsSource = metas.Take(3);
+
+            var metasDisponiveis = await db.Table<Meta>()
+                .Where(m => m.idCategoria != IdCategoria)
+                .ToListAsync();
+
+            listaMetaEscolha.ItemsSource = metasDisponiveis;
 
             await DisplayAlert("Sucesso!", "Meta adicionada", "ok");
         }
@@ -133,5 +139,12 @@ public partial class InterfaceCategoria : ContentPage
         int idMeta = meta.idMeta;
 
         await Shell.Current.GoToAsync($"{nameof(InterfaceMeta)}?idMeta={idMeta}");
+    }
+
+    private async void VerMetas_Clicked(object sender, EventArgs e)
+    {
+        MetasCategoria.CategoriaSelecionada = IdCategoria;
+
+        await Shell.Current.GoToAsync(nameof(MetasCategoria));
     }
 }

@@ -1,0 +1,115 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.Categorias.MetasCategoria"
+    BackgroundColor="{StaticResource AthenaBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <Image
+            Grid.Row="0"
+            Source="logo_athena.png"
+            WidthRequest="240"
+            HeightRequest="36"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Aspect="AspectFit"
+            Margin="10" />
+
+        <Label
+            Grid.Row="1"
+            Text="Suas metas da categoria"
+            TextColor="{StaticResource AthenaTextPrimary}"
+            FontSize="24"
+            HorizontalOptions="Center"
+            Margin="0,10" />
+
+        <CollectionView
+            Grid.Row="2"
+            x:Name="listaCategoria"
+            Margin="10,0">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <VerticalStackLayout
+                        Spacing="8"
+                        Padding="10">
+
+                        <Label
+                            Text="Categoria"
+                            TextColor="{StaticResource AthenaGold}"
+                            FontSize="16" />
+
+                        <Label
+                            Text="{Binding tituloCategoria}"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            FontSize="22" />
+
+                        <Label
+                            Text="Descrição da Categoria"
+                            TextColor="{StaticResource AthenaGold}"
+                            FontSize="16" />
+
+                        <Label
+                            Text="{Binding descricaoCategoria}"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            FontSize="18" />
+
+                    </VerticalStackLayout>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <CollectionView
+            Grid.Row="3"
+            x:Name="listaMeta"
+            Margin="10">
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Grid
+                        ColumnDefinitions="*,Auto,Auto"
+                        Padding="10"
+                        BackgroundColor="Black"
+                        ColumnSpacing="10">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="{Binding tituloMeta}"
+                            FontSize="16"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            VerticalOptions="Center" />
+
+                        <Button
+                            Grid.Column="1"
+                            Clicked="EscolherMeta_Clicked"
+                            Text="Entrar"
+                            WidthRequest="100"
+                            HeightRequest="40" />
+
+                        <Label
+                            Grid.Column="2"
+                            Text="{Binding Progresso, StringFormat='{0:P0}'}"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaGold}"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
