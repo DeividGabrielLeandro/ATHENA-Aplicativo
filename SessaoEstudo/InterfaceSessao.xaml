@@ -2,11 +2,83 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ATHENA.SessaoEstudo.InterfaceSessao"
-             Title="InterfaceSessao">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+                         BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Spacing="20"
+            Padding="10">
+
+            <Image
+            Source="logo_athena.png"
+            WidthRequest="240"
+            HeightRequest="36"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Aspect="AspectFit" />
+
+
+            <VerticalStackLayout
+                            Spacing="8"
+                            Padding="10"
+                            x:Name="Interface">
+
+
+                <Entry
+     x:Name="TituloTXT"
+     Placeholder="{Binding tituloSessao}"
+     PlaceholderColor="{StaticResource AthenaTextPrimary}"
+     TextColor="White" />
+
+
+
+                <Label                       
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                HorizontalOptions="Center"
+                                FontSize="30" 
+                                x:Name="TempoEstudo"/>
+
+                <Label
+                                Text="Opções"
+                                TextColor="{StaticResource AthenaGold}"
+                                FontSize="16" />
+
+
+                <Button 
+                               x:Name="Contar_tempo"
+                               Clicked="Contar_tempo_Clicked"
+                               Text="Começar a contar o tempo"
+                               TextColor="White"/>
+
+                <Button
+                                x:Name="Salvar"
+                                Clicked="Salvar_Clicked"
+                                Text="Salvar alterações"
+                                TextColor="White"/>
+                <Label
+                               Text="Esta meta não poderá ser alterada quando for salva"
+                               HorizontalOptions="Center"
+                               TextColor="{StaticResource AthenaTextSecondary}"
+                               FontSize="16" />
+
+                <Label
+                                Text="Faça uma breve explicação do que foi trabalhado nesta sessão"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="24"
+                                HorizontalOptions="Start" />
+                <Entry
+                                x:Name="DescricaoTXT"
+                                BackgroundColor="Gray"
+                                TextColor="Black" />
+
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
 </ContentPage>

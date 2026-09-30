@@ -41,6 +41,8 @@ namespace ATHENA.Database
         //[NotNull]
         public int? idUsuario { get; set; } // Liga a meta ao idUsuario
 
+        public int? idSessao { get; set; } // Criação de sessão de estudo
+
         public int? idCategoria { get; set; } //Para poder adicionar meta à categoria
 
         [MaxLength(150), NotNull]
@@ -117,7 +119,7 @@ namespace ATHENA.Database
     }
 
     [Table("SessaoEstudo")]
-    public class SessaoEstudo
+    public class Sessao_Estudo
     {
         //A meta de estudo pode ser dividido em sessões. ex: sessão 1 - 20min estudados
 
@@ -127,10 +129,10 @@ namespace ATHENA.Database
         //[NotNull]
         public int? idUsuario { get; set; } //Facilita pesquisas
 
-        public int? idMeta { get; set; } //Uma meta pode ter várias sessões
+        public int? idMeta { get; set; } //Sessão pertence à meta
 
-        [MaxLength(100), NotNull]
-        public string tituloSessao { get; set; } //Titulo
+        [MaxLength(100)]
+        public string? tituloSessao { get; set; } //Titulo
 
         [MaxLength(500)]
         public string? descricaoSessao { get; set; } //Descrição
@@ -145,12 +147,10 @@ namespace ATHENA.Database
 
         public int? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
 
-        [MaxLength(20), NotNull]
-        public string? status { get; set; } = "Em andamento"; //Em andamento, concluío
     }
 
     [Table("PausaSessao")]
-    public class PausaSessao
+    public class Pausa_Sessao
     {
         [AutoIncrement, PrimaryKey]
         public int idPausa { get; set; } //Id pausa
@@ -160,11 +160,11 @@ namespace ATHENA.Database
 
         public DateTime inicioPausa { get; set; } //Hora do início da pausa
 
-        public DateTime? fimPausa { get; set; } //Hora do fim da pausagit log --oneline -4git log --oneline -4git log --oneline -4git log --oneline -4
+        public DateTime? fimPausa { get; set; } //Hora do fim da pausa
 
         public int duracaoMinutos { get; set; } //Duração da pausa
 
         [MaxLength(255)]
-        public string motivoPausa { get; set; } //Motivo
+        public string? motivoPausa { get; set; } //Motivo
     }
 }

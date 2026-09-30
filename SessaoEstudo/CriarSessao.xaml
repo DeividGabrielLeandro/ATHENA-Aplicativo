@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.SessaoEstudo.CriarSessao"
+                                   BackgroundColor="{StaticResource AthenaBackground}">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Spacing="20"
+            Padding="10">
+
+            <Image
+            Source="logo_athena.png"
+            WidthRequest="240"
+            HeightRequest="36"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Aspect="AspectFit" />
+
+            <Label
+                Text="Sua sessão de estudo"
+                TextColor="{StaticResource AthenaTextPrimary}"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <VerticalStackLayout>
+
+                <Label
+                x:Name="InicialTXT"
+                Text="Ao criar uma nova sessão — que vem nomeada como 'Sessão X' —, você poderá ajustar o nome, adicionar uma descrição do que fez e iniciar a contagem do tempo, que registra o tempo bruto, em pausa e líquido. Atenção: revise tudo antes de salvar, pois após a finalização os dados não poderão mais ser alterados."
+                TextColor="{StaticResource AthenaTextPrimary}"/>
+
+                <Button
+                x:Name="BTNCriarSessao"
+                Clicked="BTNCriarSessao_Clicked"
+                Text="Iniciar sessão" 
+                IsVisible="True"/>
+
+            </VerticalStackLayout>
+            
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

@@ -1,19 +1,19 @@
 using ATHENA.Database;
+using ATHENA.Metas.xaml;
 using ATHENA.Models;
+using ATHENA.SessaoEstudo;
 using System.Diagnostics;
 
 namespace ATHENA;
 
-    public partial class NewPage1 : ContentPage
+public partial class NewPage1 : ContentPage, IQueryAttributable
 {
+
+    public int? IdSessao { get; set; }
+
     public int? IdMeta { get; set; }
 
-    public static int? MetaSelecionada { get; set; }
 
-    public void DefinirMeta(int idMeta)
-    {
-        IdMeta = idMeta;
-    }
 
     DateTime dataInicio = DateTime.Now;
 
@@ -21,7 +21,27 @@ namespace ATHENA;
     Stopwatch tempoBruto = new Stopwatch();
     Stopwatch tempoLiquido = new Stopwatch();
 
-  
+
+    public enum OrigemCronometro
+    {
+        Meta,
+        Sessao,
+    }
+
+    public OrigemCronometro Origem { get; set; }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("IdMeta", out object? idMeta))
+            IdMeta = (int)idMeta;
+
+        if (query.TryGetValue("IdSessao", out object? idSessao))
+            IdSessao = (int)idSessao;
+
+        if (query.TryGetValue("Origem", out object? origem))
+            Origem = (OrigemCronometro)origem;
+
+    }
 
     public class ResultadoSessao
     {
@@ -68,7 +88,6 @@ namespace ATHENA;
     {
         base.OnAppearing();
 
-        IdMeta = MetaSelecionada;
     }
 
     [Obsolete]
@@ -110,27 +129,64 @@ namespace ATHENA;
             dataFim);
 
 
+        await DisplayAlertAsync(
+    "DEBUG",
+    $"IdMeta: {IdMeta}\n" +
+    $"IdSessao: {IdSessao}\n" +
+    $"Minutos: {resultadoSessao.MinutosLiquidos}",
+    "OK");
+
         if (resultadoSessao != null)
-            if (IdMeta != null)
+
+            if (Origem == OrigemCronometro.Meta)
             {
-                try { await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta.Value); }
+                try 
+                { 
+                    await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta.Value);
+                    await Shell.Current.GoToAsync("//EscolherMeta");
+
+                    await Shell.Current.GoToAsync(
+                        $"{nameof(InterfaceMeta)}?idMeta={IdMeta}");
+                }
                 catch(Exception ex)
                 {
-                    await DisplayAlert("Erro", ex.Message, "Ok");
+                    await DisplayAlertAsync("Erro", ex.Message, "Ok");
                 }
+                IdSessao = null;
+                IdMeta = null;
+
+            }
+            else if(Origem == OrigemCronometro.Sessao)
+            {
+                try
+                {
+                    await Models_Cronometro.AdicionaTempoSessao(resultadoSessao, IdSessao.Value);
+                    await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta.Value);
+
+                    await Shell.Current.GoToAsync("//EscolherMeta");
+
+                    await Shell.Current.GoToAsync(
+                     $"{nameof(InterfaceSessao)}?idSessao={IdSessao}&idMeta={IdMeta}");
+                }
+                catch (Exception ex) 
+                { 
+                    await DisplayAlertAsync("Erro", ex.Message, "Ok");
+                }
+
+                IdSessao = null;
+                IdMeta = null;
+                    
             }
             else
             {
-                try { await Models_Cronometro.AdicionaTempoEstudoLivre(resultadoSessao); }
+                try 
+                { 
+                    await Models_Cronometro.AdicionaTempoEstudoLivre(resultadoSessao); 
+                }
                 catch (Exception ex)
                 {
-                    await DisplayAlert("Erro", ex.Message, "Ok");
+                    await DisplayAlertAsync("Erro", ex.Message, "Ok");
                 }
             }
-        await DisplayAlert(
-    "Teste",
-    $"IdMeta = {IdMeta}\nMetaSelecionada = {MetaSelecionada}",
-    "OK");
-
     }
 }

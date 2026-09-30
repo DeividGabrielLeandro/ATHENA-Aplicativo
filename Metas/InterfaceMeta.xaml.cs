@@ -1,6 +1,8 @@
 
 using ATHENA.Database;
+using ATHENA.SessaoEstudo;
 using SQLite;
+using static ATHENA.NewPage1;
 
 namespace ATHENA.Metas.xaml;
 
@@ -45,7 +47,16 @@ public partial class InterfaceMeta : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-       
+        try
+        {
+            await Shell.Current.GoToAsync(
+                    $"{nameof(CriarSessao)}?idMeta={IdMeta}");
+        }
+
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("erro", ex.Message, "Sair");
+        }
     }
 
     private async void Button_Clicked_1(object sender, EventArgs e)
@@ -54,9 +65,11 @@ public partial class InterfaceMeta : ContentPage
 
         Meta meta = (Meta)botao.BindingContext;
 
-        NewPage1.MetaSelecionada = meta.idMeta;
-
-        await Shell.Current.GoToAsync("//NewPage1");
+        await Shell.Current.GoToAsync($"//{nameof(NewPage1)}", new Dictionary<string, object>
+        {
+            ["Origem"] = OrigemCronometro.Meta,
+            ["IdMeta"] = meta.idMeta,
+        });
     }
     private async void Button_Clicked_2(object sender, EventArgs e)
     {
