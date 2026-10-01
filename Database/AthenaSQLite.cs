@@ -143,9 +143,9 @@ namespace ATHENA.Database
 
         public DateTime DataCriacao { get; set; } = DateTime.Now; //Data criação
 
-        public int? duracaoMinutos { get; set; } //Duração
+        public double? duracaoMinutos { get; set; } //Duração
 
-        public int? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
+        public double? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
 
     }
 

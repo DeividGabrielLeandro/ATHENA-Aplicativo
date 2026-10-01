@@ -55,7 +55,7 @@
 
                 <Button
                                 x:Name="Salvar"
-                                Clicked="Salvar_Clicked"
+                                Clicked="Salvar_Clicked_1"
                                 Text="Salvar alterações"
                                 TextColor="White"/>
                 <Label

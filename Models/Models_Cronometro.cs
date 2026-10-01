@@ -9,22 +9,6 @@ namespace ATHENA.Models
 
     internal class Models_Cronometro
     {
-        public static async Task AdicionaTempoSessao(NewPage1.ResultadoSessao resultadoSessao, int idSessao)
-        {
-            {
-                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
-    );
-
-                var db = new SQLiteAsyncConnection(dbPath);
-
-                Sessao_Estudo sessao = await db.GetAsync<Sessao_Estudo>(idSessao);
-
-                sessao.tempoEstudadoMinutos += (int)resultadoSessao.MinutosLiquidos;
-                sessao.duracaoMinutos += (int)resultadoSessao.MinutosBrutos;
-
-                await db.UpdateAsync(sessao);
-            }
-        }
         public static async Task AdicionaTempoMeta(NewPage1.ResultadoSessao resultadoSessao, int idMeta)
         {
             {

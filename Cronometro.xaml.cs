@@ -160,13 +160,19 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
             {
                 try
                 {
-                    await Models_Cronometro.AdicionaTempoSessao(resultadoSessao, IdSessao.Value);
                     await Models_Cronometro.AdicionaTempoMeta(resultadoSessao, IdMeta.Value);
 
                     await Shell.Current.GoToAsync("//EscolherMeta");
 
                     await Shell.Current.GoToAsync(
-                     $"{nameof(InterfaceSessao)}?idSessao={IdSessao}&idMeta={IdMeta}");
+            nameof(InterfaceSessao),
+            new Dictionary<string, object>
+            {
+                ["IdSessao"] = IdSessao.Value,
+                ["IdMeta"] = IdMeta.Value,
+                ["minutosBrutos"] = resultadoSessao.MinutosBrutos,
+                ["minutosLiquidos"] = resultadoSessao.MinutosLiquidos
+            });
                 }
                 catch (Exception ex) 
                 { 
