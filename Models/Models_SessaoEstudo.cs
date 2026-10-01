@@ -88,8 +88,6 @@ namespace ATHENA.Models
             var Pausa = new Pausa_Sessao
             {
                 idSessao = idSessao,
-                inicioPausa = inicioPausa,
-                fimPausa = fimPausa,
                 duracaoMinutos = duracaoMinutos,
                 motivoPausa = motivoPausa
             };

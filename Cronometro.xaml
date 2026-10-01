@@ -46,7 +46,6 @@ Spacing="10">
 
                 <Button
     x:Name="BtnPausar"
-    Text="Pausar"
     Clicked="BtnPausar_Click" />
 
                 <Button

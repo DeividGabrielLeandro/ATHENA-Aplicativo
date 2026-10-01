@@ -158,9 +158,6 @@ namespace ATHENA.Database
         [NotNull]
         public int idSessao { get; set; } //Id sessão
 
-        public DateTime inicioPausa { get; set; } //Hora do início da pausa
-
-        public DateTime? fimPausa { get; set; } //Hora do fim da pausa
 
         public int duracaoMinutos { get; set; } //Duração da pausa
 

@@ -13,7 +13,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
 
     public int? IdMeta { get; set; }
 
-
+    private bool CronometroRodando = false;
 
     DateTime dataInicio = DateTime.Now;
 
@@ -87,7 +87,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
+        BtnPausar.Text = "Pausar";
     }
 
     [Obsolete]
@@ -97,6 +97,10 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
         tempoBruto.Start();
         tempoLiquido.Start();
 
+        BtnPausar.Text = "Pausar";
+
+        
+
         Device.StartTimer(
             TimeSpan.FromMilliseconds(100),
             () =>
@@ -105,12 +109,38 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
 
                 return cronometro.IsRunning;
             });
-    }
 
+    }
+    [Obsolete]
     private void BtnPausar_Click(object sender, EventArgs e)
     {
-        tempoLiquido.Stop();
-        cronometro.Stop();
+        if (CronometroRodando) 
+        {
+            BtnPausar.Text = "Continuar";
+            tempoLiquido.Stop();
+            cronometro.Stop();
+
+            CronometroRodando = false;
+        }
+        else
+        {
+
+            BtnPausar.Text = "Pausar";
+            tempoLiquido.Start();
+            cronometro.Start();
+
+            CronometroRodando = true;
+
+            Device.StartTimer(
+            TimeSpan.FromMilliseconds(100),
+            () =>
+            {
+                TxtCronometro.Text = cronometro.Elapsed.ToString(@"hh\:mm\:ss");
+
+                return cronometro.IsRunning;
+            });
+        }
+
     }
 
 
