@@ -38,6 +38,8 @@ public partial class InterfaceMeta : ContentPage
 
             listaMetas.ItemsSource = metas;
 
+            
+
         }
         catch (Exception ex)
         {
@@ -80,5 +82,10 @@ public partial class InterfaceMeta : ContentPage
         int idMeta = meta.idMeta;
 
         await Shell.Current.GoToAsync($"{nameof(EditarMeta)}?idMeta={idMeta}");
+    }
+
+    private async void Button_Clicked_3(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(HistoridoSessao)}?idMeta={IdMeta}");
     }
 }

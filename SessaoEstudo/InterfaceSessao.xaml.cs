@@ -16,6 +16,8 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
     public double minutosBrutos { get; set; }
     public double minutosLiquidos { get; set; }
 
+    public double TempoPausa => minutosBrutos - minutosLiquidos;
+
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.TryGetValue("IdSessao", out object? idSessao))
@@ -115,6 +117,7 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
         string descricao = DescricaoTXT.Text;
         DateTime dataFim = DateTime.Now;
 
+        await Models.Models_SessaoEstudo.SalvarPausaSessao(IdSessao, TempoPausa, null);
         await Models.Models_SessaoEstudo.FinalizarSessao(titulo,descricao,dataFim, minutosBrutos, minutosLiquidos,IdSessao);
 
         await DisplayAlertAsync("Sucesso!","Sessão finalizada com sucesso", "Ok");

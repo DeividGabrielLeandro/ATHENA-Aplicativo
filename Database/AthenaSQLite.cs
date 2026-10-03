@@ -147,6 +147,37 @@ namespace ATHENA.Database
 
         public double? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
 
+        [Ignore]
+        public string TempoLiquidoFormatado
+        {
+            get
+            {
+                TimeSpan tempo = TimeSpan.FromMinutes(tempoEstudadoMinutos ?? 0);
+                return tempo.ToString(@"hh\:mm\:ss");
+            }
+        }
+
+        [Ignore]
+        public string TempoBrutoFormatado
+        {
+            get
+            {
+                TimeSpan tempo = TimeSpan.FromMinutes(duracaoMinutos ?? 0);
+                return tempo.ToString(@"hh\:mm\:ss");
+            }
+        }
+
+        [Ignore]
+        public string TempoPausaFormatado
+        {
+            get
+            {
+                double pausa = (duracaoMinutos ?? 0) - (tempoEstudadoMinutos ?? 0);
+
+                TimeSpan tempo = TimeSpan.FromMinutes(pausa);
+                return tempo.ToString(@"hh\:mm\:ss");
+            }
+        }
     }
 
     [Table("PausaSessao")]
@@ -159,7 +190,7 @@ namespace ATHENA.Database
         public int idSessao { get; set; } //Id sessão
 
 
-        public int duracaoMinutos { get; set; } //Duração da pausa
+        public double duracaoMinutos { get; set; } //Duração da pausa
 
         [MaxLength(255)]
         public string? motivoPausa { get; set; } //Motivo

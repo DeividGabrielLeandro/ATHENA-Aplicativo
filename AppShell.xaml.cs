@@ -6,6 +6,7 @@ namespace ATHENA
 {
     public partial class AppShell : Shell
     {
+    
         public AppShell()
         {
             InitializeComponent();
@@ -15,6 +16,8 @@ namespace ATHENA
             Routing.RegisterRoute(nameof(InterfaceMeta), typeof(InterfaceMeta));
 
             Routing.RegisterRoute(nameof(InterfaceCategoria), typeof(InterfaceCategoria));
+
+            Routing.RegisterRoute(nameof(HistoridoSessao), typeof(HistoridoSessao));
 
             Routing.RegisterRoute(nameof(InterfaceSessao), typeof(InterfaceSessao));
 

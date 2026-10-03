@@ -192,7 +192,11 @@
                             <Button 
                                 Text="Criar uma sessão de estudo"
                                 Clicked="Button_Clicked" />
-                            
+
+                            <Button 
+                                Text="Ver o histórico de sessões"
+                                Clicked="Button_Clicked_3" />
+
                             <Button 
                                 Text="Começar a contar o tempo"
                                 Clicked="Button_Clicked_1" />

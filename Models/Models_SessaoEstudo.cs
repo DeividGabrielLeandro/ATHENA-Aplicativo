@@ -72,9 +72,7 @@ namespace ATHENA.Models
 
         public static async Task SalvarPausaSessao(
             int idSessao,
-            DateTime inicioPausa,
-            DateTime fimPausa,
-            int duracaoMinutos,
+            double duracaoMinutos,
             string? motivoPausa
             )
         {
