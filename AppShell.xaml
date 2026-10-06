@@ -42,7 +42,12 @@
          ContentTemplate="{DataTemplate local:NewPage1}"
          Route="NewPage1" />
 
-    </TabBar>
+        <ShellContent
+         Title="Perfil"
+         Icon="utilizador.png" 
+         ContentTemplate="{DataTemplate local:PerfilPage}"
+         Route="PerfilPage" />
 
+    </TabBar>
 
 </Shell>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ATHENA.PerfilPage"
+             BackgroundColor="{StaticResource AthenaBackground}">
+    
+    <ScrollView>
+
+    <VerticalStackLayout
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            Spacing="20"
+            Padding="10">
+
+        <Image
+            Source="logo_athena.png"
+            WidthRequest="240"
+            HeightRequest="36"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            Aspect="AspectFit" />
+
+
+        <VerticalStackLayout
+                            Spacing="8"
+                            Padding="10"
+                            x:Name="Interface">
+
+                <Button
+                x:Name="EscolherFoto"
+                Text="Escolha sua foto de perfil"
+                Clicked="EscolherFoto_Clicked"/>
+
+                <Image
+                x:Name="ImagemPerfil"
+                HeightRequest="120"
+                WidthRequest="120"
+                Aspect="AspectFill"/>
+
+
+                <Entry
+                x:Name="NomeUsuario"
+                PlaceholderColor="White"
+                />
+
+                <Button
+                x:Name="Salvar"
+                Text="Salvar alterações"
+                Clicked="Salvar_Clicked"/>
+
+            </VerticalStackLayout>
+
+    </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

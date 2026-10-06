@@ -14,18 +14,13 @@ namespace ATHENA.Database
         [PrimaryKey, AutoIncrement]
         public int id { get; set; } //Id do cliente
 
-
-        [MaxLength(255), Unique, NotNull]
-        public string googleID {  get; set; } //Fornecido pelo google
-
         [MaxLength(100), NotNull]
         public string nome { get; set; } //Nome de exibição
 
-        [MaxLength(255), NotNull]
-        public string email { get; set; } //Email da conta
+        [MaxLength(255)]
+        public string? email { get; set; } //Email da conta
 
-        [MaxLength(500)]
-        public string fotoURL { get; set; } //Foto de perfil
+        public string? fotoPerfil { get; set; }
 
         public DateTime dataCriacao { get; set; } = DateTime.Now; //Criação da conta
     }

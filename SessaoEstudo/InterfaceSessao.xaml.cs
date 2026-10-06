@@ -114,6 +114,12 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
     {
         SessaoSalva = true;
         string titulo = TituloTXT.Text;
+
+        if (string.IsNullOrWhiteSpace(titulo))
+        {
+            titulo = "Sem descrição";
+        }
+
         string descricao = DescricaoTXT.Text;
         DateTime dataFim = DateTime.Now;
 
