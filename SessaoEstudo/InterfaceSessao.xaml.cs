@@ -101,13 +101,22 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
         IndoParaCronometro = true;
         await Task.Delay(100);
 
-        await Shell.Current.GoToAsync($"//{nameof(NewPage1)}", new Dictionary<string, object>
-        {
-            ["Origem"] = OrigemCronometro.Sessao,
-            ["IdMeta"] = IdMeta,
-            ["IdSessao"] = IdSessao,
-        });
+        bool configurado = CronometroService.ConfigurarContexto(
+            NewPage1.OrigemCronometro.Sessao,
+            idMeta: IdMeta,
+            idSessao: IdSessao);
 
+        if (!configurado)
+        {
+            await DisplayAlertAsync(
+                "Cronômetro ativo",
+                "Finalize o estudo atual antes de selecionar outra sessão.",
+                "OK");
+
+            return;
+        }
+
+        await Shell.Current.GoToAsync($"//{nameof(NewPage1)}");
     }
 
     private async void Salvar_Clicked_1(object sender, EventArgs e)

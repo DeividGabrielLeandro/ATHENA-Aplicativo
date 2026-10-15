@@ -1,94 +1,668 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATHENA.Categorias.ListarCategoria"
-             BackgroundColor="{StaticResource AthenaBackground}">
 
-    <ScrollView>
-        <VerticalStackLayout
-             HorizontalOptions="Fill"
- VerticalOptions="Start"
- Padding="8,8,16,0"
- Spacing="20">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.Categorias.ListarCategoria"
+    BackgroundColor="{StaticResource AthenaBackground}"
+    Shell.NavBarIsVisible="False">
 
-        
-            <Image 
-                Grid.Row="0"
-                Source="logo_athena.png"
-        WidthRequest="240"
-        HeightRequest="36"
-        HorizontalOptions="Start"
-        Margin="10" />
+    <Grid
+        RowDefinitions="Auto,Auto,Auto,Auto,*">
 
-        <Label 
+        <!-- CABEÇALHO FIXO -->
+        <Grid
             Grid.Row="0"
-        Text="Suas Categorias"
-        HorizontalOptions="Fill"
-        FontSize="Title"
-        TextColor="{StaticResource AthenaTextPrimary}"/>
+            ColumnDefinitions="*,Auto"
+            RowDefinitions="Auto,Auto"
+            Padding="16,16,16,0"
+            Margin="0,0,0,14">
 
+            <!-- LOGO E IDENTIFICAÇÃO -->
+            <VerticalStackLayout
+                Grid.Column="0"
+                Grid.Row="0"
+                Spacing="3"
+                VerticalOptions="Start">
 
-        <CollectionView x:Name="lista" Grid.Row="2">
+                <Image
+                    Source="athena_wordmark_header_styled.png"
+                    WidthRequest="112"
+                    HeightRequest="28"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Start" />
 
-                <CollectionView.ItemsLayout>
+                <Label
+                    Text="CATEGORIAS DE ESTUDO"
+                    FontSize="9"
+                    CharacterSpacing="1"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    HorizontalOptions="Start" />
 
-                    <GridItemsLayout
-                        Orientation="Vertical"
-                        Span="2"
-                        HorizontalItemSpacing="8"
-                        VerticalItemSpacing="8" />
+            </VerticalStackLayout>
 
+            <!-- FOTO DE PERFIL -->
+            <Border
+                Grid.Column="1"
+                Grid.Row="0"
+                WidthRequest="38"
+                HeightRequest="38"
+                Padding="1"
+                BackgroundColor="{StaticResource AthenaIconBackground}"
+                Stroke="{StaticResource AthenaGold}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 19"
+                HorizontalOptions="End"
+                VerticalOptions="Start">
 
-                </CollectionView.ItemsLayout>
+                <Image
+                    x:Name="ImagemPerfil"
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
 
+            </Border>
 
-                <CollectionView.ItemTemplate>
+            <!-- DIVISÓRIA DO CABEÇALHO -->
+            <BoxView
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HeightRequest="1"
+                Margin="0,14,0,0"
+                Color="{StaticResource AthenaDivider}"
+                HorizontalOptions="Fill" />
 
-                    <DataTemplate>
+        </Grid>
+
+        <!-- TÍTULO E BOTÃO FIXOS -->
+        <VerticalStackLayout
+            Grid.Row="1"
+            Padding="16,4,16,0"
+            Spacing="0">
+
+            <!-- TÍTULO -->
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="10"
+                Margin="0,0,0,14">
+
+                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="3"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="Suas categorias"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextHeading}" />
+
+                    <Label
+                        Text="Organize suas metas por áreas de conhecimento."
+                        FontSize="12"
+                        TextColor="{StaticResource AthenaTextSecondary}" />
+
+                </VerticalStackLayout>
+
+                <!-- ÍCONE DECORATIVO -->
+                <Border
+                    Grid.Column="1"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    Stroke="{StaticResource AthenaBorderSoft}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 13"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="▦"
+                        FontSize="23"
+                        TextColor="{StaticResource AthenaGoldLight}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+
+                </Border>
+
+            </Grid>
+
+            <!-- BOTÃO CRIAR CATEGORIA -->
+            <Button
+                Text="+    CRIAR NOVA CATEGORIA"
+                Clicked="Button_Clicked"
+                HeightRequest="48"
+                CornerRadius="11"
+                FontSize="14"
+                FontAttributes="Bold"
+                CharacterSpacing="0.7"
+                BackgroundColor="{StaticResource AthenaGoldButton}"
+                TextColor="{StaticResource Black}"
+                BorderWidth="0"
+                HorizontalOptions="Fill"
+                Margin="0,0,0,16" />
+
+        </VerticalStackLayout>
+
+        <!-- RESUMO FIXO -->
+        <Border
+            Grid.Row="2"
+            BackgroundColor="{StaticResource AthenaCard}"
+            Stroke="{StaticResource AthenaBorderSoft}"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 14"
+            Padding="8"
+            Margin="16,0,16,16">
+
+            <Grid
+                ColumnDefinitions="*,*,*"
+                ColumnSpacing="5">
+
+                <!-- TOTAL DE CATEGORIAS -->
+                <Border
+                    Grid.Column="0"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 9"
+                    Padding="6,8">
+
+                    <VerticalStackLayout
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="TOTAL"
+                            FontSize="9"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextSecondary}"
+                            HorizontalOptions="Center" />
+
+                        <HorizontalStackLayout
+                            Spacing="4"
+                            HorizontalOptions="Center">
+
+                            <Label
+                                x:Name="lblTotalCategorias"
+                                Text="0"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Label
+                                Text="categorias"
+                                FontSize="10"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="End"
+                                Margin="0,0,0,2" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- METAS COM CATEGORIA -->
+                <Border
+                    Grid.Column="1"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 9"
+                    Padding="6,8">
+
+                    <VerticalStackLayout
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <HorizontalStackLayout
+                            Spacing="5"
+                            HorizontalOptions="Center">
+
+                            <BoxView
+                                WidthRequest="6"
+                                HeightRequest="6"
+                                CornerRadius="3"
+                                Color="{StaticResource AthenaBlue}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Text="COM CATEGORIA"
+                                FontSize="8"
+                                CharacterSpacing="0.4"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                HorizontalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Spacing="4"
+                            HorizontalOptions="Center">
+
+                            <Label
+                                x:Name="lblMetasComCategoria"
+                                Text="0"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaBlueLight}" />
+
+                            <Label
+                                Text="metas"
+                                FontSize="10"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="End"
+                                Margin="0,0,0,2" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+                <!-- METAS SEM CATEGORIA -->
+                <Border
+                    Grid.Column="2"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    StrokeThickness="0"
+                    StrokeShape="RoundRectangle 9"
+                    Padding="6,8">
+
+                    <VerticalStackLayout
+                        Spacing="2"
+                        HorizontalOptions="Center">
+
+                        <HorizontalStackLayout
+                            Spacing="5"
+                            HorizontalOptions="Center">
+
+                            <BoxView
+                                WidthRequest="6"
+                                HeightRequest="6"
+                                CornerRadius="3"
+                                Color="{StaticResource AthenaGold}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Text="SEM CATEGORIA"
+                                FontSize="8"
+                                CharacterSpacing="0.4"
+                                TextColor="{StaticResource AthenaGoldLight}"
+                                HorizontalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Spacing="4"
+                            HorizontalOptions="Center">
+
+                            <Label
+                                x:Name="lblMetasSemCategoria"
+                                Text="0"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaGoldLight}" />
+
+                            <Label
+                                Text="metas"
+                                FontSize="10"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="End"
+                                Margin="0,0,0,2" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </Border>
+
+            </Grid>
+
+        </Border>
+
+        <!-- CAMPO DE BUSCA FIXO -->
+        <Border
+            Grid.Row="3"
+            BackgroundColor="{StaticResource AthenaSurface}"
+            Stroke="{StaticResource AthenaBorderSoft}"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 11"
+            Padding="10,0"
+            HeightRequest="46"
+            Margin="16,0,16,16">
+
+            <Grid
+                ColumnDefinitions="Auto,*,Auto"
+                ColumnSpacing="8">
+
+                <Label
+                    Grid.Column="0"
+                    Text="⌕"
+                    FontSize="23"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    VerticalOptions="Center" />
+
+                <Entry
+                    Grid.Column="1"
+                    x:Name="BuscaCategoriaTXT"
+                    Placeholder="Buscar categoria por nome..."
+                    PlaceholderColor="{StaticResource AthenaTextMuted}"
+                    TextColor="{StaticResource AthenaTextPrimary}"
+                    FontSize="13"
+                    ClearButtonVisibility="WhileEditing"
+                    ReturnType="Search"
+                    Completed="BuscaCategoriaTXT_Completed"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Grid.Column="2"
+                    Text="☷"
+                    FontSize="20"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    VerticalOptions="Center" />
+
+            </Grid>
+
+        </Border>
+
+        <!-- SOMENTE ESTA PARTE ROLA -->
+        <CollectionView
+            Grid.Row="4"
+            x:Name="lista"
+            SelectionMode="None"
+            ItemsLayout="VerticalList"
+            VerticalScrollBarVisibility="Never"
+            ItemsUpdatingScrollMode="KeepItemsInView"
+            Margin="16,0,16,0">
+
+            <!-- ESTADO VAZIO -->
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    Padding="20,60"
+                    Spacing="12"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="▦"
+                        FontSize="44"
+                        TextColor="{StaticResource AthenaGold}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Você ainda não possui categorias"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Crie uma categoria para organizar melhor suas metas."
+                        FontSize="13"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Center" />
+
+                    <Button
+                        Text="+  CRIAR NOVA CATEGORIA"
+                        Clicked="Button_Clicked"
+                        HeightRequest="46"
+                        CornerRadius="9"
+                        BackgroundColor="{StaticResource AthenaGoldButton}"
+                        TextColor="{StaticResource Black}"
+                        FontAttributes="Bold"
+                        Padding="18,0"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <!-- CARD DE CATEGORIA -->
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
 
                     <Border
-                            BackgroundColor="DarkCyan"
-                            Stroke="DarkBlue"
+                        BackgroundColor="{StaticResource AthenaCard}"
+                        Stroke="{StaticResource AthenaBorderSoft}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="16"
+                        Margin="0,0,0,12">
+
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto,Auto"
+                            RowSpacing="12">
+
+                            <!-- TÍTULO, DESCRIÇÃO, ÍCONE E SETA -->
+                            <Grid
+                                Grid.Row="0"
+                                ColumnDefinitions="Auto,*,Auto"
+                                ColumnSpacing="12">
+
+                                <!-- ÍCONE DA CATEGORIA -->
+                                <Border
+                                    Grid.Column="0"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                    Stroke="{StaticResource AthenaBorder}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 11"
+                                    VerticalOptions="Start">
+
+                                    <Label
+                                        Text="&lt;/&gt;"
+                                        FontSize="17"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaBlueLight}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                                </Border>
+
+                                <!-- TÍTULO E DESCRIÇÃO -->
+                                <VerticalStackLayout
+                                    Grid.Column="1"
+                                    Spacing="2"
+                                    VerticalOptions="Center">
+
+                                    <Label
+                                        Text="{Binding tituloCategoria}"
+                                        FontSize="16"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaTextPrimary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                    <Label
+                                        Text="{Binding descricaoCategoria, TargetNullValue=Sem descrição, FallbackValue=Sem descrição}"
+                                        FontSize="13"
+                                        TextColor="{StaticResource AthenaTextSecondary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                </VerticalStackLayout>
+
+                                <!-- BOTÃO PARA ABRIR A CATEGORIA -->
+                                <Button
+                                    Grid.Column="2"
+                                    Text="›"
+                                    Clicked="Button_Clicked_1"
+                                    FontSize="25"
+                                    TextColor="{StaticResource AthenaTextMuted}"
+                                    BackgroundColor="Transparent"
+                                    BorderWidth="0"
+                                    Padding="0"
+                                    WidthRequest="28"
+                                    HeightRequest="34"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                            <!-- LINHA DIVISÓRIA -->
+                            <BoxView
+                                Grid.Row="1"
+                                HeightRequest="1"
+                                Color="{StaticResource AthenaBorderSoft}"
+                                Opacity="0.8"
+                                HorizontalOptions="Fill" />
+
+                            <!-- QUANTIDADE DE METAS E PORCENTAGEM -->
+                            <Grid
+                                Grid.Row="2"
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="8">
+
+                                <!-- QUANTIDADE TOTAL E CONCLUÍDAS -->
+                                <HorizontalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="8"
+                                    VerticalOptions="Center">
+
+                                    <Label
+                                        Text="{Binding TextoMetas}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaTextPrimary}"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Text="•"
+                                        FontSize="13"
+                                        TextColor="{StaticResource AthenaTextMuted}"
+                                        VerticalOptions="Center" />
+
+                                    <Label
+                                        Text="{Binding TextoConcluidas}"
+                                        FontSize="13"
+                                        TextColor="{StaticResource AthenaTextSecondary}"
+                                        VerticalOptions="Center" />
+
+                                </HorizontalStackLayout>
+
+                                <!-- PORCENTAGEM -->
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding TextoProgresso}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AthenaBlueLight}"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center">
+
+                                    <Label.Triggers>
+
+                                        <DataTrigger
+                                            TargetType="Label"
+                                            Binding="{Binding ProgressoConcluido}"
+                                            Value="True">
+
+                                            <Setter
+                                                Property="TextColor"
+                                                Value="{StaticResource AthenaSuccess}" />
+
+                                        </DataTrigger>
+
+                                    </Label.Triggers>
+
+                                </Label>
+
+                            </Grid>
+
+                            <!-- BARRA DE PROGRESSO -->
+                            <ProgressBar
+                                Grid.Row="3"
+                                Progress="{Binding ProgressoConclusao}"
+                                HeightRequest="6"
+                                ProgressColor="{StaticResource AthenaBlueStrong}"
+                                BackgroundColor="{StaticResource AthenaProgressTrack}"
+                                HorizontalOptions="Fill">
+
+                                <ProgressBar.Triggers>
+
+                                    <DataTrigger
+                                        TargetType="ProgressBar"
+                                        Binding="{Binding ProgressoConcluido}"
+                                        Value="True">
+
+                                        <Setter
+                                            Property="ProgressColor"
+                                            Value="{StaticResource AthenaSuccess}" />
+
+                                    </DataTrigger>
+
+                                </ProgressBar.Triggers>
+
+                            </ProgressBar>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+            <!-- FRASE MOTIVACIONAL -->
+            <CollectionView.Footer>
+
+                <Border
+                    BackgroundColor="{StaticResource AthenaCard}"
+                    Stroke="{StaticResource AthenaBorderSoft}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 14"
+                    Padding="12"
+                    Margin="0,8,0,24">
+
+                    <HorizontalStackLayout
+                        Spacing="10">
+
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            BackgroundColor="{StaticResource AthenaGoldSoft}"
+                            Stroke="{StaticResource AthenaGold}"
                             StrokeThickness="1"
-                            StrokeShape="RoundRectangle 14"
-                            Padding="14"
-                            HeightRequest="140">
+                            StrokeShape="RoundRectangle 9"
+                            VerticalOptions="Center">
 
-                            <VerticalStackLayout Spacing="8">
-
-                            <Label Text="{Binding tituloCategoria}"
-                           FontSize="17"
-                           TextColor="{StaticResource AthenaTextPrimary}" />
-
-                            <Label Text="{Binding descricaoCategoria}"
-FontSize="17"
-TextColor="{StaticResource AthenaTextPrimary}" />
-
-                                <Button 
-                                    Text="Ver categoria"
-                                    Clicked="Button_Clicked_1" />
-
-
-                            </VerticalStackLayout>
+                            <Label
+                                Text="▤"
+                                FontSize="16"
+                                TextColor="{StaticResource AthenaGoldLight}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
 
                         </Border>
 
-                    </DataTemplate>
+                        <VerticalStackLayout
+                            Spacing="2"
+                            VerticalOptions="Center">
 
-                </CollectionView.ItemTemplate>
+                            <Label
+                                Text="&quot;A ordem é o primeiro passo para a sabedoria.&quot;"
+                                FontSize="11"
+                                FontAttributes="Italic"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
 
-            </CollectionView>
+                            <Label
+                                Text="— ATHENA"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaGoldLight}" />
 
-            <Label 
-     Grid.Row="0"
- Text="Ações rapidas"
- HorizontalOptions="Fill"
- FontSize="Title"
- TextColor="{StaticResource AthenaTextPrimary}"/>
-            <Button Text="Criar nova categoria" Clicked="Button_Clicked" />
+                        </VerticalStackLayout>
 
-    </VerticalStackLayout>
+                    </HorizontalStackLayout>
 
-    </ScrollView>
+                </Border>
+
+            </CollectionView.Footer>
+
+        </CollectionView>
+
+    </Grid>
 
 </ContentPage>

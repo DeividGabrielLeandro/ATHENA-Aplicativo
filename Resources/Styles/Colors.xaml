@@ -4,6 +4,77 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+
+    <!-- Cores adicionais para a tela inicial e componentes do ATHENA -->
+
+    <!-- Cards e superfícies -->
+    <Color x:Key="AthenaCard">#0D1726</Color>
+    <Color x:Key="AthenaCardElevated">#142238</Color>
+    <Color x:Key="AthenaCardPressed">#1A2B46</Color>
+    <Color x:Key="AthenaInputBackground">#0B1422</Color>
+
+    <!-- Bordas e divisórias -->
+    <Color x:Key="AthenaBorderSoft">#1B2A40</Color>
+    <Color x:Key="AthenaBorderStrong">#38547C</Color>
+    <Color x:Key="AthenaDivider">#24344B</Color>
+    <Color x:Key="AthenaDividerSoft">#182538</Color>
+
+    <!-- Azul para progresso e estados ativos -->
+    <Color x:Key="AthenaBlueDark">#315FAE</Color>
+    <Color x:Key="AthenaBlueStrong">#4E7FDC</Color>
+    <Color x:Key="AthenaBlueSoft">#1B3157</Color>
+    <Color x:Key="AthenaBlueBackground">#101F38</Color>
+    <Color x:Key="AthenaBluePressed">#416FC5</Color>
+
+    <!-- Dourado para destaque e navegação ativa -->
+    <Color x:Key="AthenaGoldLight">#E2BD70</Color>
+    <Color x:Key="AthenaGoldDark">#9E7838</Color>
+    <Color x:Key="AthenaGoldSoft">#49391F</Color>
+    <Color x:Key="AthenaGoldBackground">#2D2518</Color>
+    <Color x:Key="AthenaGoldPressed">#B8893E</Color>
+
+    <!-- Barras de progresso -->
+    <Color x:Key="AthenaProgressTrack">#202E42</Color>
+    <Color x:Key="AthenaProgressBackground">#172438</Color>
+    <Color x:Key="AthenaProgressComplete">#58C58A</Color>
+    <Color x:Key="AthenaProgressWarning">#E0AD58</Color>
+
+    <!-- Ícones -->
+    <Color x:Key="AthenaIconBackground">#14233A</Color>
+    <Color x:Key="AthenaIconBackgroundActive">#273C62</Color>
+    <Color x:Key="AthenaIconPrimary">#6D92E8</Color>
+    <Color x:Key="AthenaIconSecondary">#91A9D8</Color>
+    <Color x:Key="AthenaIconGold">#D5A653</Color>
+
+    <!-- Navegação inferior -->
+    <Color x:Key="AthenaNavigationInactive">#8494B3</Color>
+    <Color x:Key="AthenaNavigationActive">#D5A653</Color>
+    <Color x:Key="AthenaNavigationBackground">#0B1420</Color>
+    <Color x:Key="AthenaNavigationBorder">#263650</Color>
+
+    <!-- Textos adicionais -->
+    <Color x:Key="AthenaTextHeading">#FFFFFF</Color>
+    <Color x:Key="AthenaTextLabel">#AAB8D0</Color>
+    <Color x:Key="AthenaTextDisabled">#56647A</Color>
+    <Color x:Key="AthenaTextGold">#E0B967</Color>
+    <Color x:Key="AthenaTextBlue">#7FA5F2</Color>
+
+    <!-- Estados dos controles -->
+    <Color x:Key="AthenaDisabledBackground">#17202D</Color>
+    <Color x:Key="AthenaDisabledBorder">#273347</Color>
+    <Color x:Key="AthenaDisabledText">#5D687A</Color>
+    <Color x:Key="AthenaFocusBorder">#78A5F5</Color>
+
+    <!-- Alertas e mensagens -->
+    <Color x:Key="AthenaWarning">#E0AD58</Color>
+    <Color x:Key="AthenaWarningBackground">#3A2E1B</Color>
+    <Color x:Key="AthenaSuccessBackground">#18382B</Color>
+    <Color x:Key="AthenaErrorBackground">#3D2024</Color>
+
+    <!-- Efeito de sobreposição -->
+    <Color x:Key="AthenaOverlay">#99000000</Color>
+    <Color x:Key="AthenaShadow">#55000000</Color>
+
     <Color x:Key="AthenaBackground">#080B10</Color>
     <Color x:Key="AthenaSurface">#101A2B</Color>
     <Color x:Key="AthenaBottomBar">#0D1522</Color>

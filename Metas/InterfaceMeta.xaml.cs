@@ -1,5 +1,6 @@
 
 using ATHENA.Database;
+using ATHENA.Models;
 using ATHENA.SessaoEstudo;
 using SQLite;
 using static ATHENA.NewPage1;
@@ -67,11 +68,22 @@ public partial class InterfaceMeta : ContentPage
 
         Meta meta = (Meta)botao.BindingContext;
 
-        await Shell.Current.GoToAsync($"//{nameof(NewPage1)}", new Dictionary<string, object>
+        bool configurado = CronometroService.ConfigurarContexto(
+        NewPage1.OrigemCronometro.Meta,
+        idMeta: meta.idMeta);
+
+        if (!configurado)
         {
-            ["Origem"] = OrigemCronometro.Meta,
-            ["IdMeta"] = meta.idMeta,
-        });
+            await DisplayAlertAsync(
+            "Cronômetro ativo",
+            "Finalize o estudo atual antes de selecionar outra meta.",
+            "OK");
+
+            return;
+
+        }
+
+        await Shell.Current.GoToAsync($"//{nameof(NewPage1)}");
     }
     private async void Button_Clicked_2(object sender, EventArgs e)
     {

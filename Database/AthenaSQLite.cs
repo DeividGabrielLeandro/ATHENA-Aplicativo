@@ -20,9 +20,17 @@ namespace ATHENA.Database
         [MaxLength(255)]
         public string? email { get; set; } //Email da conta
 
+        public double? metaDiaria { get; set; } = 60;
         public string? fotoPerfil { get; set; }
 
         public DateTime dataCriacao { get; set; } = DateTime.Now; //Criação da conta
+    }
+
+    [Table("Registro_Tempo")]
+    public class Registro_Tempo
+    {
+        public DateTime data { get; set; }
+        public double tempoEstudo { get; set; }
     }
 
 

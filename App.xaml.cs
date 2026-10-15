@@ -22,6 +22,5 @@ namespace ATHENA
             return new Window(new AppShell());
         }
 
-       
     }
 }

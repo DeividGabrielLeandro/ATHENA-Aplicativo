@@ -1,56 +1,632 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATHENA.PerfilPage"
-             BackgroundColor="{StaticResource AthenaBackground}">
-    
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.PerfilPage"
+    BackgroundColor="{StaticResource AthenaBackground}"
+    Shell.NavBarIsVisible="False">
+
     <ScrollView>
 
-    <VerticalStackLayout
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
-            Spacing="20"
-            Padding="10">
-
-        <Image
-            Source="logo_athena.png"
-            WidthRequest="240"
-            HeightRequest="36"
-            HorizontalOptions="Start"
-            VerticalOptions="Start"
-            Aspect="AspectFit" />
-
-
         <VerticalStackLayout
-                            Spacing="8"
-                            Padding="10"
-                            x:Name="Interface">
+            Padding="16,16,16,32"
+            Spacing="16">
 
-                <Button
-                x:Name="EscolherFoto"
-                Text="Escolha sua foto de perfil"
-                Clicked="EscolherFoto_Clicked"/>
+            <!-- CABEÇALHO PADRÃO -->
+            <Grid
+    ColumnDefinitions="*,Auto"
+    RowDefinitions="Auto,Auto"
+    Margin="0,0,0,0">
 
-                <Image
-                x:Name="ImagemPerfil"
-                HeightRequest="120"
-                WidthRequest="120"
-                Aspect="AspectFill"/>
+                <!-- LOGO E IDENTIFICAÇÃO DA PÁGINA -->
+                <VerticalStackLayout
+        Grid.Column="0"
+        Grid.Row="0"
+        Spacing="3"
+        VerticalOptions="Start">
 
+                    <Image
+            Source="athena_wordmark_header_styled.png"
+            WidthRequest="112"
+            HeightRequest="28"
+            Aspect="AspectFit"
+            HorizontalOptions="Start" />
 
-                <Entry
-                x:Name="NomeUsuario"
-                PlaceholderColor="White"
-                />
+                    <Label
+            Text="PERFIL DE ESTUDOS"
+            FontSize="10"
+            CharacterSpacing="1"
+            TextColor="{StaticResource AthenaTextSecondary}"
+            HorizontalOptions="Start" />
 
-                <Button
-                x:Name="Salvar"
-                Text="Salvar alterações"
-                Clicked="Salvar_Clicked"/>
+                </VerticalStackLayout>
+
+                <!-- FOTO PEQUENA DO CABEÇALHO -->
+                <Border
+        Grid.Column="1"
+        Grid.Row="0"
+        WidthRequest="38"
+        HeightRequest="38"
+        Padding="1"
+        BackgroundColor="{StaticResource AthenaIconBackground}"
+        Stroke="{StaticResource AthenaGold}"
+        StrokeThickness="1"
+        StrokeShape="RoundRectangle 19"
+        VerticalOptions="Start">
+
+                    <Image
+            Aspect="AspectFill"
+            Source="{Binding Source={x:Reference ImagemPerfil}, Path=Source}" />
+
+                </Border>
+
+                <!-- LINHA DIVISÓRIA -->
+                <BoxView
+        Grid.Row="1"
+        Grid.ColumnSpan="2"
+        HeightRequest="1"
+        Margin="0,14,0,0"
+        Color="{StaticResource AthenaDivider}"
+        HorizontalOptions="Fill" />
+
+            </Grid>
+            
+            <!-- TÍTULO PRINCIPAL DA PÁGINA -->
+            <VerticalStackLayout
+    Spacing="3"
+    Margin="0,0,0,0">
+
+                <Label
+        Text="Seu perfil"
+        FontSize="26"
+        FontAttributes="Bold"
+        TextColor="{StaticResource AthenaTextHeading}" />
+
+                <Label
+        Text="Gerencie suas informações e acompanhe sua evolução."
+        FontSize="12"
+        TextColor="{StaticResource AthenaTextSecondary}" />
 
             </VerticalStackLayout>
 
-    </VerticalStackLayout>
+
+
+            <!-- CARD PRINCIPAL DO PERFIL -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorderSoft}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="20">
+
+                <VerticalStackLayout
+                    Spacing="12"
+                    HorizontalOptions="Fill">
+
+                    <!-- FOTO E CÂMERA -->
+                    <Grid
+                        WidthRequest="100"
+                        HeightRequest="100"
+                        HorizontalOptions="Center">
+
+                        <Border
+                            WidthRequest="92"
+                            HeightRequest="92"
+                            Padding="1"
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            Stroke="{StaticResource AthenaGold}"
+                            StrokeThickness="2"
+                            StrokeShape="RoundRectangle 46"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center">
+
+                            <Image
+                                x:Name="ImagemPerfil"
+                                Aspect="AspectFill"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+
+                        </Border>
+
+                        <!-- BOTÃO DA CÂMERA -->
+                        <Button
+                            x:Name="EscolherFoto"
+                            Text="📷"
+                            Clicked="EscolherFoto_Clicked"
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            CornerRadius="17"
+                            Padding="0"
+                            FontSize="14"
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            TextColor="{StaticResource AthenaGoldLight}"
+                            BorderColor="{StaticResource AthenaGold}"
+                            BorderWidth="1"
+                            HorizontalOptions="End"
+                            VerticalOptions="End" />
+
+                    </Grid>
+
+                    <Label
+                        Text="Sua foto de perfil"
+                        FontSize="11"
+                        TextColor="{StaticResource AthenaTextMuted}"
+                        HorizontalOptions="Center" />
+
+                    <!-- NOME -->
+                    <VerticalStackLayout
+                        Spacing="6"
+                        Margin="0,4,0,0">
+
+                        <Label
+                            Text="NOME DE EXIBIÇÃO"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Border
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            Stroke="{StaticResource AthenaBorderSoft}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,0"
+                            HeightRequest="48">
+
+                            <Entry
+                                x:Name="NomeUsuario"
+                                Placeholder="Digite seu nome"
+                                PlaceholderColor="{StaticResource AthenaTextMuted}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="14"
+                                ClearButtonVisibility="WhileEditing"
+                                ReturnType="Done"
+                                Completed="NomeUsuario_Completed"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <Label
+                            Text="Pressione Enter para salvar o nome."
+                            FontSize="10"
+                            TextColor="{StaticResource AthenaTextMuted}" />
+
+                    </VerticalStackLayout>
+
+                    <HorizontalStackLayout
+                        Spacing="6"
+                        HorizontalOptions="Center">
+
+                        <BoxView
+                            WidthRequest="7"
+                            HeightRequest="7"
+                            CornerRadius="4"
+                            Color="{StaticResource AthenaSuccess}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="Estudante ATHENA"
+                            FontSize="12"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- META DIÁRIA -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorderSoft}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <VerticalStackLayout
+                    Spacing="12">
+
+                    <!-- TÍTULO E PORCENTAGEM -->
+                    <Grid
+                        ColumnDefinitions="Auto,*,Auto"
+                        ColumnSpacing="10">
+
+                        <Border
+                            Grid.Column="0"
+                            WidthRequest="38"
+                            HeightRequest="38"
+                            BackgroundColor="{StaticResource AthenaGoldSoft}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Label
+                                Text="⌁"
+                                FontSize="24"
+                                TextColor="{StaticResource AthenaGoldLight}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="2"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="META DIÁRIA"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                CharacterSpacing="0.8"
+                                TextColor="{StaticResource AthenaGoldLight}" />
+
+                            <Label
+                                Text="Acompanhe seu foco de hoje."
+                                FontSize="12"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        </VerticalStackLayout>
+
+                        <Label
+                            x:Name="TxtPercentualMetaDiaria"
+                            Grid.Column="2"
+                            Text="0%"
+                            FontSize="22"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaBlueLight}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="End" />
+
+                    </Grid>
+
+                    <!-- TEMPO ESTUDADO E META -->
+                    <Grid
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="10">
+
+                        <Label
+                            x:Name="TxtTempoEstudadoHoje"
+                            Grid.Column="0"
+                            Text="0 / 0 min"
+                            FontSize="14"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            VerticalOptions="Center" />
+
+                        <HorizontalStackLayout
+                            Grid.Column="1"
+                            Spacing="6"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="Meta:"
+                                FontSize="11"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="Center" />
+
+                            <Border
+                                BackgroundColor="{StaticResource AthenaCard}"
+                                Stroke="{StaticResource AthenaBorder}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 8"
+                                Padding="8,0"
+                                HeightRequest="36"
+                                WidthRequest="80">
+
+                                <Entry
+                                    x:Name="MetaDiariaTXT"
+                                    Placeholder="60"
+                                    PlaceholderColor="{StaticResource AthenaTextMuted}"
+                                    TextColor="{StaticResource AthenaTextPrimary}"
+                                    FontSize="13"
+                                    Keyboard="Numeric"
+                                    HorizontalTextAlignment="Center"
+                                    ReturnType="Done"
+                                    Completed="MetaDiariaTXT_Completed"
+                                    VerticalOptions="Center" />
+
+                            </Border>
+
+                            <Label
+                                Text="min"
+                                FontSize="11"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                    </Grid>
+
+                    <!-- BARRA DE PROGRESSO -->
+                    <ProgressBar
+                        x:Name="ProgressMetaDiaria"
+                        Progress="0"
+                        HeightRequest="6"
+                        ProgressColor="{StaticResource AthenaBlueStrong}"
+                        BackgroundColor="{StaticResource AthenaProgressTrack}"
+                        HorizontalOptions="Fill" />
+
+                    <!-- MINUTOS RESTANTES -->
+                    <Grid
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <Label
+                            x:Name="TxtStatusMeta"
+                            Grid.Column="0"
+                            Text="Defina sua meta diária."
+                            FontSize="12"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Label
+                            x:Name="TxtMinutosRestantes"
+                            Grid.Column="1"
+                            Text="0 min restantes"
+                            FontSize="11"
+                            TextColor="{StaticResource AthenaTextMuted}"
+                            HorizontalOptions="End" />
+
+                    </Grid>
+
+                    <Label
+                        Text="Digite os minutos e pressione Enter para salvar."
+                        FontSize="10"
+                        TextColor="{StaticResource AthenaTextMuted}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- SEÇÃO DE PROGRESSO -->
+            <VerticalStackLayout
+                Spacing="10">
+
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    Padding="4,0">
+
+                    <Label
+                        Text="SEU PROGRESSO"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        CharacterSpacing="1"
+                        TextColor="{StaticResource AthenaTextSecondary}" />
+
+                    <Label
+                        Text="CICLO DE ESTUDOS"
+                        FontSize="10"
+                        FontAttributes="Bold"
+                        CharacterSpacing="0.5"
+                        TextColor="{StaticResource AthenaGoldLight}"
+                        HorizontalOptions="End" />
+
+                </Grid>
+
+                <!-- ESTATÍSTICAS -->
+                <Grid
+                    ColumnDefinitions="*,*,*"
+                    ColumnSpacing="8">
+
+                    <!-- TEMPO TOTAL -->
+                    <Border
+                        Grid.Column="0"
+                        BackgroundColor="{StaticResource AthenaSurface}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 13"
+                        Padding="9">
+
+                        <VerticalStackLayout
+                            Spacing="5">
+
+                            <Label
+                                Text="◷"
+                                FontSize="19"
+                                TextColor="{StaticResource AthenaBlueLight}" />
+
+                            <Label
+                                x:Name="TxtTempoTotal"
+                                Text="0 min"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                LineBreakMode="TailTruncation" />
+
+                            <Label
+                                Text="Tempo total"
+                                FontSize="9"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <!-- SESSÕES -->
+                    <Border
+                        Grid.Column="1"
+                        BackgroundColor="{StaticResource AthenaSurface}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 13"
+                        Padding="9">
+
+                        <VerticalStackLayout
+                            Spacing="5">
+
+                            <Label
+                                Text="▣"
+                                FontSize="19"
+                                TextColor="{StaticResource AthenaBlueLight}" />
+
+                            <Label
+                                x:Name="TxtQuantidadeSessoes"
+                                Text="0"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaBlueLight}" />
+
+                            <Label
+                                Text="Sessões"
+                                FontSize="9"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <!-- STREAK -->
+                    <Border
+                        Grid.Column="2"
+                        BackgroundColor="{StaticResource AthenaSurface}"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 13"
+                        Padding="9">
+
+                        <VerticalStackLayout
+                            Spacing="5">
+
+                            <Label
+                                Text="ϟ"
+                                FontSize="21"
+                                TextColor="{StaticResource AthenaSuccess}" />
+
+                            <Label
+                                x:Name="TxtStreak"
+                                Text="0 dias"
+                                FontSize="16"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaSuccess}" />
+
+                            <Label
+                                Text="De foco"
+                                FontSize="9"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                </Grid>
+
+            </VerticalStackLayout>
+
+            <!-- SOBRE O ATHENA -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorderSoft}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <VerticalStackLayout
+                    Spacing="10">
+
+                    <HorizontalStackLayout
+                        Spacing="10">
+
+                        <Border
+                            WidthRequest="34"
+                            HeightRequest="34"
+                            BackgroundColor="{StaticResource AthenaGoldSoft}"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 9">
+
+                            <Label
+                                Text="♧"
+                                FontSize="20"
+                                TextColor="{StaticResource AthenaGoldLight}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <Label
+                            Text="SOBRE O ATHENA"
+                            FontSize="16"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaGoldLight}"
+                            VerticalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                    <Label
+                        Text="O ATHENA ajuda você a organizar seus estudos, manter a disciplina e acompanhar sua evolução ao longo do tempo através de métricas e foco constante."
+                        FontSize="14"
+                        LineHeight="1.35"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        LineBreakMode="WordWrap" />
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="{StaticResource AthenaBorderSoft}"
+                        Margin="0,2,0,0" />
+
+                    <Label
+                        Text="◈  Organização • Disciplina • Evolução"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- STATUS DO SALVAMENTO -->
+            <Label
+                x:Name="TxtStatusPerfil"
+                Text=""
+                FontSize="11"
+                TextColor="{StaticResource AthenaSuccess}"
+                HorizontalTextAlignment="Center"
+                HorizontalOptions="Center" />
+
+            <!-- INFORMAÇÕES TÉCNICAS -->
+            <VerticalStackLayout
+                Spacing="4"
+                HorizontalOptions="Center"
+                Margin="0,4,0,0">
+
+                <HorizontalStackLayout
+                    Spacing="6"
+                    HorizontalOptions="Center">
+
+                    <BoxView
+                        WidthRequest="6"
+                        HeightRequest="6"
+                        CornerRadius="3"
+                        Color="{StaticResource AthenaGold}"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Text="ATHENA"
+                        FontSize="12"
+                        FontAttributes="Bold"
+                        CharacterSpacing="1"
+                        TextColor="{StaticResource AthenaTextSecondary}" />
+
+                    <BoxView
+                        WidthRequest="6"
+                        HeightRequest="6"
+                        CornerRadius="3"
+                        Color="{StaticResource AthenaGold}"
+                        VerticalOptions="Center" />
+
+                </HorizontalStackLayout>
+
+                <Label
+                    Text="Versão 1.0.0"
+                    FontSize="10"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Desenvolvido com .NET MAUI, C#, XAML e SQLite"
+                    FontSize="10"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
 
     </ScrollView>
 

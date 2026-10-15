@@ -35,10 +35,11 @@ public partial class NewPage2 : ContentPage
         db = new SQLiteAsyncConnection(dbPath);
     }
 
-
+ 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-        await db.CreateTableAsync<Meta>();
+        try
+        {
 
         string prioridade = "Sem prioridade";
         string status = "Em andamento";
@@ -62,13 +63,12 @@ public partial class NewPage2 : ContentPage
                 $"Prioridade: {item.prioridadeMeta}\n" +
                 $"Status: {item.status}\n\n";
         }
+        await DisplayAlertAsync("sucesso", "Criado", "Sair");
 
-        try
-        {
             await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex) {
-            await DisplayAlert("Erro", ex.Message, "Sair");
+            await DisplayAlertAsync("Erro", ex.Message, "Sair");
 
         }
             

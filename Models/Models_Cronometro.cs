@@ -45,6 +45,27 @@ namespace ATHENA.Models
 
             await db.InsertAsync(sessao);
         }
+
+        public static async Task Registro_Estudo(NewPage1.ResultadoSessao resultadoSessao)
+        {
+
+
+            double minutosEstudados = ((double)resultadoSessao.MinutosLiquidos);
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
+ );
+
+            var db = new SQLiteAsyncConnection(dbPath);
+
+            await db.CreateTableAsync<Registro_Tempo>();
+
+            var registro = new Registro_Tempo
+            {
+                tempoEstudo = minutosEstudados,
+                data = DateTime.Now,
+            };
+
+            await db.InsertAsync(registro);
+        }
     }
     }
 

@@ -20,46 +20,182 @@ public partial class PerfilPage : ContentPage
 
         db = new SQLiteAsyncConnection(dbPath);
     }
+
+    public async void Informacoe()
+    {
+        List<Sessao_Estudo> sessao = await db.Table<Sessao_Estudo>().ToListAsync();
+        List<Registro_Tempo> registros = await db.Table<Registro_Tempo>().ToListAsync();
+
+      
+        double tempoTotal = registros.Sum(r => r.tempoEstudo);
+        int total = (int)tempoTotal;
+        int horas = total / 60;
+        int minutos = total % 60;
+
+        DateTime inicioDoDia = DateTime.Now.Date;
+
+        Usuario? usuario = await db.Table<Usuario>()
+                        .FirstOrDefaultAsync();
+
+        var registro_ = await db.Table<Registro_Tempo>()
+                .Where(r => r.data >= inicioDoDia)
+                .ToListAsync();
+
+        double tempoEstudado = registro_.Sum(r => r.tempoEstudo);
+        double totalMinutos = tempoEstudado;
+
+        double progresso = usuario != null && usuario.metaDiaria > 0
+    ? Math.Clamp(totalMinutos / usuario.metaDiaria.Value, 0, 1)
+    : 0;
+
+        int percentual = (int)(progresso * 100);
+
+        List<Registro_Tempo> tempo = await db
+    .Table<Registro_Tempo>()
+    .ToListAsync();
+
+        List<DateTime> diasEstudados = tempo
+            .Where(r => r.tempoEstudo > 0)
+            .Select(r => r.data.Date)
+            .Distinct()
+            .OrderByDescending(d => d)
+            .ToList();
+
+        int streak = 0;
+        DateTime hoje = DateTime.Today;
+
+        if (diasEstudados.Count > 0 &&
+            (diasEstudados[0] == hoje ||
+             diasEstudados[0] == hoje.AddDays(-1)))
+        {
+            DateTime diaEsperado = diasEstudados[0];
+
+            foreach (DateTime dia in diasEstudados)
+            {
+                if (dia == diaEsperado)
+                {
+                    streak++;
+                    diaEsperado = diaEsperado.AddDays(-1);
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            TxtQuantidadeSessoes.Text = sessao.Count.ToString();
+            TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario.metaDiaria} min";
+            TxtPercentualMetaDiaria.Text = $"{percentual}%";
+            TxtTempoTotal.Text = $"{horas}h {minutos:D2}min";
+            TxtStreak.Text = $"{streak.ToString()} dias";
+        });
+    }
 	protected override async void OnAppearing()
 	{
         base.OnAppearing();
 
+
         Usuario? usuario = await db.Table<Usuario>()
-                .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync();
 
-        NomeUsuario.Text = usuario.nome;
+        if (usuario?.fotoPerfil != null &&
+            File.Exists(usuario.fotoPerfil))
+        {
+            ImagemPerfil.Source = ImageSource.FromFile(
+                usuario.fotoPerfil);
+        }
+        else
+        {
+            ImagemPerfil.Source = null;
+        }
 
-        ImagemPerfil.Source = ImageSource.FromFile(usuario.fotoPerfil);
+
+        Informacoe();
     }
 
     private string? caminhoFotoPerfil;
 
     private async void EscolherFoto_Clicked(object sender, EventArgs e)
     {
-		var foto = await MediaPicker.Default.PickPhotoAsync();
+        try { 
+        var foto = await MediaPicker.Default.PickPhotoAsync();
 
-		if(foto == null)
-		{
-			return;
-		}
+        if (foto == null)
+            return;
 
-		string nomeArquivo = "foto_perfil.png";
-        caminhoFotoPerfil = Path.Combine(FileSystem.Current.AppDataDirectory, nomeArquivo);
+            string extensao = Path.GetExtension(foto.FileName);
 
-		using Stream origem = await foto.OpenReadAsync();
-		using FileStream destino = File.Create(caminhoFotoPerfil);
+            if (string.IsNullOrWhiteSpace(extensao))
+                extensao = ".jpg";
 
-		await origem.CopyToAsync(destino);
+            string caminhoFoto = Path.Combine(
+                FileSystem.Current.AppDataDirectory,
+                $"foto_perfil_{Guid.NewGuid():N}{extensao}");
 
-        ImagemPerfil.Source = ImageSource.FromFile(caminhoFotoPerfil);
+            using (Stream origem = await foto.OpenReadAsync())
 
+        using (FileStream destino = File.Create(caminhoFoto))
+        {
+            await origem.CopyToAsync(destino);
+        }
+
+        ImagemPerfil.Source = null;
+        ImagemPerfil.Source = ImageSource.FromFile(caminhoFoto);
+
+        // Salva o novo caminho no usuário para as outras telas.
+        await Models_Usuario.AtualizarUsuario(null,null, caminhoFoto);
+
+            Usuario? usuarioAtualizado = await db.Table<Usuario>()
+        .FirstOrDefaultAsync();
+        }
+    catch (Exception ex)
+    {
+        await DisplayAlertAsync(
+            "Erro ao alterar foto",
+            ex.Message,
+            "OK");
+}
+}
+    
+
+
+    private async void MetaDiariaTXT_Completed(object sender, EventArgs e)
+    {
+        string metaMinutos = MetaDiariaTXT.Text;
+
+        if (double.TryParse(metaMinutos, out double minutos))
+        {
+            await Models_Usuario.AtualizarUsuario(null, minutos);
+        }
+
+        DateTime inicioDoDia = DateTime.Now.Date;
+
+        Usuario? usuario = await db.Table<Usuario>()
+                        .FirstOrDefaultAsync();
+
+        var registros = await db.Table<Registro_Tempo>()
+                .Where(r => r.data >= inicioDoDia)
+                .ToListAsync();
+
+        double tempoEstudado = registros.Sum(r => r.tempoEstudo);
+        double totalMinutos = tempoEstudado;
+
+        double progresso = usuario.metaDiaria > 0
+    ? Math.Min(totalMinutos / usuario.metaDiaria.Value, 1.0)
+    : 0;
+
+
+        TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario.metaDiaria} min";
+        TxtPercentualMetaDiaria.Text = $"{progresso:P0}";
     }
 
-    private async void Salvar_Clicked(object sender, EventArgs e)
+    private async void NomeUsuario_Completed(object sender, EventArgs e)
     {
-		string nome = NomeUsuario.Text;
+        string nome = NomeUsuario.Text;
+        await Models_Usuario.AtualizarUsuario(nome, null);
 
-        await DisplayAlertAsync("Perfil salvo!!", "Perfil salvo com sucesso", "ok");
-		await Models_Usuario.AtualizarUsuario(nome, caminhoFotoPerfil);
     }
 }

@@ -18,19 +18,26 @@ namespace ATHENA.Models
 
             await db.CreateTableAsync<Usuario>();
 
-            var usuario = new Usuario
+            Usuario? usuario = await db.Table<Usuario>()
+           .FirstOrDefaultAsync();
+
+            if (usuario == null)
             {
-                nome = "Usuario",
-                dataCriacao = DateTime.Now
-            };
+                usuario = new Usuario
+                {
+                    nome = "Usuario",
+                    dataCriacao = DateTime.Now
+                };
 
-            await db.InsertAsync(usuario);
+                await db.InsertAsync(usuario);
 
+            }
         }
 
         public static async Task AtualizarUsuario(
            string? Nome,
-           string? fotoPerfil)
+           double? MetaDiaria,
+           string? FotoPerfil = null)
         {
             string dbPath = Path.Combine(
          Environment.GetFolderPath(
@@ -52,11 +59,17 @@ namespace ATHENA.Models
             {
                 usuario.nome = Nome;
             }
-
-            if (fotoPerfil != null)
+            if (MetaDiaria != null)
             {
-                usuario.fotoPerfil = fotoPerfil;
+                usuario.metaDiaria = MetaDiaria;
             }
+
+            if (FotoPerfil != null)
+            {
+                usuario.fotoPerfil = FotoPerfil;
+            }
+
+
 
             await db.UpdateAsync(usuario);
         }
