@@ -12,11 +12,12 @@ namespace ATHENA.Models
 
         public static async Task CriarMeta(
             string titulo,
-            string descricao,
-            int minutos,
+            string? descricao,
+            int? minutos,
             string prioridade,
             string status,
-            int? idCategoria)
+            int? idCategoria,
+            DateTime? dataLimite)
         {
             
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
@@ -26,14 +27,18 @@ namespace ATHENA.Models
 
             await db.CreateTableAsync<Meta>();
 
+            int valor = minutos ?? 0;
+
             var CriaMeta = new Meta
             {
                 tituloMeta = titulo,
                 descricaoMeta = descricao,
-                metaMinutos = minutos,
+                metaMinutos = valor,
                 prioridadeMeta = prioridade,
                 status = status,
-                idCategoria = idCategoria
+                idCategoria = idCategoria,
+                dataLimite = dataLimite,
+                dataCriacao = DateTime.Now,
             };
 
             await db.InsertAsync(CriaMeta);

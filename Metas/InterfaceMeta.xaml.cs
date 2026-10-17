@@ -100,4 +100,10 @@ public partial class InterfaceMeta : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(HistoridoSessao)}?idMeta={IdMeta}");
     }
+
+    private async void Voltar_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
+
 }

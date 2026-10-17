@@ -52,7 +52,7 @@ namespace ATHENA.Database
         public string tituloMeta { get; set; } //Título da meta
 
         [MaxLength(1000)]
-        public string descricaoMeta { get; set; } //Descrição da meta, pode ser nula
+        public string? descricaoMeta { get; set; } //Descrição da meta, pode ser nula
 
         public int metaMinutos { get; set; } = 0; //Define um objetivo de tempo à ser estudado
 

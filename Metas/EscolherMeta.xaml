@@ -641,17 +641,6 @@
 
                                     </Label>
 
-                                    <Button
-                                        Text="›"
-                                        Clicked="Button_Clicked_3"
-                                        FontSize="23"
-                                        TextColor="{StaticResource AthenaTextSecondary}"
-                                        BackgroundColor="Transparent"
-                                        BorderWidth="0"
-                                        Padding="0"
-                                        WidthRequest="24"
-                                        HeightRequest="30"
-                                        VerticalOptions="Center" />
 
                                 </HorizontalStackLayout>
 
@@ -850,6 +839,21 @@
 
                             </Grid>
 
+                            <!-- TOQUE EM QUALQUER LUGAR DO CARD -->
+                            <!-- Este botão precisa ser filho direto do Grid principal da meta. -->
+                            <Button
+                                Grid.Row="0"
+                                Grid.RowSpan="5"
+                                Grid.Column="0"
+                                Text=""
+                                Clicked="Button_Clicked_3"
+                                BackgroundColor="Transparent"
+                                BorderWidth="0"
+                                Padding="0"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                ZIndex="10" />
+
                         </Grid>
 
                     </Border>
@@ -857,71 +861,6 @@
                 </DataTemplate>
 
             </CollectionView.ItemTemplate>
-
-            <!-- FRASE MOTIVACIONAL -->
-            <CollectionView.Footer>
-
-                <Border
-                    BackgroundColor="{StaticResource AthenaCard}"
-                    Stroke="{StaticResource AthenaBorderSoft}"
-                    StrokeThickness="1"
-                    StrokeShape="RoundRectangle 14"
-                    Padding="12"
-                    Margin="0,8,0,24">
-
-                    <Grid
-                        ColumnDefinitions="Auto,*"
-                        ColumnSpacing="10">
-
-                        <!-- ÍCONE DA FRASE -->
-                        <Border
-                            Grid.Column="0"
-                            WidthRequest="34"
-                            HeightRequest="34"
-                            BackgroundColor="{StaticResource AthenaGoldSoft}"
-                            Stroke="{StaticResource AthenaGold}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 9"
-                            VerticalOptions="Start">
-
-                            <Label
-                                Text="▤"
-                                FontSize="16"
-                                TextColor="{StaticResource AthenaGoldLight}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-
-                        </Border>
-
-                        <!-- TEXTO DA FRASE -->
-                        <VerticalStackLayout
-                            Grid.Column="1"
-                            Spacing="2"
-                            VerticalOptions="Center">
-
-                            <Label
-                                Text="&quot;Aquele que busca a disciplina encontra a liberdade.&quot;"
-                                FontSize="11"
-                                FontAttributes="Italic"
-                                TextColor="{StaticResource AthenaTextSecondary}"
-                                LineBreakMode="WordWrap"
-                                MaxLines="3"
-                                HorizontalOptions="Fill" />
-
-                            <Label
-                                Text="— FRANK HERBERT"
-                                FontSize="10"
-                                FontAttributes="Bold"
-                                CharacterSpacing="0.5"
-                                TextColor="{StaticResource AthenaGoldLight}" />
-
-                        </VerticalStackLayout>
-
-                    </Grid>
-
-                </Border>
-
-            </CollectionView.Footer>
 
         </CollectionView>
 

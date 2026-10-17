@@ -83,7 +83,6 @@ public partial class EditarMeta : ContentPage
     {
         try
         {
-            await db.CreateTableAsync<Meta>();
 
             string status;
             string prioridade;
@@ -138,6 +137,7 @@ public partial class EditarMeta : ContentPage
                 MinutosTXT.Placeholder = meta.metaMinutos.ToString();
             }
 
+            await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)
         {
@@ -147,10 +147,39 @@ public partial class EditarMeta : ContentPage
 
     private async void Button_Clicked_3(object sender, EventArgs e)
     {
-        await Models_Meta.DeletarMeta(IdMeta);
-        await DisplayAlertAsync("Sucesso!", "Meta deletada", "OK");
-        await Shell.Current.GoToAsync("../..");
+        bool confirmar = await DisplayAlertAsync(
+        "Excluir meta",
+        "Tem certeza de que deseja excluir esta meta?\n\nEssa ação não pode ser desfeita.",
+        "Excluir",
+        "Cancelar");
+
+        if (!confirmar)
+        {
+            return;
+        }
+
+        try
+        {
+            await Models_Meta.DeletarMeta(IdMeta);
+
+            await DisplayAlertAsync(
+                "Meta excluída",
+                "A meta foi excluída com sucesso.",
+                "OK");
+
+            await Shell.Current.GoToAsync("../..");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync(
+                "Erro",
+                $"Não foi possível excluir a meta.\n\n{ex.Message}",
+                "OK");
+        }
+    }
+    private async void Voltar_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
     }
 
-   
 }

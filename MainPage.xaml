@@ -506,7 +506,7 @@
 
                     </VerticalStackLayout>
 
-                    <!-- TEMPO E BOTÃO -->
+                    <!-- TEMPO E INDICADOR VISUAL -->
                     <VerticalStackLayout
             Grid.Column="2"
             Spacing="3"
@@ -521,25 +521,32 @@
                 TextColor="{StaticResource AthenaTextSecondary}"
                 HorizontalOptions="End" />
 
-                        <Button
-                x:Name="BtnEntrarMaiorMeta"
+                        <Label
                 Text="›"
-                Clicked="Button_Clicked_2"
                 FontSize="24"
                 TextColor="{StaticResource AthenaTextMuted}"
-                BackgroundColor="Transparent"
-                BorderWidth="0"
-                Padding="0"
-                WidthRequest="28"
-                HeightRequest="28"
-                HorizontalOptions="End"
-                VerticalOptions="Center" />
+                HorizontalOptions="End" />
 
                     </VerticalStackLayout>
+
+                    <!-- TOQUE EM QUALQUER LUGAR DO CARD -->
+                    <Button
+            x:Name="BtnEntrarMaiorMeta"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            Text=""
+            Clicked="Button_Clicked_2"
+            BackgroundColor="Transparent"
+            BorderWidth="0"
+            Padding="0"
+            HorizontalOptions="Fill"
+            VerticalOptions="Fill"
+            ZIndex="10" />
 
                 </Grid>
 
             </Border>
+
 
 
         </VerticalStackLayout>

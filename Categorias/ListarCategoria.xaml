@@ -484,21 +484,6 @@
 
                                 </VerticalStackLayout>
 
-                                <!-- BOTÃO PARA ABRIR A CATEGORIA -->
-                                <Button
-                                    Grid.Column="2"
-                                    Text="›"
-                                    Clicked="Button_Clicked_1"
-                                    FontSize="25"
-                                    TextColor="{StaticResource AthenaTextMuted}"
-                                    BackgroundColor="Transparent"
-                                    BorderWidth="0"
-                                    Padding="0"
-                                    WidthRequest="28"
-                                    HeightRequest="34"
-                                    HorizontalOptions="End"
-                                    VerticalOptions="Center" />
-
                             </Grid>
 
                             <!-- LINHA DIVISÓRIA -->
@@ -596,6 +581,20 @@
                                 </ProgressBar.Triggers>
 
                             </ProgressBar>
+
+                            <!-- TOQUE EM QUALQUER LUGAR DO CARD -->
+                            <!-- Este botão precisa ser filho direto do Grid principal da categoria. -->
+                            <Button
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Text=""
+                                Clicked="Button_Clicked_1"
+                                BackgroundColor="Transparent"
+                                BorderWidth="0"
+                                Padding="0"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
+                                ZIndex="10" />
 
                         </Grid>
 
