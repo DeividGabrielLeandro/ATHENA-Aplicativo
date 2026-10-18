@@ -8,66 +8,23 @@
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="True">
 
-    <CollectionView
-        x:Name="listaMetas"
-        SelectionMode="None"
-        ItemsLayout="VerticalList"
-        VerticalScrollBarVisibility="Never"
-        HorizontalOptions="Fill"
-        VerticalOptions="Fill">
+    <ScrollView>
 
-        <!-- ESTADO VAZIO -->
-        <CollectionView.EmptyView>
 
-            <VerticalStackLayout
-                Padding="20,80,20,20"
-                Spacing="12"
-                HorizontalOptions="Center"
-                VerticalOptions="Center">
-
-                <Label
-                    Text="◎"
-                    FontSize="46"
-                    TextColor="{StaticResource AthenaGold}"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center" />
-
-                <Label
-                    Text="Meta não encontrada"
-                    FontSize="20"
-                    FontAttributes="Bold"
-                    TextColor="{StaticResource AthenaTextPrimary}"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center" />
-
-                <Label
-                    Text="Não foi possível carregar os detalhes desta meta."
-                    FontSize="13"
-                    TextColor="{StaticResource AthenaTextSecondary}"
-                    HorizontalOptions="Center"
-                    HorizontalTextAlignment="Center" />
-
-            </VerticalStackLayout>
-
-        </CollectionView.EmptyView>
-
-        <CollectionView.ItemTemplate>
-
-            <DataTemplate>
-
-                <VerticalStackLayout
+        <VerticalStackLayout
+                    x:Name="ConteudoMeta"
                     Padding="16,36,16,32"
                     Spacing="16">
 
-                    <!-- CABEÇALHO PADRÃO DO ATHENA -->
-                    <Grid
+            <!-- CABEÇALHO PADRÃO DO ATHENA -->
+            <Grid
     ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="10"
     RowSpacing="8">
 
-                        <!-- BOTÃO VOLTAR -->
-                        <Button
+                <!-- BOTÃO VOLTAR -->
+                <Button
         Grid.Column="0"
         Grid.Row="0"
         Text="‹"
@@ -84,31 +41,31 @@
         HorizontalOptions="Start"
         VerticalOptions="Start" />
 
-                        <!-- LOGO E TÍTULO DA PÁGINA -->
-                        <VerticalStackLayout
+                <!-- LOGO E TÍTULO DA PÁGINA -->
+                <VerticalStackLayout
         Grid.Column="1"
         Grid.Row="0"
         Spacing="3"
         VerticalOptions="Start">
 
-                            <Image
+                    <Image
             Source="athena_wordmark_header_styled.png"
             WidthRequest="112"
             HeightRequest="28"
             Aspect="AspectFit"
             HorizontalOptions="Start" />
 
-                            <Label
+                    <Label
             Text="DETALHES DA META"
             FontSize="9"
             CharacterSpacing="1"
             TextColor="{StaticResource AthenaTextSecondary}"
             HorizontalOptions="Start" />
 
-                        </VerticalStackLayout>
+                </VerticalStackLayout>
 
-                        <!-- STATUS DA META -->
-                        <Border
+                <!-- STATUS DA META -->
+                <Border
         Grid.Column="2"
         Grid.Row="0"
         BackgroundColor="#101F38"
@@ -118,57 +75,57 @@
         Padding="9,6"
         VerticalOptions="Start">
 
-                            <HorizontalStackLayout
+                    <HorizontalStackLayout
             Spacing="6">
 
-                                <BoxView
+                        <BoxView
                 WidthRequest="6"
                 HeightRequest="6"
                 CornerRadius="3"
                 Color="{StaticResource AthenaBlue}"
                 VerticalOptions="Center">
 
-                                    <BoxView.Triggers>
+                            <BoxView.Triggers>
 
-                                        <DataTrigger
+                                <DataTrigger
                         TargetType="BoxView"
                         Binding="{Binding status}"
                         Value="Concluida">
 
-                                            <Setter
+                                    <Setter
                             Property="Color"
                             Value="{StaticResource AthenaSuccess}" />
 
-                                        </DataTrigger>
+                                </DataTrigger>
 
-                                        <DataTrigger
+                                <DataTrigger
                         TargetType="BoxView"
                         Binding="{Binding status}"
                         Value="Concluído">
 
-                                            <Setter
+                                    <Setter
                             Property="Color"
                             Value="{StaticResource AthenaSuccess}" />
 
-                                        </DataTrigger>
+                                </DataTrigger>
 
-                                    </BoxView.Triggers>
+                            </BoxView.Triggers>
 
-                                </BoxView>
+                        </BoxView>
 
-                                <Label
+                        <Label
                 Text="{Binding status}"
                 FontSize="10"
                 FontAttributes="Bold"
                 TextColor="{StaticResource AthenaBlueLight}"
                 VerticalOptions="Center" />
 
-                            </HorizontalStackLayout>
+                    </HorizontalStackLayout>
 
-                        </Border>
+                </Border>
 
-                        <!-- DIVISÓRIA -->
-                        <BoxView
+                <!-- DIVISÓRIA -->
+                <BoxView
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
                         HeightRequest="1"
@@ -176,45 +133,45 @@
                         Color="#24344B"
                         HorizontalOptions="Fill" />
 
-                    </Grid>
+            </Grid>
 
 
-                    <!-- CARD PRINCIPAL DA META -->
-                    <Border
+            <!-- CARD PRINCIPAL DA META -->
+            <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 16"
                         Padding="0">
 
-                        <Grid
+                <Grid
                             ColumnDefinitions="4,*"
                             ColumnSpacing="0">
 
-                            <!-- ACENTO DOURADO LATERAL -->
-                            <BoxView
+                    <!-- ACENTO DOURADO LATERAL -->
+                    <BoxView
                                 Grid.Column="0"
                                 Color="{StaticResource AthenaGold}"
                                 CornerRadius="2"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill" />
 
-                            <VerticalStackLayout
+                    <VerticalStackLayout
                                 Grid.Column="1"
                                 Padding="16"
                                 Spacing="12">
 
-                                <!-- IDENTIFICAÇÃO -->
-                                <HorizontalStackLayout
+                        <!-- IDENTIFICAÇÃO -->
+                        <HorizontalStackLayout
                                     Spacing="8">
 
-                                    <Label
+                            <Label
                                         Text="◎"
                                         FontSize="20"
                                         TextColor="{StaticResource AthenaGold}"
                                         VerticalOptions="Center" />
 
-                                    <Label
+                            <Label
                                         Text="META DE ESTUDO"
                                         FontSize="11"
                                         FontAttributes="Bold"
@@ -222,10 +179,10 @@
                                         TextColor="{StaticResource AthenaGold}"
                                         VerticalOptions="Center" />
 
-                                </HorizontalStackLayout>
+                        </HorizontalStackLayout>
 
-                                <!-- TÍTULO -->
-                                <Label
+                        <!-- TÍTULO -->
+                        <Label
                                     Text="{Binding tituloMeta}"
                                     FontSize="26"
                                     FontAttributes="Bold"
@@ -233,8 +190,8 @@
                                     LineBreakMode="WordWrap"
                                     MaxLines="3" />
 
-                                <!-- DESCRIÇÃO -->
-                                <Label
+                        <!-- DESCRIÇÃO -->
+                        <Label
                                     Text="{Binding descricaoMeta, TargetNullValue=Sem descrição, FallbackValue=Sem descrição}"
                                     FontSize="14"
                                     LineHeight="1.25"
@@ -242,15 +199,15 @@
                                     LineBreakMode="WordWrap"
                                     MaxLines="5" />
 
-                                <!-- CATEGORIA E PRIORIDADE -->
-                                <FlexLayout
+                        <!-- CATEGORIA E PRIORIDADE -->
+                        <FlexLayout
                                     Direction="Row"
                                     Wrap="Wrap"
                                     JustifyContent="Start"
                                     AlignItems="Start">
 
-                                    <!-- CATEGORIA -->
-                                    <Border
+                            <!-- CATEGORIA -->
+                            <Border
                                         BackgroundColor="#101F38"
                                         Stroke="{StaticResource AthenaBorder}"
                                         StrokeThickness="1"
@@ -258,17 +215,17 @@
                                         Padding="10,6"
                                         Margin="0,0,8,0">
 
-                                        <HorizontalStackLayout
+                                <HorizontalStackLayout
                                             Spacing="6">
 
-                                            <Label
+                                    <Label
                                                 Text="&lt;/&gt;"
                                                 FontSize="11"
                                                 FontAttributes="Bold"
                                                 TextColor="{StaticResource AthenaBlueLight}"
                                                 VerticalOptions="Center" />
 
-                                            <Label
+                                    <Label
                                                 Text="{Binding tituloCategoria, TargetNullValue=Sem categoria, FallbackValue=Sem categoria}"
                                                 FontSize="11"
                                                 FontAttributes="Bold"
@@ -276,60 +233,60 @@
                                                 TextColor="{StaticResource AthenaBlueLight}"
                                                 VerticalOptions="Center" />
 
-                                        </HorizontalStackLayout>
+                                </HorizontalStackLayout>
 
-                                    </Border>
+                            </Border>
 
-                                    <!-- PRIORIDADE -->
-                                    <HorizontalStackLayout
+                            <!-- PRIORIDADE -->
+                            <HorizontalStackLayout
                                         Spacing="6"
                                         Padding="4,6">
 
-                                        <BoxView
+                                <BoxView
                                             WidthRequest="7"
                                             HeightRequest="7"
                                             CornerRadius="4"
                                             Color="{StaticResource AthenaBlue}"
                                             VerticalOptions="Center" />
 
-                                        <Label
+                                <Label
                                             Text="{Binding prioridadeMeta, TargetNullValue=Sem prioridade, FallbackValue=Sem prioridade}"
                                             FontSize="11"
                                             FontAttributes="Bold"
                                             TextColor="{StaticResource AthenaBlueLight}"
                                             VerticalOptions="Center" />
 
-                                    </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                </FlexLayout>
+                        </FlexLayout>
 
-                            </VerticalStackLayout>
+                    </VerticalStackLayout>
 
-                        </Grid>
+                </Grid>
 
-                    </Border>
+            </Border>
 
-                    <!-- CARD DE PROGRESSO -->
-                    <Border
+            <!-- CARD DE PROGRESSO -->
+            <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 16"
                         Padding="16">
 
-                        <VerticalStackLayout
+                <VerticalStackLayout
                             Spacing="14">
 
-                            <!-- TÍTULO E PORCENTAGEM -->
-                            <Grid
+                    <!-- TÍTULO E PORCENTAGEM -->
+                    <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
 
-                                <HorizontalStackLayout
+                        <HorizontalStackLayout
                                     Grid.Column="0"
                                     Spacing="9">
 
-                                    <Border
+                            <Border
                                         WidthRequest="30"
                                         HeightRequest="30"
                                         BackgroundColor="#101F38"
@@ -337,7 +294,7 @@
                                         StrokeThickness="1"
                                         StrokeShape="RoundRectangle 8">
 
-                                        <Label
+                                <Label
                                             Text="↗"
                                             FontSize="19"
                                             FontAttributes="Bold"
@@ -345,9 +302,9 @@
                                             HorizontalOptions="Center"
                                             VerticalOptions="Center" />
 
-                                    </Border>
+                            </Border>
 
-                                    <Label
+                            <Label
                                         Text="PROGRESSO DA META"
                                         FontSize="11"
                                         FontAttributes="Bold"
@@ -355,9 +312,9 @@
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         VerticalOptions="Center" />
 
-                                </HorizontalStackLayout>
+                        </HorizontalStackLayout>
 
-                                <Label
+                        <Label
                                     Grid.Column="1"
                                     Text="{Binding Progresso, StringFormat='{0:P0}'}"
                                     FontSize="32"
@@ -366,76 +323,76 @@
                                     HorizontalOptions="End"
                                     VerticalOptions="Center">
 
-                                    <Label.Triggers>
+                            <Label.Triggers>
 
-                                        <DataTrigger
+                                <DataTrigger
                                             TargetType="Label"
                                             Binding="{Binding status}"
                                             Value="Concluida">
 
-                                            <Setter
+                                    <Setter
                                                 Property="TextColor"
                                                 Value="{StaticResource AthenaSuccess}" />
 
-                                        </DataTrigger>
+                                </DataTrigger>
 
-                                        <DataTrigger
+                                <DataTrigger
                                             TargetType="Label"
                                             Binding="{Binding status}"
                                             Value="Concluído">
 
-                                            <Setter
+                                    <Setter
                                                 Property="TextColor"
                                                 Value="{StaticResource AthenaSuccess}" />
 
-                                        </DataTrigger>
+                                </DataTrigger>
 
-                                    </Label.Triggers>
+                            </Label.Triggers>
 
-                                </Label>
+                        </Label>
 
-                            </Grid>
+                    </Grid>
 
-                            <!-- MINUTOS ESTUDADOS -->
-                            <Grid
+                    <!-- MINUTOS ESTUDADOS -->
+                    <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
 
-                                <HorizontalStackLayout
+                        <HorizontalStackLayout
                                     Grid.Column="0"
                                     Spacing="4"
                                     VerticalOptions="Center">
 
-                                    <Label
+                            <Label
                                         Text="{Binding minutosEstudados, TargetNullValue=0}"
                                         FontSize="22"
                                         FontAttributes="Bold"
                                         TextColor="{StaticResource AthenaTextPrimary}" />
 
-                                    <Label
+                            <Label
                                         Text=" / "
                                         FontSize="15"
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         VerticalOptions="End"
                                         Margin="0,0,0,2" />
 
-                                    <Label
+                            <Label
                                         Text="{Binding metaMinutos, TargetNullValue=0}"
                                         FontSize="15"
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         VerticalOptions="End"
                                         Margin="0,0,0,2" />
 
-                                    <Label
+                            <Label
                                         Text=" min"
                                         FontSize="15"
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         VerticalOptions="End"
                                         Margin="0,0,0,2" />
 
-                                </HorizontalStackLayout>
+                        </HorizontalStackLayout>
 
-                                <Label
+                        <Label
                                     Grid.Column="1"
                                     Text="{Binding status}"
                                     FontSize="12"
@@ -443,61 +400,61 @@
                                     HorizontalOptions="End"
                                     VerticalOptions="Center" />
 
-                            </Grid>
+                    </Grid>
 
-                            <!-- BARRA DE PROGRESSO -->
-                            <ProgressBar
+                    <!-- BARRA DE PROGRESSO -->
+                    <ProgressBar
                                 Progress="{Binding Progresso}"
                                 HeightRequest="7"
                                 ProgressColor="{StaticResource AthenaBlue}"
                                 BackgroundColor="#202E42"
                                 HorizontalOptions="Fill">
 
-                                <ProgressBar.Triggers>
+                        <ProgressBar.Triggers>
 
-                                    <DataTrigger
+                            <DataTrigger
                                         TargetType="ProgressBar"
                                         Binding="{Binding status}"
                                         Value="Concluida">
 
-                                        <Setter
+                                <Setter
                                             Property="ProgressColor"
                                             Value="{StaticResource AthenaSuccess}" />
 
-                                    </DataTrigger>
+                            </DataTrigger>
 
-                                    <DataTrigger
+                            <DataTrigger
                                         TargetType="ProgressBar"
                                         Binding="{Binding status}"
                                         Value="Concluído">
 
-                                        <Setter
+                                <Setter
                                             Property="ProgressColor"
                                             Value="{StaticResource AthenaSuccess}" />
 
-                                    </DataTrigger>
+                            </DataTrigger>
 
-                                </ProgressBar.Triggers>
+                        </ProgressBar.Triggers>
 
-                            </ProgressBar>
+                    </ProgressBar>
 
-                            <!-- RODAPÉ -->
-                            <Grid
+                    <!-- RODAPÉ -->
+                    <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
 
-                                <HorizontalStackLayout
+                        <HorizontalStackLayout
                                     Grid.Column="0"
                                     Spacing="6">
 
-                                    <BoxView
+                            <BoxView
                                         WidthRequest="7"
                                         HeightRequest="7"
                                         CornerRadius="4"
                                         Color="{StaticResource AthenaSuccess}"
                                         VerticalOptions="Center" />
 
-                                    <Label
+                            <Label
                                         Text="Ritmo de foco ativo • Ciclo em andamento"
                                         FontSize="10"
                                         TextColor="{StaticResource AthenaTextSecondary}"
@@ -505,172 +462,485 @@
                                         MaxLines="1"
                                         VerticalOptions="Center" />
 
-                                </HorizontalStackLayout>
+                        </HorizontalStackLayout>
 
-                            </Grid>
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- ÚLTIMA SESSÃO DA META -->
+            <Border
+                        x:Name="UltimaSessaoCard"
+                        IsVisible="False"
+                        BackgroundColor="#0D1726"
+                        Stroke="#1B2A40"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="16">
+
+                <VerticalStackLayout
+                            Spacing="12">
+
+                    <!-- CABEÇALHO DA SEÇÃO -->
+                    <Grid
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="8">
+
+                        <HorizontalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="8">
+
+                            <Border
+                                        WidthRequest="30"
+                                        HeightRequest="30"
+                                        BackgroundColor="#101F38"
+                                        Stroke="{StaticResource AthenaBorder}"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 8"
+                                        VerticalOptions="Center">
+
+                                <Label
+                                            Text="◷"
+                                            FontSize="18"
+                                            TextColor="{StaticResource AthenaBlueLight}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                            </Border>
+
+                            <Label
+                                        Text="ÚLTIMA SESSÃO"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="0.8"
+                                        TextColor="{StaticResource AthenaGold}"
+                                        VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                        <Border
+                                    Grid.Column="1"
+                                    BackgroundColor="#18382B"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 8"
+                                    Padding="8,5"
+                                    VerticalOptions="Center">
+
+                            <HorizontalStackLayout
+                                        Spacing="5">
+
+                                <BoxView
+                                            WidthRequest="6"
+                                            HeightRequest="6"
+                                            CornerRadius="3"
+                                            Color="{StaticResource AthenaSuccess}"
+                                            VerticalOptions="Center" />
+
+                                <Label
+                                            Text="Sessão concluída"
+                                            FontSize="9"
+                                            FontAttributes="Bold"
+                                            CharacterSpacing="0.3"
+                                            TextColor="{StaticResource AthenaSuccess}"
+                                            VerticalOptions="Center" />
+
+                            </HorizontalStackLayout>
+
+                        </Border>
+
+                    </Grid>
+
+                    <!-- TÍTULO E DATA -->
+                    <VerticalStackLayout
+                                Spacing="3">
+
+                        <Label
+                                    x:Name="UltimaSessaoTituloTXT"
+                                    Text=""
+                                    FontSize="19"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AthenaTextPrimary}"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="2" />
+
+                        <Label
+                                    x:Name="UltimaSessaoDataTXT"
+                                    Text=""
+                                    FontSize="12"
+                                    TextColor="{StaticResource AthenaTextMuted}"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1" />
+
+                    </VerticalStackLayout>
+
+                    <!-- TEMPO LÍQUIDO -->
+                    <Border
+                                BackgroundColor="#080B10"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="12">
+
+                        <Grid
+                                    ColumnDefinitions="Auto,*,Auto"
+                                    ColumnSpacing="10">
+
+                            <Border
+                                        Grid.Column="0"
+                                        WidthRequest="34"
+                                        HeightRequest="34"
+                                        BackgroundColor="#101F38"
+                                        Stroke="{StaticResource AthenaBlue}"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 17"
+                                        VerticalOptions="Center">
+
+                                <Label
+                                            Text="◷"
+                                            FontSize="18"
+                                            TextColor="{StaticResource AthenaBlueLight}"
+                                            HorizontalOptions="Center"
+                                            VerticalOptions="Center" />
+
+                            </Border>
+
+                            <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Spacing="1"
+                                        VerticalOptions="Center">
+
+                                <Label
+                                            Text="TEMPO ESTUDADO"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            CharacterSpacing="0.6"
+                                            TextColor="{StaticResource AthenaTextMuted}" />
+
+                                <Label
+                                            x:Name="UltimaSessaoTempoTXT"
+                                            Text=""
+                                            FontSize="20"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource AthenaBlueLight}" />
+
+                            </VerticalStackLayout>
+
+                            <Label
+                                        Grid.Column="2"
+                                        Text="Última sessão"
+                                        FontSize="10"
+                                        TextColor="{StaticResource AthenaTextMuted}"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center" />
+
+                        </Grid>
+
+                    </Border>
+
+                    <!-- PRÉVIA DA ANOTAÇÃO -->
+                    <Border
+                                BackgroundColor="#101A2B"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 10"
+                                Padding="11">
+
+                        <VerticalStackLayout
+                                    Spacing="5">
+
+                            <HorizontalStackLayout
+                                        Spacing="6">
+
+                                <Label
+                                            Text="✎"
+                                            FontSize="15"
+                                            TextColor="{StaticResource AthenaGold}"
+                                            VerticalOptions="Center" />
+
+                                <Label
+                                            Text="ANOTAÇÃO DA SESSÃO"
+                                            FontSize="10"
+                                            FontAttributes="Bold"
+                                            CharacterSpacing="0.6"
+                                            TextColor="{StaticResource AthenaGold}"
+                                            VerticalOptions="Center" />
+
+                            </HorizontalStackLayout>
+
+                            <Label
+                                        x:Name="UltimaSessaoDescricaoTXT"
+                                        Text=""
+                                        FontSize="13"
+                                        FontAttributes="Italic"
+                                        TextColor="{StaticResource AthenaTextSecondary}"
+                                        LineHeight="1.2"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="4" />
 
                         </VerticalStackLayout>
 
                     </Border>
 
-                    <!-- INFORMAÇÕES COMPLEMENTARES -->
-                    <Border
+                    <!-- ORIENTAÇÃO -->
+                    <Grid
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="8">
+
+                        <HorizontalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="6"
+                                    VerticalOptions="Center">
+
+                            <Label
+                                        Text="ⓘ"
+                                        FontSize="14"
+                                        TextColor="{StaticResource AthenaTextMuted}"
+                                        VerticalOptions="Center" />
+
+                            <Label
+                                        Text="Suas anotações ajudam você a lembrar onde parou."
+                                        FontSize="10"
+                                        TextColor="{StaticResource AthenaTextSecondary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1"
+                                        VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                        <Label
+                                    Grid.Column="1"
+                                    Text="Histórico ›"
+                                    FontSize="11"
+                                    FontAttributes="Bold"
+                                    TextColor="{StaticResource AthenaBlueLight}"
+                                    VerticalOptions="Center" />
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- ESTADO SEM ÚLTIMA SESSÃO -->
+            <Border
+                        x:Name="EstadoSemUltimaSessao"
+                        BackgroundColor="#0D1726"
+                        Stroke="#1B2A40"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="16"
+                        IsVisible="False">
+
+                <VerticalStackLayout
+                            Spacing="8">
+
+                    <HorizontalStackLayout
+                                Spacing="8">
+
+                        <Border
+                                    WidthRequest="30"
+                                    HeightRequest="30"
+                                    BackgroundColor="#101F38"
+                                    Stroke="{StaticResource AthenaBorder}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 8"
+                                    VerticalOptions="Center">
+
+                            <Label
+                                        Text="◷"
+                                        FontSize="18"
+                                        TextColor="{StaticResource AthenaTextMuted}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+
+                        </Border>
+
+                        <Label
+                                    Text="ÚLTIMA SESSÃO"
+                                    FontSize="11"
+                                    FontAttributes="Bold"
+                                    CharacterSpacing="0.8"
+                                    TextColor="{StaticResource AthenaTextMuted}"
+                                    VerticalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                    <Label
+                                Text="Nenhuma sessão registrada nesta meta"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                Margin="0,4,0,0" />
+
+                    <Label
+                                Text="Suas anotações aparecerão aqui para ajudar você a continuar seus estudos."
+                                FontSize="13"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                LineBreakMode="WordWrap"
+                                MaxLines="3" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- INFORMAÇÕES COMPLEMENTARES -->
+            <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
                         StrokeThickness="1"
                         StrokeShape="RoundRectangle 16"
                         Padding="1">
 
-                        <Grid
+                <Grid
                             RowDefinitions="Auto,Auto"
                             ColumnDefinitions="*,*"
                             RowSpacing="1"
                             ColumnSpacing="1"
                             BackgroundColor="#263650">
 
-                            <!-- PRIORIDADE -->
-                            <Border
+                    <!-- PRIORIDADE -->
+                    <Border
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 BackgroundColor="#0D1726"
                                 StrokeThickness="0"
                                 Padding="14">
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Spacing="8">
 
-                                    <Label
+                            <Label
                                         Text="PRIORIDADE"
                                         FontSize="10"
                                         CharacterSpacing="0.6"
                                         TextColor="{StaticResource AthenaTextSecondary}" />
 
-                                    <HorizontalStackLayout
+                            <HorizontalStackLayout
                                         Spacing="8">
 
-                                        <BoxView
+                                <BoxView
                                             WidthRequest="8"
                                             HeightRequest="8"
                                             CornerRadius="4"
                                             Color="{StaticResource AthenaBlue}"
                                             VerticalOptions="Center" />
 
-                                        <Label
+                                <Label
                                             Text="{Binding prioridadeMeta, TargetNullValue=Sem prioridade, FallbackValue=Sem prioridade}"
                                             FontSize="15"
                                             FontAttributes="Bold"
                                             TextColor="{StaticResource AthenaTextPrimary}" />
 
-                                    </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                            </Border>
+                    </Border>
 
-                            <!-- STATUS -->
-                            <Border
+                    <!-- STATUS -->
+                    <Border
                                 Grid.Row="0"
                                 Grid.Column="1"
                                 BackgroundColor="#0D1726"
                                 StrokeThickness="0"
                                 Padding="14">
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Spacing="8">
 
-                                    <Label
+                            <Label
                                         Text="STATUS"
                                         FontSize="10"
                                         CharacterSpacing="0.6"
                                         TextColor="{StaticResource AthenaTextSecondary}" />
 
-                                    <HorizontalStackLayout
+                            <HorizontalStackLayout
                                         Spacing="8">
 
-                                        <BoxView
+                                <BoxView
                                             WidthRequest="8"
                                             HeightRequest="8"
                                             CornerRadius="4"
                                             Color="{StaticResource AthenaSuccess}"
                                             VerticalOptions="Center" />
 
-                                        <Label
+                                <Label
                                             Text="{Binding status}"
                                             FontSize="15"
                                             FontAttributes="Bold"
                                             TextColor="{StaticResource AthenaBlueLight}" />
 
-                                    </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                            </Border>
+                    </Border>
 
-                            <!-- DATA DE CRIAÇÃO -->
-                            <Border
+                    <!-- DATA DE CRIAÇÃO -->
+                    <Border
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 BackgroundColor="#0D1726"
                                 StrokeThickness="0"
                                 Padding="14">
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Spacing="8">
 
-                                    <Label
+                            <Label
                                         Text="CRIADA EM"
                                         FontSize="10"
                                         CharacterSpacing="0.6"
                                         TextColor="{StaticResource AthenaTextSecondary}" />
 
-                                    <HorizontalStackLayout
+                            <HorizontalStackLayout
                                         Spacing="7">
 
-                                        <Label
+                                <Label
                                             Text="▧"
                                             FontSize="15"
                                             TextColor="{StaticResource AthenaTextSecondary}"
                                             VerticalOptions="Center" />
 
-                                        <Label
+                                <Label
                                             Text="{Binding dataCriacao, StringFormat='{0:dd MMM yyyy}'}"
                                             FontSize="13"
                                             TextColor="{StaticResource AthenaTextPrimary}"
                                             VerticalOptions="Center" />
 
-                                    </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                            </Border>
+                    </Border>
 
-                            <!-- DATA LIMITE -->
-                            <Border
+                    <!-- DATA LIMITE -->
+                    <Border
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 BackgroundColor="#0D1726"
                                 StrokeThickness="0"
                                 Padding="14">
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Spacing="8">
 
-                                    <Label
+                            <Label
                                         Text="DATA LIMITE"
                                         FontSize="10"
                                         CharacterSpacing="0.6"
                                         TextColor="{StaticResource AthenaTextSecondary}" />
 
-                                    <HorizontalStackLayout
+                            <HorizontalStackLayout
                                         Spacing="7">
 
-                                        <Label
+                                <Label
                                             Text="□"
                                             FontSize="15"
                                             TextColor="{StaticResource AthenaGold}"
                                             VerticalOptions="Center" />
 
-                                        <Label
+                                <Label
                                             Text="{Binding TextoDataLimite, TargetNullValue=Sem data limite, FallbackValue=Sem data limite}"
                                             FontSize="13"
                                             TextColor="{StaticResource AthenaTextPrimary}"
@@ -678,38 +948,38 @@
                                             MaxLines="1"
                                             VerticalOptions="Center" />
 
-                                    </HorizontalStackLayout>
+                            </HorizontalStackLayout>
 
-                                </VerticalStackLayout>
-
-                            </Border>
-
-                        </Grid>
+                        </VerticalStackLayout>
 
                     </Border>
 
-                    <!-- AÇÕES -->
-                    <VerticalStackLayout
+                </Grid>
+
+            </Border>
+
+            <!-- AÇÕES -->
+            <VerticalStackLayout
                         Spacing="10"
                         Padding="2,10,2,0">
 
-                        <Label
+                <Label
                             Text="O que deseja fazer agora?"
                             FontSize="21"
                             FontAttributes="Bold"
                             TextColor="{StaticResource AthenaTextPrimary}" />
 
-                        <Label
+                <Label
                             Text="Ações disponíveis para impulsionar esta meta."
                             FontSize="13"
                             TextColor="{StaticResource AthenaTextSecondary}" />
 
-                        <!-- CRIAR SESSÃO -->
-                        <VerticalStackLayout
+                <!-- CRIAR SESSÃO -->
+                <VerticalStackLayout
                             Spacing="6"
                             Padding="0,4,0,0">
 
-                            <Button
+                    <Button
                                 Text="⊕  CRIAR SESSÃO DE ESTUDO"
                                 Clicked="Button_Clicked"
                                 HeightRequest="52"
@@ -721,21 +991,21 @@
                                 BorderWidth="0"
                                 HorizontalOptions="Fill" />
 
-                            <Label
+                    <Label
                                 Text="Defina uma sessão vinculada a esta meta."
                                 FontSize="11"
                                 TextColor="{StaticResource AthenaTextSecondary}"
                                 HorizontalTextAlignment="Center"
                                 HorizontalOptions="Center" />
 
-                        </VerticalStackLayout>
+                </VerticalStackLayout>
 
-                        <!-- COMEÇAR A ESTUDAR -->
-                        <VerticalStackLayout
+                <!-- COMEÇAR A ESTUDAR -->
+                <VerticalStackLayout
                             Spacing="6"
                             Padding="0,4,0,0">
 
-                            <Button
+                    <Button
                                 Text="▷  COMEÇAR A ESTUDAR"
                                 Clicked="Button_Clicked_1"
                                 HeightRequest="50"
@@ -748,17 +1018,17 @@
                                 BorderWidth="1"
                                 HorizontalOptions="Fill" />
 
-                            <Label
+                    <Label
                                 Text="Inicie o cronômetro para esta meta."
                                 FontSize="11"
                                 TextColor="{StaticResource AthenaTextSecondary}"
                                 HorizontalTextAlignment="Center"
                                 HorizontalOptions="Center" />
 
-                        </VerticalStackLayout>
+                </VerticalStackLayout>
 
-                        <!-- HISTÓRICO -->
-                        <Border
+                <!-- HISTÓRICO -->
+                <Border
                             BackgroundColor="#0D1726"
                             Stroke="#1B2A40"
                             StrokeThickness="1"
@@ -766,11 +1036,11 @@
                             Padding="13"
                             Margin="0,4,0,0">
 
-                            <Grid
+                    <Grid
                                 ColumnDefinitions="Auto,*,Auto"
                                 ColumnSpacing="12">
 
-                                <Border
+                        <Border
                                     Grid.Column="0"
                                     WidthRequest="40"
                                     HeightRequest="40"
@@ -780,44 +1050,44 @@
                                     StrokeShape="RoundRectangle 10"
                                     VerticalOptions="Center">
 
-                                    <Label
+                            <Label
                                         Text="◷"
                                         FontSize="21"
                                         TextColor="{StaticResource AthenaBlueLight}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center" />
 
-                                </Border>
+                        </Border>
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Grid.Column="1"
                                     Spacing="2"
                                     VerticalOptions="Center">
 
-                                    <Label
+                            <Label
                                         Text="Ver histórico de sessões"
                                         FontSize="15"
                                         FontAttributes="Bold"
                                         TextColor="{StaticResource AthenaTextPrimary}" />
 
-                                    <Label
+                            <Label
                                         Text="Consulte seus estudos anteriores nesta meta."
                                         FontSize="11"
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         LineBreakMode="TailTruncation"
                                         MaxLines="1" />
 
-                                </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                                <Label
+                        <Label
                                     Grid.Column="2"
                                     Text="›"
                                     FontSize="27"
                                     TextColor="{StaticResource AthenaTextSecondary}"
                                     VerticalOptions="Center" />
 
-                                <!-- TODA A ÁREA É CLICÁVEL -->
-                                <Button
+                        <!-- TODA A ÁREA É CLICÁVEL -->
+                        <Button
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     Text=""
@@ -828,23 +1098,23 @@
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill" />
 
-                            </Grid>
+                    </Grid>
 
-                        </Border>
+                </Border>
 
-                        <!-- EDITAR META -->
-                        <Border
+                <!-- EDITAR META -->
+                <Border
                             BackgroundColor="#0D1726"
                             Stroke="#1B2A40"
                             StrokeThickness="1"
                             StrokeShape="RoundRectangle 12"
                             Padding="13">
 
-                            <Grid
+                    <Grid
                                 ColumnDefinitions="Auto,*,Auto"
                                 ColumnSpacing="12">
 
-                                <Border
+                        <Border
                                     Grid.Column="0"
                                     WidthRequest="40"
                                     HeightRequest="40"
@@ -854,44 +1124,44 @@
                                     StrokeShape="RoundRectangle 10"
                                     VerticalOptions="Center">
 
-                                    <Label
+                            <Label
                                         Text="≡"
                                         FontSize="21"
                                         TextColor="{StaticResource AthenaGold}"
                                         HorizontalOptions="Center"
                                         VerticalOptions="Center" />
 
-                                </Border>
+                        </Border>
 
-                                <VerticalStackLayout
+                        <VerticalStackLayout
                                     Grid.Column="1"
                                     Spacing="2"
                                     VerticalOptions="Center">
 
-                                    <Label
+                            <Label
                                         Text="Editar meta"
                                         FontSize="15"
                                         FontAttributes="Bold"
                                         TextColor="{StaticResource AthenaTextPrimary}" />
 
-                                    <Label
+                            <Label
                                         Text="Altere título, descrição, prioridade ou prazo."
                                         FontSize="11"
                                         TextColor="{StaticResource AthenaTextSecondary}"
                                         LineBreakMode="TailTruncation"
                                         MaxLines="1" />
 
-                                </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                                <Label
+                        <Label
                                     Grid.Column="2"
                                     Text="›"
                                     FontSize="27"
                                     TextColor="{StaticResource AthenaTextSecondary}"
                                     VerticalOptions="Center" />
 
-                                <!-- TODA A ÁREA É CLICÁVEL -->
-                                <Button
+                        <!-- TODA A ÁREA É CLICÁVEL -->
+                        <Button
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
                                     Text=""
@@ -902,18 +1172,14 @@
                                     HorizontalOptions="Fill"
                                     VerticalOptions="Fill" />
 
-                            </Grid>
+                    </Grid>
 
-                        </Border>
+                </Border>
 
-                    </VerticalStackLayout>
+            </VerticalStackLayout>
 
-                </VerticalStackLayout>
+        </VerticalStackLayout>
 
-            </DataTemplate>
-
-        </CollectionView.ItemTemplate>
-
-    </CollectionView>
+    </ScrollView>
 
 </ContentPage>

@@ -111,9 +111,6 @@
 	  <MauiXaml Update="PerfilPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="SessaoEstudo\CriarSessao.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="SessaoEstudo\HistoridoSessao.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -1,79 +1,598 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATHENA.SessaoEstudo.InterfaceSessao"
-                         BackgroundColor="{StaticResource AthenaBackground}">
 
-    <ScrollView>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.SessaoEstudo.InterfaceSessao"
+    BackgroundColor="{StaticResource AthenaBackground}"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="True">
+
+    <ScrollView
+        VerticalScrollBarVisibility="Never">
 
         <VerticalStackLayout
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
-            Spacing="20"
-            Padding="10">
+            x:Name="Interface"
+            Padding="16,36,16,32"
+            Spacing="16">
 
-            <Image
-            Source="logo_athena.png"
-            WidthRequest="240"
-            HeightRequest="36"
-            HorizontalOptions="Start"
-            VerticalOptions="Start"
-            Aspect="AspectFit" />
-
-
-            <VerticalStackLayout
-                            Spacing="8"
-                            Padding="10"
-                            x:Name="Interface">
-
-
-                <Entry
-     x:Name="TituloTXT"
-     Placeholder="{Binding tituloSessao}"
-     PlaceholderColor="{StaticResource AthenaTextPrimary}"
-     TextColor="White" />
-
-
-
-                <Label                       
-                                TextColor="{StaticResource AthenaTextPrimary}"
-                                HorizontalOptions="Center"
-                                FontSize="30" 
-                                x:Name="TempoEstudo"/>
-
-                <Label
-                                Text="Opções"
-                                TextColor="{StaticResource AthenaGold}"
-                                FontSize="16" />
-
-
-                <Button 
-                               x:Name="Contar_tempo"
-                               Clicked="Contar_tempo_Clicked"
-                               Text="Começar a contar o tempo"
-                               TextColor="White"/>
+            <!-- CABEÇALHO -->
+            <Grid
+                ColumnDefinitions="Auto,*,Auto"
+                RowDefinitions="Auto,Auto"
+                ColumnSpacing="10"
+                RowSpacing="8">
 
                 <Button
-                                x:Name="Salvar"
-                                Clicked="Salvar_Clicked_1"
-                                Text="Salvar alterações"
-                                TextColor="White"/>
-                <Label
-                               Text="Esta meta não poderá ser alterada quando for salva"
-                               HorizontalOptions="Center"
-                               TextColor="{StaticResource AthenaTextSecondary}"
-                               FontSize="16" />
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Text="‹"
+                    Clicked="Button_Clicked"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Padding="0"
+                    CornerRadius="10"
+                    FontSize="32"
+                    TextColor="{StaticResource AthenaBlueLight}"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    BorderColor="{StaticResource AthenaBorder}"
+                    BorderWidth="1"
+                    HorizontalOptions="Start"
+                    VerticalOptions="Start" />
+
+                <VerticalStackLayout
+                    Grid.Column="1"
+                    Grid.Row="0"
+                    Spacing="2"
+                    VerticalOptions="Center">
+
+                    <HorizontalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="ATHENA"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="1.6"
+                            TextColor="{StaticResource AthenaGold}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="•"
+                            FontSize="10"
+                            TextColor="{StaticResource AthenaTextMuted}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="SESSÃO"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextMuted}"
+                            VerticalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                    <Label
+                        Text="Sessão de estudo"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1" />
+
+                </VerticalStackLayout>
+
+                <Border
+                    Grid.Column="2"
+                    Grid.Row="0"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    Stroke="{StaticResource AthenaBorder}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    Padding="9,6"
+                    VerticalOptions="Center">
+
+                    <HorizontalStackLayout
+                        Spacing="6">
+
+                        <BoxView
+                            WidthRequest="6"
+                            HeightRequest="6"
+                            CornerRadius="3"
+                            Color="{StaticResource AthenaGold}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="Em andamento"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaTextSecondary}"
+                            VerticalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                </Border>
+
+                <BoxView
+                    Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    HeightRequest="1"
+                    Margin="0,14,0,0"
+                    Color="#24344B"
+                    HorizontalOptions="Fill" />
+
+            </Grid>
+
+            <!-- APRESENTAÇÃO -->
+            <VerticalStackLayout
+                Spacing="6"
+                Margin="0,2,0,4">
 
                 <Label
-                                Text="Faça uma breve explicação do que foi trabalhado nesta sessão"
+                    Text="FOCO E REGISTRO"
+                    FontSize="11"
+                    FontAttributes="Bold"
+                    CharacterSpacing="0.8"
+                    TextColor="{StaticResource AthenaGold}"
+                    VerticalOptions="Center" />
+
+                <Label
+                    Text="Registre sua sessão"
+                    FontSize="26"
+                    FontAttributes="Bold"
+                    TextColor="{StaticResource AthenaTextPrimary}" />
+
+                <Label
+                    Text="Acompanhe o que foi estudado e continue sua evolução dentro da meta."
+                    FontSize="13"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    LineBreakMode="WordWrap" />
+
+            </VerticalStackLayout>
+
+            <!-- META RELACIONADA -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorder}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    ColumnSpacing="10">
+
+                    <BoxView
+                        Grid.Column="0"
+                        WidthRequest="4"
+                        CornerRadius="2"
+                        Color="{StaticResource AthenaGold}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill" />
+
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Spacing="5"
+                        VerticalOptions="Center">
+
+                        <Label
+                            Text="META RELACIONADA"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.7"
+                            TextColor="{StaticResource AthenaGold}" />
+
+                        <Label
+                            x:Name="TxtMetaRelacionada"
+                            Text="Meta de estudo"
+                            FontSize="17"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1" />
+
+                    </VerticalStackLayout>
+
+                    <Border
+                        Grid.Column="2"
+                        BackgroundColor="#101F38"
+                        Stroke="{StaticResource AthenaBorder}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 8"
+                        Padding="9,6"
+                        VerticalOptions="Center">
+
+                        <Label
+                            x:Name="TxtCategoriaRelacionada"
+                            Text="Sem categoria"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.4"
+                            TextColor="{StaticResource AthenaBlueLight}"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1" />
+
+                    </Border>
+
+                </Grid>
+
+            </Border>
+
+            <!-- INFORMAÇÕES DA SESSÃO -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorder}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <VerticalStackLayout
+                    Spacing="14">
+
+                    <Grid
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <HorizontalStackLayout
+                            Grid.Column="0"
+                            Spacing="7">
+
+                            <BoxView
+                                WidthRequest="7"
+                                HeightRequest="7"
+                                CornerRadius="4"
+                                Color="{StaticResource AthenaBlue}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Text="INFORMAÇÕES DA SESSÃO"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                CharacterSpacing="0.7"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                VerticalOptions="Center" />
+
+                        </HorizontalStackLayout>
+
+                        <Label
+                            Grid.Column="1"
+                            Text="Rascunho"
+                            FontSize="10"
+                            TextColor="{StaticResource AthenaTextMuted}"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#24344B"
+                        HorizontalOptions="Fill" />
+
+                    <!-- TÍTULO EDITÁVEL -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="TÍTULO DA SESSÃO"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaTextPrimary}" />
+
+                        <Border
+                            BackgroundColor="#0D1726"
+                            Stroke="{StaticResource AthenaBorder}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,0"
+                            HeightRequest="50">
+
+                            <Entry
+                                x:Name="TituloTXT"
+                                Placeholder="Digite o título da sessão..."
+                                PlaceholderColor="{StaticResource AthenaTextMuted}"
                                 TextColor="{StaticResource AthenaTextPrimary}"
-                                FontSize="24"
-                                HorizontalOptions="Start" />
-                <Entry
-                                x:Name="DescricaoTXT"
-                                BackgroundColor="Gray"
-                                TextColor="Black" />
+                                FontSize="14"
+                                ClearButtonVisibility="WhileEditing"
+                                VerticalOptions="Center" />
 
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                    <!-- RESUMO DOS TEMPOS -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="RESUMO DOS TEMPOS"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.7"
+                            TextColor="{StaticResource AthenaTextPrimary}" />
+
+                        <Border
+                            BackgroundColor="#0D1726"
+                            Stroke="{StaticResource AthenaBorder}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 11"
+                            Padding="11">
+
+                            <VerticalStackLayout
+                                Spacing="10">
+
+                                <Grid
+                                    ColumnDefinitions="*,*"
+                                    ColumnSpacing="10">
+
+                                    <Border
+                                        Grid.Column="0"
+                                        BackgroundColor="#101A2B"
+                                        Stroke="#1B2A40"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 9"
+                                        Padding="10">
+
+                                        <VerticalStackLayout
+                                            Spacing="5">
+
+                                            <Label
+                                                Text="TEMPO BRUTO"
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                CharacterSpacing="0.5"
+                                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                                            <Label
+                                                x:Name="TxtTempoBruto"
+                                                Text="0min"
+                                                FontSize="20"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource AthenaTextPrimary}" />
+
+                                            <Label
+                                                Text="Tempo total decorrido"
+                                                FontSize="9"
+                                                TextColor="{StaticResource AthenaTextMuted}" />
+
+                                        </VerticalStackLayout>
+
+                                    </Border>
+
+                                    <Border
+                                        Grid.Column="1"
+                                        BackgroundColor="#101A2B"
+                                        Stroke="#1B2A40"
+                                        StrokeThickness="1"
+                                        StrokeShape="RoundRectangle 9"
+                                        Padding="10">
+
+                                        <VerticalStackLayout
+                                            Spacing="5">
+
+                                            <Label
+                                                Text="EM PAUSA"
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                CharacterSpacing="0.5"
+                                                TextColor="{StaticResource AthenaGold}" />
+
+                                            <Label
+                                                x:Name="TxtTempoPausa"
+                                                Text="0min"
+                                                FontSize="20"
+                                                FontAttributes="Bold"
+                                                TextColor="{StaticResource AthenaGold}" />
+
+                                            <Label
+                                                Text="Tempo total pausado"
+                                                FontSize="9"
+                                                TextColor="{StaticResource AthenaTextMuted}" />
+
+                                        </VerticalStackLayout>
+
+                                    </Border>
+
+                                </Grid>
+
+                                <Border
+                                    BackgroundColor="#080B10"
+                                    Stroke="#1B2A40"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 9"
+                                    Padding="12">
+
+                                    <VerticalStackLayout
+                                        Spacing="3">
+
+                                        <Grid
+                                            ColumnDefinitions="*,Auto"
+                                            ColumnSpacing="8">
+
+                                            <Label
+                                                Text="TEMPO LÍQUIDO"
+                                                FontSize="10"
+                                                FontAttributes="Bold"
+                                                CharacterSpacing="0.7"
+                                                TextColor="{StaticResource AthenaBlueLight}" />
+
+                                            <Label
+                                                Grid.Column="1"
+                                                Text="Progresso da meta"
+                                                FontSize="9"
+                                                TextColor="{StaticResource AthenaTextMuted}"
+                                                HorizontalOptions="End" />
+
+                                        </Grid>
+
+                                        <Label
+                                            x:Name="TempoEstudo"
+                                            Text="0min"
+                                            FontSize="28"
+                                            FontAttributes="Bold"
+                                            TextColor="{StaticResource AthenaBlueLight}" />
+
+                                        <Label
+                                            Text="Tempo efetivamente estudado"
+                                            FontSize="10"
+                                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                                    </VerticalStackLayout>
+
+                                </Border>
+
+                            </VerticalStackLayout>
+
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                    <!-- DESCRIÇÃO / ANOTAÇÃO -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Grid
+                            ColumnDefinitions="*,Auto"
+                            ColumnSpacing="8">
+
+                            <Label
+                                Grid.Column="0"
+                                Text="ANOTAÇÃO DA SESSÃO"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource AthenaTextPrimary}" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Opcional"
+                                FontSize="10"
+                                TextColor="{StaticResource AthenaTextMuted}" />
+
+                        </Grid>
+
+                        <Label
+                            Text="Uma anotação curta ajuda você a lembrar onde parou."
+                            FontSize="11"
+                            FontAttributes="Italic"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Border
+                            BackgroundColor="#0D1726"
+                            Stroke="{StaticResource AthenaBorder}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,8"
+                            MinimumHeightRequest="118">
+
+                            <Editor
+                                x:Name="DescricaoTXT"
+                                Placeholder="O que você estudou nesta sessão? Anote onde parou ou o que precisa revisar depois..."
+                                PlaceholderColor="{StaticResource AthenaTextMuted}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="13"
+                                AutoSize="TextChanges"
+                                MinimumHeightRequest="100"
+                                VerticalOptions="Fill" />
+
+                        </Border>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- ACESSO AO CRONÔMETRO -->
+            <VerticalStackLayout
+                Spacing="6">
+
+                <Button
+                    x:Name="Contar_tempo"
+                    Text="▷  IR PARA O CRONÔMETRO"
+                    Clicked="Contar_tempo_Clicked"
+                    HeightRequest="52"
+                    CornerRadius="11"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CharacterSpacing="0.3"
+                    BackgroundColor="#101F38"
+                    TextColor="{StaticResource AthenaBlueLight}"
+                    BorderColor="{StaticResource AthenaBlue}"
+                    BorderWidth="1"
+                    HorizontalOptions="Fill" />
+
+                <Label
+                    Text="Abra o cronômetro para registrar seu tempo de estudo."
+                    FontSize="11"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+            <!-- AVISO -->
+            <Border
+                BackgroundColor="#0D1726"
+                Stroke="#1B2A40"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                Padding="12">
+
+                <HorizontalStackLayout
+                    Spacing="8">
+
+                    <Label
+                        Text="ⓘ"
+                        FontSize="16"
+                        TextColor="{StaticResource AthenaTextMuted}"
+                        VerticalOptions="Start" />
+
+                    <Label
+                        Text="Se você sair sem salvar, esta sessão será descartada e não aparecerá no histórico."
+                        FontSize="11"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        LineBreakMode="WordWrap"
+                        MaxLines="3"
+                        VerticalOptions="Center" />
+
+                </HorizontalStackLayout>
+
+            </Border>
+
+            <!-- FINALIZAÇÃO -->
+            <VerticalStackLayout
+                Spacing="8"
+                Padding="0,2,0,0">
+
+                <Button
+                    x:Name="Salvar"
+                    Text="▣  FINALIZAR E SALVAR SESSÃO"
+                    Clicked="Salvar_Clicked_1"
+                    HeightRequest="52"
+                    CornerRadius="11"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CharacterSpacing="0.3"
+                    BackgroundColor="{StaticResource AthenaGoldButton}"
+                    TextColor="{StaticResource Black}"
+                    BorderWidth="0"
+                    HorizontalOptions="Fill" />
+
+                <Label
+                    Text="Finalize a sessão para salvar os tempos e as anotações."
+                    FontSize="11"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="Depois de salva, esta sessão não poderá mais ser alterada. Ela ficará disponível apenas para consulta no histórico."
+                    FontSize="11"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    HorizontalTextAlignment="Center"
+                    HorizontalOptions="Center"
+                    LineBreakMode="WordWrap"
+                    MaxLines="3" />
 
             </VerticalStackLayout>
 

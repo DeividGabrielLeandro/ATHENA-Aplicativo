@@ -2,6 +2,7 @@
 using ATHENA.Database;
 using ATHENA.Models;
 using ATHENA.SessaoEstudo;
+using Microsoft.Maui.Platform;
 using SQLite;
 using static ATHENA.NewPage1;
 
@@ -33,13 +34,34 @@ public partial class InterfaceMeta : ContentPage
         {
             base.OnAppearing();
 
-            List<Meta> metas = await db.Table<Meta>()
-                .Where(mbox  => mbox.idMeta == IdMeta)
-                .ToListAsync();
+            Meta? meta = await db.Table<Meta>()
+     .FirstOrDefaultAsync(m => m.idMeta == IdMeta);
 
-            listaMetas.ItemsSource = metas;
+            if (meta is null)
+            {
+                return;
+            }
 
-            
+            ConteudoMeta.IsVisible = true;
+
+            ConteudoMeta.BindingContext = meta;
+
+            Sessao_Estudo? sessao = await db.Table<Sessao_Estudo>()
+            .Where(s => s.idMeta == meta.idMeta)
+            .OrderByDescending(s => s.idSessao)
+            .FirstOrDefaultAsync();
+
+            if (sessao == null)
+                return;
+            UltimaSessaoCard.IsVisible = true;
+            TimeSpan tempo = TimeSpan.FromMinutes((double)sessao.tempoEstudadoMinutos);
+
+            UltimaSessaoTempoTXT.Text = tempo.ToFormattedString(Title);
+            UltimaSessaoTituloTXT.Text = sessao.tituloSessao;
+            UltimaSessaoDataTXT.Text = sessao.DataFim.ToString();
+            UltimaSessaoDescricaoTXT.Text = sessao.descricaoSessao;
+
+
 
         }
         catch (Exception ex)
@@ -52,8 +74,11 @@ public partial class InterfaceMeta : ContentPage
     {
         try
         {
+            DateTime dataInicio = DateTime.Now;
+            int IdSessao = await Models.Models_SessaoEstudo.CriarSessao(IdMeta, dataInicio);
+
             await Shell.Current.GoToAsync(
-                    $"{nameof(CriarSessao)}?idMeta={IdMeta}");
+            $"{nameof(InterfaceSessao)}?idSessao={IdSessao}&idMeta={IdMeta}");
         }
 
         catch (Exception ex)

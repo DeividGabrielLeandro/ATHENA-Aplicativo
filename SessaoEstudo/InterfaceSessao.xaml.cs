@@ -75,8 +75,11 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
 
             if (TempoEstudado != null)
             {
-                TimeSpan tempo = TimeSpan.FromHours((Double)TempoEstudado);
+                TimeSpan tempo = TimeSpan.FromMinutes((double)TempoEstudado);
+
                 TempoEstudo.Text = tempo.ToFormattedString(Title);
+                TxtTempoBruto.Text = TimeSpan.FromMinutes(minutosBrutos).ToString(@"h\:mm");
+                TxtTempoPausa.Text = TimeSpan.FromMinutes(TempoPausa).ToString(@"h\:mm");
             }
 
             Meta? meta = await db.Table<Meta>()
@@ -153,4 +156,8 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
         }
     }
 
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+
+    }
 }

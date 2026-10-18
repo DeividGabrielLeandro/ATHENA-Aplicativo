@@ -1,110 +1,564 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ATHENA.SessaoEstudo.HistoridoSessao"
-             BackgroundColor="{StaticResource AthenaBackground}">
 
-    <ScrollView>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.SessaoEstudo.HistoridoSessao"
+    BackgroundColor="{StaticResource AthenaBackground}"
+    Shell.NavBarIsVisible="False"
+    Shell.TabBarIsVisible="True">
 
+    <!--
+        Padrão das telas principais do ATHENA:
+        Row 0: cabeçalho
+        Row 1: título
+        Row 2: resumo
+        Row 3: pesquisa e ações
+        Row 4: somente a lista rola
+    -->
+    <Grid
+        RowDefinitions="Auto,Auto,Auto,Auto,*">
+
+        <!-- CABEÇALHO -->
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*"
+            RowDefinitions="Auto,Auto"
+            Padding="16,16,16,0"
+            Margin="0,0,0,14">
+
+            <VerticalStackLayout
+                Grid.Column="0"
+                Grid.Row="0"
+                Spacing="3"
+                VerticalOptions="Start">
+
+                <Image
+                    Source="logo_athena.png"
+                    WidthRequest="112"
+                    HeightRequest="28"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text="HISTÓRICO DE SESSÕES"
+                    FontSize="9"
+                    CharacterSpacing="1"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    HorizontalOptions="Start" />
+
+            </VerticalStackLayout>
+
+            <BoxView
+                Grid.Row="1"
+                Grid.Column="0"
+                HeightRequest="1"
+                Margin="0,14,0,0"
+                Color="#24344B"
+                HorizontalOptions="Fill" />
+
+        </Grid>
+
+        <!-- TÍTULO -->
         <VerticalStackLayout
-            HorizontalOptions="Fill"
-            VerticalOptions="Fill"
-            Spacing="20"
-            Padding="10">
+            Grid.Row="1"
+            Padding="16,4,16,0"
+            Spacing="3">
 
-            <Image
-            Source="logo_athena.png"
-            WidthRequest="240"
-            HeightRequest="36"
-            HorizontalOptions="Start"
-            VerticalOptions="Start"
-            Aspect="AspectFit" />
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="10"
+                Margin="0,0,0,14">
 
-            <CollectionView
-                x:Name="HistoricoSessao">
+                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="3"
+                    VerticalOptions="Center">
 
-                <CollectionView.ItemTemplate>
+                    <Label
+                        Text="Histórico de sessões"
+                        FontSize="26"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1" />
 
-                    <DataTemplate>
+                    <Label
+                        x:Name="MetaNomeTXT"
+                        Text="Acompanhe sua evolução dentro da meta."
+                        FontSize="12"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        LineBreakMode="TailTruncation"
+                        MaxLines="1" />
 
-
-                        <VerticalStackLayout
-                            Spacing="8"
-                            Padding="10">
+                </VerticalStackLayout>
 
                 <Border
-    BackgroundColor="Snow"
-    Padding="10"
-    Stroke="LightGray"
-    StrokeThickness="1"
-    StrokeShape="RoundRectangle 14"
-    HeightRequest="140">
+                    Grid.Column="1"
+                    WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="{StaticResource AthenaSurface}"
+                    Stroke="{StaticResource AthenaGold}"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 22"
+                    VerticalOptions="Center">
 
-                    <Grid ColumnDefinitions="2*, Auto, 3*, Auto, 2*" VerticalOptions="Center">
+                    <Label
+                        Text="◷"
+                        FontSize="22"
+                        TextColor="{StaticResource AthenaGold}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
 
-                        <VerticalStackLayout Grid.Column="0" VerticalOptions="Center">
-                                        <Label Text="{Binding tituloSessao}" FontAttributes="Bold" TextColor="Black" />
-                                        <Label Text="{Binding DataCriacao}" FontSize="12" TextColor="Gray" />
-                        </VerticalStackLayout>
-
-                        <BoxView 
-            Grid.Column="1" 
-            WidthRequest="1" 
-            Color="Black" 
-            Opacity="0.2" 
-            VerticalOptions="Fill" 
-            Margin="5,0" />
-
-                        <Label 
-            Grid.Column="2" 
-            Text="{Binding descricaoSessao}" 
-            TextColor="Black" 
-            VerticalOptions="Center" />
-
-                        <BoxView 
-            Grid.Column="3" 
-            WidthRequest="1" 
-            Color="Black" 
-            Opacity="0.2" 
-            VerticalOptions="Fill" 
-            Margin="5,0" />
-
-                        <VerticalStackLayout Grid.Column="4" VerticalOptions="Center" Spacing="4">
-
-                            <HorizontalStackLayout>
-                                <Label Text="Líquido: " TextColor="Black" />
-                                            <Label Text="{Binding TempoLiquidoFormatado}" FontAttributes="Bold" TextColor="Black" />
-                            </HorizontalStackLayout>
-
-                            <BoxView HeightRequest="1" Color="Black" Opacity="0.15" HorizontalOptions="Fill" />
-
-                            <HorizontalStackLayout>
-                                <Label Text="Bruto: " TextColor="Black" />
-                                            <Label Text="{Binding TempoBrutoFormatado}" TextColor="Black" />
-                            </HorizontalStackLayout>
-
-                            <BoxView HeightRequest="1" Color="Black" Opacity="0.15" HorizontalOptions="Fill" />
-
-                            <HorizontalStackLayout>
-                                <Label Text="Pausa: " TextColor="Black" />
-                                            <Label Text="{Binding TempoPausaFormatado}" TextColor="Black" />
-                            </HorizontalStackLayout>
-
-                        </VerticalStackLayout>
-
-                    </Grid>
                 </Border>
-                            
-                            
-            </VerticalStackLayout>
-                    </DataTemplate>
 
-                </CollectionView.ItemTemplate>
-
-            </CollectionView>
+            </Grid>
 
         </VerticalStackLayout>
 
-    </ScrollView>
+        <!-- RESUMO -->
+        <Border
+            Grid.Row="2"
+            BackgroundColor="{StaticResource AthenaSurface}"
+            Stroke="{StaticResource AthenaBorder}"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 14"
+            Padding="8"
+            Margin="16,0,16,16">
+
+            <Grid
+                ColumnDefinitions="*,Auto,*,Auto,*"
+                ColumnSpacing="5">
+
+                <VerticalStackLayout
+                    Grid.Column="0"
+                    Spacing="2"
+                    HorizontalOptions="Center">
+
+                    <Label
+                        Text="TOTAL"
+                        FontSize="9"
+                        CharacterSpacing="0.8"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        x:Name="TotalSessoesTXT"
+                        Text="0"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="sessões"
+                        FontSize="10"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+                <BoxView
+                    Grid.Column="1"
+                    WidthRequest="1"
+                    Margin="0,4"
+                    Color="#1B2A40"
+                    VerticalOptions="Fill" />
+
+                <VerticalStackLayout
+                    Grid.Column="2"
+                    Spacing="2"
+                    HorizontalOptions="Center">
+
+                    <HorizontalStackLayout
+                        Spacing="5"
+                        HorizontalOptions="Center">
+
+                        <BoxView
+                            WidthRequest="6"
+                            HeightRequest="6"
+                            CornerRadius="3"
+                            Color="{StaticResource AthenaBlue}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="LÍQUIDO"
+                            FontSize="9"
+                            CharacterSpacing="0.5"
+                            TextColor="{StaticResource AthenaBlueLight}"
+                            HorizontalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                    <Label
+                        x:Name="TempoTotalTXT"
+                        Text="0min"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaBlueLight}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="tempo estudado"
+                        FontSize="10"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+                <BoxView
+                    Grid.Column="3"
+                    WidthRequest="1"
+                    Margin="0,4"
+                    Color="#1B2A40"
+                    VerticalOptions="Fill" />
+
+                <VerticalStackLayout
+                    Grid.Column="4"
+                    Spacing="2"
+                    HorizontalOptions="Center">
+
+                    <HorizontalStackLayout
+                        Spacing="5"
+                        HorizontalOptions="Center">
+
+                        <BoxView
+                            WidthRequest="6"
+                            HeightRequest="6"
+                            CornerRadius="3"
+                            Color="{StaticResource AthenaGold}"
+                            VerticalOptions="Center" />
+
+                        <Label
+                            Text="RECENTE"
+                            FontSize="9"
+                            CharacterSpacing="0.5"
+                            TextColor="{StaticResource AthenaGold}"
+                            HorizontalOptions="Center" />
+
+                    </HorizontalStackLayout>
+
+                    <Label
+                        x:Name="UltimoRegistroTXT"
+                        Text="--"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaGold}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="último estudo"
+                        FontSize="10"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+            </Grid>
+
+        </Border>
+
+        <!-- PESQUISA E LIMPEZA -->
+        <VerticalStackLayout
+            Grid.Row="3"
+            Padding="16,0,16,0"
+            Spacing="8">
+
+            <!-- PESQUISA POR TÍTULO -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorder}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 11"
+                Padding="10,0"
+                HeightRequest="46">
+
+                <Grid
+                    ColumnDefinitions="Auto,*,Auto"
+                    ColumnSpacing="7">
+
+                    <Label
+                        Grid.Column="0"
+                        Text="⌕"
+                        FontSize="23"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        VerticalOptions="Center" />
+
+                    <Entry
+                        Grid.Column="1"
+                        x:Name="PesquisaSessaoTXT"
+                        Placeholder="Buscar sessão por título..."
+                        PlaceholderColor="{StaticResource AthenaTextMuted}"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        FontSize="13"
+                        ClearButtonVisibility="WhileEditing"
+                        ReturnType="Search"
+                        TextChanged="PesquisaSessaoTXT_TextChanged"
+                        VerticalOptions="Center" />
+
+                    <Label
+                        Grid.Column="2"
+                        Text="▣"
+                        FontSize="17"
+                        TextColor="{StaticResource AthenaGold}"
+                        VerticalOptions="Center" />
+
+                </Grid>
+
+            </Border>
+
+            <!-- DATA E BOTÃO EXPLÍCITO DE LIMPEZA -->
+            <Grid
+                ColumnDefinitions="*,Auto,Auto"
+                ColumnSpacing="8"
+                Margin="0,0,0,10">
+
+                <HorizontalStackLayout
+                    Grid.Column="0"
+                    Spacing="6"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="Data:"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        VerticalOptions="Center" />
+
+                    <DatePicker
+                        x:Name="FiltroDataSessao"
+                        Format="dd/MM/yyyy"
+                        FontSize="11"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        DateSelected="FiltroDataSessao_DateSelected"
+                        VerticalOptions="Center" />
+
+                </HorizontalStackLayout>
+
+                <Label
+                    Grid.Column="1"
+                    Text="Limpa a busca e a data"
+                    FontSize="9"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    VerticalOptions="Center"
+                    HorizontalTextAlignment="End" />
+
+                <Button
+                    Grid.Column="2"
+                    x:Name="BtnLimparFiltros"
+                    Text="LIMPAR BUSCA"
+                    Clicked="BtnLimparFiltros_Clicked"
+                    IsVisible="True"
+                    HeightRequest="34"
+                    Padding="10,0"
+                    CornerRadius="8"
+                    FontSize="10"
+                    FontAttributes="Bold"
+                    TextColor="Black"
+                    BackgroundColor="{StaticResource AthenaGold}"
+                    BorderColor="{StaticResource AthenaGold}"
+                    BorderWidth="1"
+                    SemanticProperties.Description="Limpar a pesquisa, a data selecionada e mostrar todas as sessões"
+                    AutomationId="BtnLimparFiltros"
+                    VerticalOptions="Center" />
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+        <!-- SOMENTE A LISTA ROLA -->
+        <CollectionView
+            Grid.Row="4"
+            x:Name="HistoricoSessao"
+            SelectionMode="None"
+            ItemsLayout="VerticalList"
+            VerticalScrollBarVisibility="Never"
+            Margin="16,0,16,0">
+
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    Padding="20,48,20,24"
+                    Spacing="10"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+
+                    <Label
+                        Text="◷"
+                        FontSize="42"
+                        TextColor="{StaticResource AthenaGold}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Nenhuma sessão encontrada"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextPrimary}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Tente outro título ou escolha uma data diferente."
+                        FontSize="13"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalTextAlignment="Center"
+                        LineBreakMode="WordWrap"
+                        MaxLines="2" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+
+                <DataTemplate>
+
+                    <Border
+                        BackgroundColor="{StaticResource AthenaSurface}"
+                        Stroke="#1B2A40"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        Padding="14"
+                        Margin="0,0,0,10">
+
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto,Auto"
+                            RowSpacing="9">
+
+                            <!-- TÍTULO E DATA -->
+                            <Grid
+                                Grid.Row="0"
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="8">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="3">
+
+                                    <Label
+                                        Text="{Binding tituloSessao, TargetNullValue=Sessão de estudo}"
+                                        FontSize="17"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaTextPrimary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                    <Label
+                                        Text="{Binding DataFim, StringFormat='{}{0:dd/MM/yyyy HH:mm}'}"
+                                        FontSize="10"
+                                        TextColor="{StaticResource AthenaTextMuted}" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                            <!-- DESCRIÇÃO -->
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding descricaoSessao, TargetNullValue=Sem anotação registrada., FallbackValue=Sem anotação registrada.}"
+                                FontSize="13"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2" />
+
+                            <BoxView
+                                Grid.Row="2"
+                                HeightRequest="1"
+                                Color="#24344B"
+                                HorizontalOptions="Fill" />
+
+                            <!-- TEMPOS -->
+                            <Grid
+                                Grid.Row="3"
+                                ColumnDefinitions="*,Auto,*,Auto,*"
+                                ColumnSpacing="8">
+
+                                <VerticalStackLayout
+                                    Grid.Column="0"
+                                    Spacing="2">
+
+                                    <Label
+                                        Text="LÍQUIDO"
+                                        FontSize="9"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="0.4"
+                                        TextColor="{StaticResource AthenaBlueLight}" />
+
+                                    <Label
+                                        Text="{Binding TempoLiquidoFormatado}"
+                                        FontSize="13"
+                                        FontAttributes="Bold"
+                                        TextColor="{StaticResource AthenaBlueLight}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                </VerticalStackLayout>
+
+                                <BoxView
+                                    Grid.Column="1"
+                                    WidthRequest="1"
+                                    Margin="0,2"
+                                    Color="#1B2A40"
+                                    VerticalOptions="Fill" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="2"
+                                    Spacing="2">
+
+                                    <Label
+                                        Text="BRUTO"
+                                        FontSize="9"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="0.4"
+                                        TextColor="{StaticResource AthenaTextMuted}" />
+
+                                    <Label
+                                        Text="{Binding TempoBrutoFormatado}"
+                                        FontSize="13"
+                                        TextColor="{StaticResource AthenaTextPrimary}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                </VerticalStackLayout>
+
+                                <BoxView
+                                    Grid.Column="3"
+                                    WidthRequest="1"
+                                    Margin="0,2"
+                                    Color="#1B2A40"
+                                    VerticalOptions="Fill" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="4"
+                                    Spacing="2">
+
+                                    <Label
+                                        Text="PAUSA"
+                                        FontSize="9"
+                                        FontAttributes="Bold"
+                                        CharacterSpacing="0.4"
+                                        TextColor="{StaticResource AthenaGold}" />
+
+                                    <Label
+                                        Text="{Binding TempoPausaFormatado}"
+                                        FontSize="13"
+                                        TextColor="{StaticResource AthenaGold}"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="1" />
+
+                                </VerticalStackLayout>
+
+                            </Grid>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
 
 </ContentPage>
