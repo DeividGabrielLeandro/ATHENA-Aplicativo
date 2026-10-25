@@ -74,6 +74,23 @@
 
             </Grid>
 
+            <!-- BOTÃO MEU PERFIL -->
+            <Button
+                x:Name="BtnMeuPerfil"
+                Text="◉    MEU PERFIL"
+                Clicked="BtnMeuPerfil_Clicked"
+                HeightRequest="48"
+                CornerRadius="8"
+                FontSize="13"
+                FontAttributes="Bold"
+                CharacterSpacing="0.5"
+                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                TextColor="{StaticResource AthenaBlueLight}"
+                BorderColor="{StaticResource AthenaBlue}"
+                BorderWidth="1"
+                HorizontalOptions="Fill"
+                Margin="0,0,0,18" />
+
 
             <!-- SAUDAÇÃO -->
             <Grid

@@ -138,6 +138,8 @@ public partial class ListarCategoria : ContentPage
 
                 listaCategoria.Add(new Informacoes
                 {
+                    idCategoria = categoria.idCategoria,
+
                     tituloCategoria = categoria.tituloCategoria,
                     descricaoCategoria = categoria.descricaoCategoria,
 
@@ -192,6 +194,7 @@ public partial class ListarCategoria : ContentPage
 
         int idCategoria = categoria.idCategoria;
 
+
         await Shell.Current.GoToAsync($"{nameof(InterfaceCategoria)}?idCategoria={idCategoria}");
     }
 
@@ -237,6 +240,8 @@ public partial class ListarCategoria : ContentPage
 
             listaCategoria.Add(new Informacoes
             {
+                idCategoria = categoria.idCategoria,
+
                 tituloCategoria = categoria.tituloCategoria,
                 descricaoCategoria = categoria.descricaoCategoria,
 

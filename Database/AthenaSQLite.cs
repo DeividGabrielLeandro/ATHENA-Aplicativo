@@ -116,7 +116,7 @@ namespace ATHENA.Database
         public string tituloCategoria { get; set; } //Titulo
 
         [MaxLength(500)]
-        public string descricaoCategoria { get; set; } //Descrição
+        public string? descricaoCategoria { get; set; } //Descrição
 
         public DateTime dataCriacao { get; set; } = DateTime.Now; //Data criaçao
     }
@@ -197,5 +197,20 @@ namespace ATHENA.Database
 
         [MaxLength(255)]
         public string? motivoPausa { get; set; } //Motivo
+    }
+
+
+    [Table("MensagemChat")]
+    public class MensagemChat
+    {
+        [AutoIncrement, PrimaryKey]
+        public int id { get; set; } //Id 
+
+        [NotNull]
+        public string Papel { get; set; } //user ou model
+
+        public string Conteudo { get; set; } //Mensagens    
+
+        public DateTime dataCriacao { get; set; } //Data daquela mensagem
     }
 }

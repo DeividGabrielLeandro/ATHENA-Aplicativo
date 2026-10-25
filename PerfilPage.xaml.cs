@@ -1,3 +1,4 @@
+using ATHENA.AthenaAI;
 using ATHENA.Database;
 using ATHENA.Models;
 using SQLite;
@@ -9,8 +10,8 @@ public partial class PerfilPage : ContentPage
     SQLiteAsyncConnection db;
 
     public PerfilPage()
-	{
-		InitializeComponent();
+    {
+        InitializeComponent();
 
         string dbPath = Path.Combine(
 
@@ -20,13 +21,27 @@ public partial class PerfilPage : ContentPage
 
         db = new SQLiteAsyncConnection(dbPath);
     }
+    private async Task CarregarConfigIAAsync()
+    {
+        IASettings settings = new IASettings();
+
+        if (!string.IsNullOrEmpty(settings.Model))
+            PickerModeloIA.SelectedItem = settings.Model;
+
+        EditorInstrucoesIA.Text = settings.SystemPrompt;
+
+        string? chaveSalva = await SecureStorage.Default.GetAsync("GeminiApiKey");
+        EntryApiKey.Placeholder = string.IsNullOrEmpty(chaveSalva)
+            ? "Cole aqui a sua chave de API"
+            : "Chave já salva — deixe em branco para manter";
+    }
 
     public async void Informacoe()
     {
         List<Sessao_Estudo> sessao = await db.Table<Sessao_Estudo>().ToListAsync();
         List<Registro_Tempo> registros = await db.Table<Registro_Tempo>().ToListAsync();
 
-      
+
         double tempoTotal = registros.Sum(r => r.tempoEstudo);
         int total = (int)tempoTotal;
         int horas = total / 60;
@@ -93,8 +108,8 @@ public partial class PerfilPage : ContentPage
             TxtStreak.Text = $"{streak.ToString()} dias";
         });
     }
-	protected override async void OnAppearing()
-	{
+    protected override async void OnAppearing()
+    {
         base.OnAppearing();
 
 
@@ -120,11 +135,12 @@ public partial class PerfilPage : ContentPage
 
     private async void EscolherFoto_Clicked(object sender, EventArgs e)
     {
-        try { 
-        var foto = await MediaPicker.Default.PickPhotoAsync();
+        try
+        {
+            var foto = await MediaPicker.Default.PickPhotoAsync();
 
-        if (foto == null)
-            return;
+            if (foto == null)
+                return;
 
             string extensao = Path.GetExtension(foto.FileName);
 
@@ -137,29 +153,29 @@ public partial class PerfilPage : ContentPage
 
             using (Stream origem = await foto.OpenReadAsync())
 
-        using (FileStream destino = File.Create(caminhoFoto))
-        {
-            await origem.CopyToAsync(destino);
-        }
+            using (FileStream destino = File.Create(caminhoFoto))
+            {
+                await origem.CopyToAsync(destino);
+            }
 
-        ImagemPerfil.Source = null;
-        ImagemPerfil.Source = ImageSource.FromFile(caminhoFoto);
+            ImagemPerfil.Source = null;
+            ImagemPerfil.Source = ImageSource.FromFile(caminhoFoto);
 
-        // Salva o novo caminho no usuário para as outras telas.
-        await Models_Usuario.AtualizarUsuario(null,null, caminhoFoto);
+            // Salva o novo caminho no usuário para as outras telas.
+            await Models_Usuario.AtualizarUsuario(null, null, caminhoFoto);
 
             Usuario? usuarioAtualizado = await db.Table<Usuario>()
         .FirstOrDefaultAsync();
         }
-    catch (Exception ex)
-    {
-        await DisplayAlertAsync(
-            "Erro ao alterar foto",
-            ex.Message,
-            "OK");
-}
-}
-    
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync(
+                "Erro ao alterar foto",
+                ex.Message,
+                "OK");
+        }
+    }
+
 
 
     private async void MetaDiariaTXT_Completed(object sender, EventArgs e)
@@ -197,5 +213,49 @@ public partial class PerfilPage : ContentPage
         string nome = NomeUsuario.Text;
         await Models_Usuario.AtualizarUsuario(nome, null);
 
+    }
+    private async void BtnConfigurarIA_Clicked(object sender, EventArgs e)
+    {
+        PainelConfigIA.IsVisible = true;
+    }
+    private async void BtnAbrirAIStudio_Clicked(object sender, EventArgs e)
+    {
+        string url = "https://aistudio.google.com/app/apikey";
+        await Launcher.Default.OpenAsync(url);
+    }
+
+
+
+    private async void BtnSalvarConfigIA_Clicked(object sender, EventArgs e)
+    {
+        string novaChave = EntryApiKey.Text?.Trim() ?? "";
+        string? chaveSalva = await SecureStorage.Default.GetAsync("GeminiApiKey");
+        string? modelo = PickerModeloIA.SelectedItem?.ToString();
+        string instrucoes = EditorInstrucoesIA.Text?.Trim() ?? "";
+
+        bool temChave = !string.IsNullOrEmpty(novaChave) || !string.IsNullOrEmpty(chaveSalva);
+
+        if (!temChave || string.IsNullOrEmpty(modelo))
+        {
+            await DisplayAlertAsync("Atenção", "É preciso ter uma chave de API e um modelo escolhido.", "OK");
+            return;
+        }
+
+        IASettings settings = new IASettings();
+        settings.Model = modelo;
+        settings.SystemPrompt = instrucoes;
+        settings.Salvar();
+
+        if (!string.IsNullOrEmpty(novaChave))
+            await SecureStorage.Default.SetAsync("GeminiApiKey", novaChave);
+
+        EntryApiKey.Text = string.Empty;
+        await CarregarConfigIAAsync();
+        TxtStatusConfigIA.Text = "Configuração salva.";
+    }
+
+    private async void Voltar_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
     }
 }

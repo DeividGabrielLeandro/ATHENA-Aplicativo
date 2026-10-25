@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="ATHENA.AthenaAI.ChatBot"
+    BackgroundColor="{StaticResource AthenaBackground}"
+    Shell.NavBarIsVisible="False">
+
+    <!-- LINHA 0: CABEÇALHO | LINHA 1: MENSAGENS | LINHA 2: DIGITANDO (ALTURA FIXA) | LINHA 3: CAMPO DE ENVIO -->
+    <Grid
+        RowDefinitions="Auto,*,28,Auto"
+        Padding="16,16,16,12">
+
+        <!-- CABEÇALHO PADRÃO (FIXO NO TOPO) -->
+        <Grid
+            Grid.Row="0"
+            ColumnDefinitions="*,Auto"
+            RowDefinitions="Auto,Auto">
+
+            <!-- LOGO E IDENTIFICAÇÃO DA PÁGINA -->
+            <VerticalStackLayout
+                Grid.Column="0"
+                Grid.Row="0"
+                Spacing="3"
+                VerticalOptions="Start">
+
+                <Image
+                    Source="athena_wordmark_header_styled.png"
+                    WidthRequest="112"
+                    HeightRequest="28"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Start" />
+
+                <Label
+                    Text="ASSISTENTE DE ESTUDOS"
+                    FontSize="9"
+                    CharacterSpacing="1"
+                    TextColor="{StaticResource AthenaTextSecondary}"
+                    HorizontalOptions="Start" />
+
+            </VerticalStackLayout>
+
+            <!-- FOTO DE PERFIL -->
+            <Border
+                Grid.Column="1"
+                Grid.Row="0"
+                WidthRequest="38"
+                HeightRequest="38"
+                Padding="1"
+                BackgroundColor="{StaticResource AthenaIconBackground}"
+                Stroke="{StaticResource AthenaGold}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 19"
+                HorizontalOptions="End"
+                VerticalOptions="Start">
+
+                <Image
+                    x:Name="ImagemPerfil"
+                    Aspect="AspectFill"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill" />
+
+            </Border>
+
+            <!-- LINHA DIVISÓRIA -->
+            <BoxView
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                HeightRequest="1"
+                Margin="0,14,0,0"
+                Color="{StaticResource AthenaDivider}"
+                HorizontalOptions="Fill" />
+
+        </Grid>
+
+        <!-- LISTA DE MENSAGENS -->
+        <CollectionView
+            x:Name="ListaMensagens"
+            Grid.Row="1"
+            BackgroundColor="Transparent"
+            SelectionMode="None"
+            ItemsUpdatingScrollMode="KeepLastItemInView"
+            VerticalScrollBarVisibility="Never">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout
+                    Orientation="Vertical"
+                    ItemSpacing="12" />
+            </CollectionView.ItemsLayout>
+
+            <!-- TÍTULO DA TELA (ROLA JUNTO COM A CONVERSA) -->
+            <CollectionView.Header>
+
+                <!-- TÍTULO DA TELA -->
+                <VerticalStackLayout
+                    Spacing="3"
+                    Padding="0,14,0,12">
+
+                    <Grid
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <Label
+                            Grid.Column="0"
+                            Text="Tire suas dúvidas"
+                            FontSize="26"
+                            FontAttributes="Bold"
+                            TextColor="{StaticResource AthenaTextHeading}"
+                            LineBreakMode="TailTruncation"
+                            MaxLines="1"
+                            VerticalOptions="Center" />
+
+                        <!-- INDICADOR DE STATUS DA IA -->
+                        <Border
+                            Grid.Column="1"
+                            Padding="9,5"
+                            BackgroundColor="{StaticResource AthenaGoldSoft}"
+                            Stroke="{StaticResource AthenaGold}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 14"
+                            VerticalOptions="Center">
+
+                            <HorizontalStackLayout
+                                Spacing="6">
+
+                                <BoxView
+                                    WidthRequest="7"
+                                    HeightRequest="7"
+                                    CornerRadius="4"
+                                    Color="{StaticResource AthenaGoldLight}"
+                                    VerticalOptions="Center" />
+
+                                <Label
+                                    x:Name="TxtStatusIA"
+                                    Text="IA Online"
+                                    FontSize="10"
+                                    TextColor="{StaticResource AthenaGoldLight}"
+                                    VerticalOptions="Center" />
+
+                            </HorizontalStackLayout>
+
+                        </Border>
+
+                    </Grid>
+
+                    <Label
+                        Text="Pergunte e receba explicações simples e objetivas."
+                        FontSize="12"
+                        TextColor="{StaticResource AthenaTextSecondary}" />
+
+                </VerticalStackLayout>
+
+            </CollectionView.Header>
+
+            <!-- ESTADO VAZIO (ANTES DA PRIMEIRA PERGUNTA) -->
+            <CollectionView.EmptyView>
+
+                <VerticalStackLayout
+                    Spacing="10"
+                    Padding="8"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Center">
+
+                    <Border
+                        WidthRequest="56"
+                        HeightRequest="56"
+                        BackgroundColor="{StaticResource AthenaGoldSoft}"
+                        Stroke="{StaticResource AthenaGold}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 16"
+                        HorizontalOptions="Center">
+
+                        <Label
+                            Text="☆"
+                            FontSize="30"
+                            TextColor="{StaticResource AthenaGoldLight}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+
+                    </Border>
+
+                    <Label
+                        Text="Como posso ajudar nos seus estudos?"
+                        FontSize="18"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource AthenaTextHeading}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Escolha uma sugestão ou escreva sua dúvida abaixo."
+                        FontSize="12"
+                        TextColor="{StaticResource AthenaTextSecondary}"
+                        HorizontalTextAlignment="Center" />
+
+                    <!-- SUGESTÕES RÁPIDAS (2 LINHAS) -->
+                    <VerticalStackLayout
+                        Spacing="8"
+                        Margin="0,8,0,0"
+                        HorizontalOptions="Center">
+
+                        <HorizontalStackLayout
+                            Spacing="8"
+                            HorizontalOptions="Center">
+
+                            <Button
+                                x:Name="BtnSugestaoExplicar"
+                                Text="◎ Explicar um tema"
+                                CommandParameter="Explique de forma simples: "
+                                Clicked="BtnSugestao_Clicked"
+                                HeightRequest="38"
+                                CornerRadius="19"
+                                Padding="14,0"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                BorderColor="{StaticResource AthenaBorder}"
+                                BorderWidth="1" />
+
+                            <Button
+                                x:Name="BtnSugestaoResumir"
+                                Text="▣ Resumir um texto"
+                                CommandParameter="Resuma o texto a seguir: "
+                                Clicked="BtnSugestao_Clicked"
+                                HeightRequest="38"
+                                CornerRadius="19"
+                                Padding="14,0"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                BorderColor="{StaticResource AthenaBorder}"
+                                BorderWidth="1" />
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout
+                            Spacing="8"
+                            HorizontalOptions="Center">
+
+                            <Button
+                                x:Name="BtnSugestaoQuiz"
+                                Text="▦ Criar um quiz"
+                                CommandParameter="Crie um quiz de 5 perguntas sobre: "
+                                Clicked="BtnSugestao_Clicked"
+                                HeightRequest="38"
+                                CornerRadius="19"
+                                Padding="14,0"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                BorderColor="{StaticResource AthenaBorder}"
+                                BorderWidth="1" />
+
+                            <Button
+                                x:Name="BtnSugestaoDicas"
+                                Text="◷ Dicas de estudo"
+                                CommandParameter="Me dê dicas para estudar melhor: "
+                                Clicked="BtnSugestao_Clicked"
+                                HeightRequest="38"
+                                CornerRadius="19"
+                                Padding="14,0"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                BorderColor="{StaticResource AthenaBorder}"
+                                BorderWidth="1" />
+
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </CollectionView.EmptyView>
+
+            <!-- MODELO DE CADA MENSAGEM -->
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Grid>
+
+                        <!-- MENSAGEM DA IA -->
+                        <HorizontalStackLayout
+                            IsVisible="{Binding EhIA}"
+                            Spacing="8"
+                            HorizontalOptions="Start">
+
+                            <Border
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                BackgroundColor="{StaticResource AthenaGoldSoft}"
+                                Stroke="{StaticResource AthenaGold}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 8"
+                                VerticalOptions="Start">
+
+                                <Label
+                                    Text="☆"
+                                    FontSize="19"
+                                    TextColor="{StaticResource AthenaGoldLight}"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+
+                            </Border>
+
+                            <VerticalStackLayout
+                                Spacing="3">
+
+                                <Border
+                                    MaximumWidthRequest="270"
+                                    BackgroundColor="{StaticResource AthenaSurface}"
+                                    Stroke="{StaticResource AthenaBorderSoft}"
+                                    StrokeThickness="1"
+                                    StrokeShape="RoundRectangle 4,16,16,16"
+                                    Padding="12,10">
+
+                                    <Label
+                                        FormattedText="{Binding TextoFormatado}"
+                                        FontSize="14"
+                                        LineHeight="1.35"
+                                        TextColor="{StaticResource AthenaTextPrimary}"
+                                        LineBreakMode="WordWrap" />
+
+                                </Border>
+
+                                <Label
+                                    Text="{Binding Hora}"
+                                    FontSize="9"
+                                    TextColor="{StaticResource AthenaTextMuted}"
+                                    Margin="4,0,0,0" />
+
+                            </VerticalStackLayout>
+
+                        </HorizontalStackLayout>
+
+                        <!-- MENSAGEM DO USUÁRIO -->
+                        <VerticalStackLayout
+                            IsVisible="{Binding EhUsuario}"
+                            Spacing="3"
+                            HorizontalOptions="End">
+
+                            <Border
+                                MaximumWidthRequest="290"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                Stroke="{StaticResource AthenaBlue}"
+                                StrokeThickness="1"
+                                StrokeShape="RoundRectangle 16,16,4,16"
+                                Padding="12,10"
+                                HorizontalOptions="End">
+
+                                <Label
+                                    FormattedText="{Binding TextoFormatado}"
+                                    FontSize="14"
+                                    LineHeight="1.35"
+                                    TextColor="{StaticResource AthenaTextPrimary}"
+                                    LineBreakMode="WordWrap" />
+
+                            </Border>
+
+                            <Label
+                                Text="{Binding Hora}"
+                                FontSize="9"
+                                TextColor="{StaticResource AthenaTextMuted}"
+                                Margin="0,0,4,0"
+                                HorizontalOptions="End" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- INDICADOR DE "DIGITANDO" -->
+        <HorizontalStackLayout
+            x:Name="AreaDigitando"
+            Grid.Row="2"
+            Spacing="8"
+            Margin="4,0,0,0"
+            VerticalOptions="Center"
+            IsVisible="False">
+
+            <ActivityIndicator
+                WidthRequest="16"
+                HeightRequest="16"
+                Color="{StaticResource AthenaGoldLight}"
+                IsRunning="{Binding Source={x:Reference AreaDigitando}, Path=IsVisible}"
+                VerticalOptions="Center" />
+
+            <Label
+                x:Name="TxtDigitando"
+                Text="ATHENA está pensando..."
+                FontSize="11"
+                TextColor="{StaticResource AthenaTextSecondary}"
+                VerticalOptions="Center" />
+
+        </HorizontalStackLayout>
+
+        <!-- ÁREA DE ENVIO -->
+        <VerticalStackLayout
+            Grid.Row="3"
+            Spacing="6">
+
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorder}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="10">
+
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="10">
+
+                    <!-- CAMPO DE TEXTO -->
+                    <Border
+                        Grid.Column="0"
+                        BackgroundColor="{StaticResource AthenaCard}"
+                        Stroke="{StaticResource AthenaBorderSoft}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 10"
+                        Padding="12,2"
+                        MinimumHeightRequest="48">
+
+                        <Editor
+                            x:Name="EditorMensagem"
+                            Placeholder="Pergunte algo sobre seus estudos..."
+                            PlaceholderColor="{StaticResource AthenaTextMuted}"
+                            TextColor="{StaticResource AthenaTextPrimary}"
+                            BackgroundColor="Transparent"
+                            FontSize="14"
+                            Keyboard="Chat"
+                            AutoSize="TextChanges"
+                            MaxLength="1000"
+                            MaximumHeightRequest="110"
+                            TextChanged="EditorMensagem_TextChanged"
+                            VerticalOptions="Center" />
+
+                    </Border>
+
+                    <!-- BOTÃO ENVIAR -->
+                    <Button
+                        x:Name="BtnEnviar"
+                        Grid.Column="1"
+                        Text="▶"
+                        Clicked="BtnEnviar_Clicked"
+                        WidthRequest="48"
+                        HeightRequest="48"
+                        CornerRadius="12"
+                        Padding="0"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        BackgroundColor="{StaticResource AthenaGoldButton}"
+                        TextColor="{StaticResource Black}"
+                        BorderWidth="0"
+                        VerticalOptions="End" />
+
+                </Grid>
+
+            </Border>
+
+            <!-- AVISO E CONTADOR -->
+            <Grid
+                ColumnDefinitions="*,Auto"
+                ColumnSpacing="8"
+                Padding="4,0">
+
+                <Label
+                    Grid.Column="0"
+                    Text="A IA pode cometer erros. Confira informações importantes."
+                    FontSize="10"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    LineBreakMode="TailTruncation"
+                    MaxLines="1" />
+
+                <Label
+                    x:Name="TxtContadorCaracteres"
+                    Grid.Column="1"
+                    Text="0 / 1000"
+                    FontSize="10"
+                    TextColor="{StaticResource AthenaTextMuted}"
+                    HorizontalOptions="End" />
+
+            </Grid>
+
+        </VerticalStackLayout>
+
+    </Grid>
+
+</ContentPage>

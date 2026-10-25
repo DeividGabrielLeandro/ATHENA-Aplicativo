@@ -226,7 +226,8 @@
                                                 VerticalOptions="Center" />
 
                                     <Label
-                                                Text="{Binding tituloCategoria, TargetNullValue=Sem categoria, FallbackValue=Sem categoria}"
+                                                x:Name="txtTituloCategoria"
+                                                Text="Sem categoria"
                                                 FontSize="11"
                                                 FontAttributes="Bold"
                                                 CharacterSpacing="0.4"

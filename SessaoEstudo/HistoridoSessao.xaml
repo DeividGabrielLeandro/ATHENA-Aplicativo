@@ -22,13 +22,38 @@
         <!-- CABEÇALHO -->
         <Grid
             Grid.Row="0"
-            ColumnDefinitions="*"
+            ColumnDefinitions="Auto,*"
             RowDefinitions="Auto,Auto"
+            ColumnSpacing="10"
             Padding="16,16,16,0"
             Margin="0,0,0,14">
 
-            <VerticalStackLayout
+
+
+            <!-- BOTÃO VOLTAR -->
+            <Button
+                x:Name="BtnVoltarHistorico"
                 Grid.Column="0"
+                Grid.Row="0"
+                Text="‹"
+                Clicked="Voltar_Clicked"
+                WidthRequest="40"
+                HeightRequest="40"
+                MinimumWidthRequest="40"
+                MinimumHeightRequest="40"
+                Padding="0"
+                CornerRadius="10"
+                FontSize="32"
+                TextColor="{StaticResource AthenaBlueLight}"
+                BackgroundColor="{StaticResource AthenaSurface}"
+                BorderColor="{StaticResource AthenaBorder}"
+                BorderWidth="1"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                SemanticProperties.Description="Voltar à página anterior" />
+
+            <VerticalStackLayout
+                Grid.Column="1"
                 Grid.Row="0"
                 Spacing="3"
                 VerticalOptions="Start">
@@ -52,6 +77,7 @@
             <BoxView
                 Grid.Row="1"
                 Grid.Column="0"
+                Grid.ColumnSpan="2"
                 HeightRequest="1"
                 Margin="0,14,0,0"
                 Color="#24344B"

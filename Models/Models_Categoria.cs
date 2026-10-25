@@ -9,9 +9,9 @@ namespace ATHENA.Models
     internal class Models_Categoria
     {
 
-        public static async Task CriarCategoria(
+        public static async Task<int> CriarCategoria(
             string tituloCategoria,
-            string descricaoCategoria)
+            string? descricaoCategoria)
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
 );
@@ -27,11 +27,15 @@ namespace ATHENA.Models
             };
 
             await db.InsertAsync(CriaCategoria);
+
+            return CriaCategoria.idCategoria;
         }
 
-        public static async Task AdicionarMetaCategoria(
- int idMeta,
- int idCategoria)
+
+        public static async Task EditarCategoria(
+         int idCategoria,
+         string tituloCategoria,
+         string descricaoCategoria)
         {
             string dbPath = Path.Combine(
             Environment.GetFolderPath(
@@ -40,7 +44,39 @@ namespace ATHENA.Models
             );
 
 
-var db = new SQLiteAsyncConnection(dbPath);
+            var db = new SQLiteAsyncConnection(dbPath);
+
+            Categoria? categoria = await db.Table<Categoria>()
+                .Where(c => c.idCategoria == idCategoria)
+                .FirstOrDefaultAsync();
+
+            if (categoria == null)
+                return;
+
+            if (tituloCategoria != null)
+                categoria.tituloCategoria = tituloCategoria;
+
+            if (descricaoCategoria != null)
+                categoria.descricaoCategoria = descricaoCategoria;
+
+            await db.UpdateAsync(categoria);
+
+        }
+
+
+
+        public static async Task AdicionarMetaCategoria(
+         int idMeta,
+         int idCategoria)
+        {
+            string dbPath = Path.Combine(
+            Environment.GetFolderPath(
+            Environment.SpecialFolder.LocalApplicationData),
+            "ATHENA.db"
+            );
+
+
+        var db = new SQLiteAsyncConnection(dbPath);
 
             Meta? meta = await db.Table<Meta>()
                 .Where(m => m.idMeta == idMeta)
@@ -60,10 +96,40 @@ var db = new SQLiteAsyncConnection(dbPath);
 
             await db.UpdateAsync(meta);
 
-
 }
 
+        public static async Task RemoverMetaCategoria(
+        int idMeta,
+        int idCategoria)
+        {
+            string dbPath = Path.Combine(
+            Environment.GetFolderPath(
+            Environment.SpecialFolder.LocalApplicationData),
+            "ATHENA.db"
+            );
 
+
+            var db = new SQLiteAsyncConnection(dbPath);
+
+            Meta? meta = await db.Table<Meta>()
+                .Where(m => m.idMeta == idMeta)
+                .FirstOrDefaultAsync();
+
+            if (meta == null)
+                return;
+
+            Categoria? categoria = await db.Table<Categoria>()
+                .Where(c => c.idCategoria == idCategoria)
+                .FirstOrDefaultAsync();
+
+            if (categoria == null)
+                return;
+
+            meta.idCategoria = null;
+
+            await db.UpdateAsync(meta);
+
+        }
 
         public static async Task DeletarCategoria(int idCategoria)
         {

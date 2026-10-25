@@ -21,11 +21,14 @@ namespace ATHENA
 
             Routing.RegisterRoute(nameof(InterfaceSessao), typeof(InterfaceSessao));
 
-            Routing.RegisterRoute(nameof(MetasCategoria), typeof(MetasCategoria));
+            Routing.RegisterRoute(nameof(EditarCategoria), typeof(EditarCategoria));
 
             Routing.RegisterRoute(nameof(NewPage2), typeof(NewPage2));
 
             Routing.RegisterRoute(nameof(EditarMeta), typeof(EditarMeta));
+
+            Routing.RegisterRoute(nameof(PerfilPage), typeof(PerfilPage));
+
 
         }
     }

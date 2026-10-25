@@ -15,13 +15,32 @@
 
             <!-- CABEÇALHO PADRÃO -->
             <Grid
-    ColumnDefinitions="*,Auto"
+    ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
+    ColumnSpacing="10"
     Margin="0,0,0,0">
+
+                <!-- BOTÃO VOLTAR -->
+                <Button
+        Grid.Column="0"
+        Grid.Row="0"
+        Text="‹"
+        Clicked="Voltar_Clicked"
+        WidthRequest="40"
+        HeightRequest="40"
+        Padding="0"
+        CornerRadius="10"
+        FontSize="32"
+        TextColor="{StaticResource AthenaBlueLight}"
+        BackgroundColor="{StaticResource AthenaSurface}"
+        BorderColor="{StaticResource AthenaBorder}"
+        BorderWidth="1"
+        HorizontalOptions="Start"
+        VerticalOptions="Start" />
 
                 <!-- LOGO E IDENTIFICAÇÃO DA PÁGINA -->
                 <VerticalStackLayout
-        Grid.Column="0"
+        Grid.Column="1"
         Grid.Row="0"
         Spacing="3"
         VerticalOptions="Start">
@@ -44,7 +63,7 @@
 
                 <!-- FOTO PEQUENA DO CABEÇALHO -->
                 <Border
-        Grid.Column="1"
+        Grid.Column="2"
         Grid.Row="0"
         WidthRequest="38"
         HeightRequest="38"
@@ -64,14 +83,14 @@
                 <!-- LINHA DIVISÓRIA -->
                 <BoxView
         Grid.Row="1"
-        Grid.ColumnSpan="2"
+        Grid.ColumnSpan="3"
         HeightRequest="1"
         Margin="0,14,0,0"
         Color="{StaticResource AthenaDivider}"
         HorizontalOptions="Fill" />
 
             </Grid>
-            
+
             <!-- TÍTULO PRINCIPAL DA PÁGINA -->
             <VerticalStackLayout
     Spacing="3"
@@ -508,6 +527,302 @@
                 </Grid>
 
             </VerticalStackLayout>
+
+            <!-- CONFIGURAR IA -->
+            <Border
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorderSoft}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <VerticalStackLayout
+                    Spacing="12">
+
+                    <!-- TÍTULO DA SEÇÃO -->
+                    <Grid
+                        ColumnDefinitions="Auto,*"
+                        ColumnSpacing="10">
+
+                        <Border
+                            Grid.Column="0"
+                            WidthRequest="38"
+                            HeightRequest="38"
+                            BackgroundColor="{StaticResource AthenaGoldSoft}"
+                            Stroke="{StaticResource AthenaGold}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10">
+
+                            <Label
+                                Text="☆"
+                                FontSize="22"
+                                TextColor="{StaticResource AthenaGoldLight}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            Spacing="2"
+                            VerticalOptions="Center">
+
+                            <Label
+                                Text="ASSISTENTE DE ESTUDOS"
+                                FontSize="11"
+                                FontAttributes="Bold"
+                                CharacterSpacing="0.8"
+                                TextColor="{StaticResource AthenaGoldLight}" />
+
+                            <Label
+                                Text="Personalize o assistente de estudos do ATHENA."
+                                FontSize="12"
+                                TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        </VerticalStackLayout>
+
+                    </Grid>
+
+                    <!-- BOTÃO CONFIGURE SUA IA -->
+                    <Button
+                        x:Name="BtnConfigurarIA"
+                        Text="☆ CONFIGURE SUA IA"
+                        Clicked="BtnConfigurarIA_Clicked"
+                        HeightRequest="48"
+                        CornerRadius="8"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        CharacterSpacing="0.5"
+                        BackgroundColor="{StaticResource AthenaBlueBackground}"
+                        TextColor="{StaticResource AthenaBlueLight}"
+                        BorderColor="{StaticResource AthenaBlue}"
+                        BorderWidth="1"
+                        HorizontalOptions="Fill" />
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <!-- PAINEL DE CONFIGURAÇÃO DA IA (COMEÇA ESCONDIDO; ABRE AO TOCAR EM "CONFIGURE SUA IA") -->
+            <Border
+                x:Name="PainelConfigIA"
+                IsVisible="False"
+                BackgroundColor="{StaticResource AthenaSurface}"
+                Stroke="{StaticResource AthenaBorderSoft}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 16"
+                Padding="16">
+
+                <VerticalStackLayout
+                    Spacing="14">
+
+                    <!-- CHAVE DE API -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="CHAVE DE API DO GEMINI"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Border
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            Stroke="{StaticResource AthenaBorderSoft}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,0"
+                            HeightRequest="48">
+
+                            <Entry
+                                x:Name="EntryApiKey"
+                                Placeholder="Cole aqui a sua chave de API"
+                                PlaceholderColor="{StaticResource AthenaTextMuted}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                FontSize="14"
+                                IsPassword="True"
+                                ClearButtonVisibility="WhileEditing"
+                                ReturnType="Done"
+                                VerticalOptions="Center" />
+
+                        </Border>
+
+                        <Label
+                            Text="Trate a chave como uma senha e não compartilhe com ninguém."
+                            FontSize="10"
+                            TextColor="{StaticResource AthenaTextMuted}" />
+
+                    </VerticalStackLayout>
+
+                    <!-- COMO PEGAR A CHAVE -->
+                    <Border
+                        BackgroundColor="{StaticResource AthenaCard}"
+                        Stroke="{StaticResource AthenaBorderSoft}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 12"
+                        Padding="12">
+
+                        <VerticalStackLayout
+                            Spacing="8">
+
+                            <Label
+                                Text="COMO PEGAR SUA CHAVE"
+                                FontSize="10"
+                                FontAttributes="Bold"
+                                CharacterSpacing="0.8"
+                                TextColor="{StaticResource AthenaGoldLight}" />
+
+                            <Label
+                                Text="1. Toque no botão abaixo para abrir o Google AI Studio.&#10;2. Entre com a sua conta Google.&#10;3. Toque em &quot;Create API key&quot; (criar chave de API).&#10;4. Copie a chave gerada e cole no campo acima."
+                                FontSize="12"
+                                LineHeight="1.35"
+                                TextColor="{StaticResource AthenaTextSecondary}"
+                                LineBreakMode="WordWrap" />
+
+                            <Button
+                                x:Name="BtnAbrirAIStudio"
+                                Text="▶ ABRIR GOOGLE AI STUDIO"
+                                CommandParameter="https://aistudio.google.com/apikey"
+                                Clicked="BtnAbrirAIStudio_Clicked"
+                                HeightRequest="42"
+                                CornerRadius="8"
+                                FontSize="12"
+                                FontAttributes="Bold"
+                                CharacterSpacing="0.5"
+                                BackgroundColor="{StaticResource AthenaBlueBackground}"
+                                TextColor="{StaticResource AthenaBlueLight}"
+                                BorderColor="{StaticResource AthenaBlue}"
+                                BorderWidth="1"
+                                HorizontalOptions="Fill" />
+
+                            <Label
+                                Text="Endereço: aistudio.google.com/apikey"
+                                FontSize="10"
+                                TextColor="{StaticResource AthenaTextMuted}" />
+
+                        </VerticalStackLayout>
+
+                    </Border>
+
+                    <!-- MODELO DE IA -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="MODELO DE IA"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Border
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            Stroke="{StaticResource AthenaBorderSoft}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,0"
+                            HeightRequest="48">
+
+                            <Picker
+                                x:Name="PickerModeloIA"
+                                Title="Escolha um modelo"
+                                TitleColor="{StaticResource AthenaTextMuted}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                BackgroundColor="Transparent"
+                                FontSize="14"
+                                VerticalOptions="Center">
+
+                                <Picker.ItemsSource>
+                                    <x:Array Type="{x:Type x:String}">
+                                        <x:String>gemini-3.8-flash</x:String>
+                                        <x:String>gemini-3.6-flash</x:String>
+                                        <x:String>gemini-3.5-flash-lite</x:String>
+                                        <x:String>gemini-3.1-flash-lite</x:String>
+                                        <x:String>gemini-3-flash-preview</x:String>
+                                    </x:Array>
+                                </Picker.ItemsSource>
+
+                            </Picker>
+
+                        </Border>
+
+                        <Label
+                            Text="Só aparecem modelos de texto com uso gratuito, segundo as regras atuais do Google. No plano gratuito, o Google pode usar o conteúdo enviado para melhorar seus produtos."
+                            FontSize="10"
+                            LineHeight="1.3"
+                            TextColor="{StaticResource AthenaTextMuted}"
+                            LineBreakMode="WordWrap" />
+
+                    </VerticalStackLayout>
+
+                    <!-- COMO A IA DEVE RESPONDER -->
+                    <VerticalStackLayout
+                        Spacing="6">
+
+                        <Label
+                            Text="COMO A IA DEVE RESPONDER"
+                            FontSize="10"
+                            FontAttributes="Bold"
+                            CharacterSpacing="0.8"
+                            TextColor="{StaticResource AthenaTextSecondary}" />
+
+                        <Border
+                            BackgroundColor="{StaticResource AthenaCard}"
+                            Stroke="{StaticResource AthenaBorderSoft}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 10"
+                            Padding="12,4"
+                            MinimumHeightRequest="96">
+
+                            <Editor
+                                x:Name="EditorInstrucoesIA"
+                                Placeholder="Ex.: Explique os assuntos passo a passo com linguagem simples."
+                                PlaceholderColor="{StaticResource AthenaTextMuted}"
+                                TextColor="{StaticResource AthenaTextPrimary}"
+                                BackgroundColor="Transparent"
+                                FontSize="14"
+                                AutoSize="TextChanges"
+                                MaxLength="1000"
+                                MinimumHeightRequest="80"
+                                MaximumHeightRequest="180" />
+
+                        </Border>
+
+                        <Label
+                            Text="Descreva o jeito que o assistente deve explicar e responder."
+                            FontSize="10"
+                            TextColor="{StaticResource AthenaTextMuted}" />
+
+                    </VerticalStackLayout>
+
+                    <!-- BOTÃO SALVAR -->
+                    <Button
+                        x:Name="BtnSalvarConfigIA"
+                        Text="SALVAR CONFIGURAÇÃO"
+                        Clicked="BtnSalvarConfigIA_Clicked"
+                        HeightRequest="48"
+                        CornerRadius="8"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        CharacterSpacing="0.5"
+                        BackgroundColor="{StaticResource AthenaGoldButton}"
+                        TextColor="{StaticResource Black}"
+                        BorderWidth="0"
+                        HorizontalOptions="Fill" />
+
+                    <!-- STATUS DO SALVAMENTO DA IA -->
+                    <Label
+                        x:Name="TxtStatusConfigIA"
+                        Text=""
+                        FontSize="11"
+                        TextColor="{StaticResource AthenaSuccess}"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+
+            </Border>
 
             <!-- SOBRE O ATHENA -->
             <Border

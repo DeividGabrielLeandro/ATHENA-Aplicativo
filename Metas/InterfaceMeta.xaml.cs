@@ -42,6 +42,7 @@ public partial class InterfaceMeta : ContentPage
                 return;
             }
 
+           
             ConteudoMeta.IsVisible = true;
 
             ConteudoMeta.BindingContext = meta;
@@ -61,6 +62,11 @@ public partial class InterfaceMeta : ContentPage
             UltimaSessaoDataTXT.Text = sessao.DataFim.ToString();
             UltimaSessaoDescricaoTXT.Text = sessao.descricaoSessao;
 
+            Categoria? categoria = await db.Table<Categoria>()
+           .Where(m => m.idCategoria == meta.idCategoria)
+           .FirstOrDefaultAsync();
+
+            txtTituloCategoria.Text = categoria.tituloCategoria;
 
 
         }

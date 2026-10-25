@@ -117,8 +117,8 @@ public partial class MainPage : ContentPage
         await db.CreateTableAsync<Categoria>();
         await db.CreateTableAsync<Sessao_Estudo>();
         await db.CreateTableAsync<Registro_Tempo>();
+        await db.CreateTableAsync<MensagemChat>();
     }
-
     protected override async void OnAppearing()
     {
         base.OnAppearing();
@@ -218,5 +218,10 @@ public partial class MainPage : ContentPage
     {
         await Shell.Current.GoToAsync("//EscolherMeta");
         await Shell.Current.GoToAsync($"{nameof(InterfaceMeta)}?idMeta={IdMeta}");
+    }
+
+    private async void BtnMeuPerfil_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("PerfilPage");
     }
 }

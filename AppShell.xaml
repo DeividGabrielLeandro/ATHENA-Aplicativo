@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ATHENA"
     xmlns:metas="clr-namespace:ATHENA.Metas.xaml"
+    xmlns:AthenaAI="clr-namespace:ATHENA.AthenaAI"
     xmlns:categorias="clr-namespace:ATHENA.Categorias">
 
     <Shell.Resources>
@@ -43,10 +44,10 @@
          Route="NewPage1" />
 
         <ShellContent
-         Title="Perfil"
-         Icon="utilizador.png" 
-         ContentTemplate="{DataTemplate local:PerfilPage}"
-         Route="PerfilPage" />
+         Title="AthenaAI"
+         Icon="bot_de_bate_papo.png"    
+         ContentTemplate="{DataTemplate AthenaAI:ChatBot}"
+         Route="ChatBot" />
 
     </TabBar>
 

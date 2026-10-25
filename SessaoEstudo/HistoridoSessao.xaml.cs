@@ -128,4 +128,9 @@ public partial class HistoridoSessao : ContentPage
         OnAppearing();
     }
 
+   
+    private async void Voltar_Clicked(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync("..");
+    }
 }
