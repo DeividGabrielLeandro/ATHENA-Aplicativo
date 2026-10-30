@@ -78,13 +78,28 @@ public partial class InterfaceMeta : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
+        CronometroPreferences cronometro = new CronometroPreferences();
+        cronometro.Carregar();
+
         try
         {
+            if (cronometro.Iniciado && cronometro.IdMeta == IdMeta && cronometro.IdSessao != null)
+            {
+                await Shell.Current.GoToAsync(
+                $"{nameof(InterfaceSessao)}?idSessao={cronometro.IdSessao}&idMeta={IdMeta}");
+            }
+            else if(cronometro.Iniciado && cronometro.IdMeta != IdMeta) 
+            {
+                await DisplayAlertAsync("Aviso", "O cronômetro está ativo", "sair");
+            }
+            else
+            {
             DateTime dataInicio = DateTime.Now;
             int IdSessao = await Models.Models_SessaoEstudo.CriarSessao(IdMeta, dataInicio);
-
             await Shell.Current.GoToAsync(
             $"{nameof(InterfaceSessao)}?idSessao={IdSessao}&idMeta={IdMeta}");
+
+            }
         }
 
         catch (Exception ex)

@@ -87,6 +87,8 @@ namespace ATHENA.Models
         {
 
             double minutos = (int)resultadoSessao.MinutosLiquidos;
+            double minutosBruto = (int)resultadoSessao.MinutosBrutos;
+
 
 
             await db.RunInTransactionAsync(conn =>
@@ -129,6 +131,13 @@ namespace ATHENA.Models
                     meta.minutosEstudados += ((int)minutos);
                     
                     conn.Update(meta);
+
+                    var sessao = conn.Find<Sessao_Estudo>(idSessao.Value);
+
+                    sessao.tempoEstudadoMinutos += minutos;
+                    sessao.duracaoMinutos += minutosBruto;
+
+                    conn.Update(sessao);
 
                 }
                 else

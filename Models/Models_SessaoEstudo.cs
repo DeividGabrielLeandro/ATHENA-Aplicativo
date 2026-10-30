@@ -30,6 +30,7 @@ namespace ATHENA.Models
                 DataInicio = dataInicio,
                 idMeta = idMeta,
                 tempoEstudadoMinutos = 0,
+                duracaoMinutos = 0
             };
 
             await db.InsertAsync(sessao);
@@ -61,8 +62,6 @@ namespace ATHENA.Models
 
             sessao.descricaoSessao = descricaoSessao;
             sessao.DataFim = dataFim;
-            sessao.duracaoMinutos = duracaoMinutosBruto;
-            sessao.tempoEstudadoMinutos = duracaoMinutosLiquido;
 
             if (tituloSessao != null)
                 sessao.tituloSessao = tituloSessao;

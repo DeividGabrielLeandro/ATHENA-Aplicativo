@@ -27,7 +27,7 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
             IdMeta = (int)idMeta;
 
         if (query.TryGetValue("minutosBrutos", out object? minutosBrutos))
-    this.minutosBrutos = (double)minutosBrutos;
+            this.minutosBrutos = (double)minutosBrutos;
 
         if (query.TryGetValue("minutosLiquidos", out object? minutosLiquidos))
             this.minutosLiquidos = (double)minutosLiquidos;
@@ -64,23 +64,23 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
                 .Where(mbox => mbox.idSessao == IdSessao)
                 .FirstOrDefaultAsync();
 
-            if(sessao == null)
+            if (sessao == null)
             {
                 return;
             }
 
             int? IdMeta = sessao.idMeta;
 
-            double? TempoEstudado = minutosLiquidos;
+            double? TempoEstudado = sessao.tempoEstudadoMinutos;
 
-            if (TempoEstudado != null)
-            {
-                TimeSpan tempo = TimeSpan.FromMinutes((double)TempoEstudado);
+            double? Pausa = sessao.duracaoMinutos - sessao.tempoEstudadoMinutos;
 
-                TempoEstudo.Text = tempo.ToFormattedString(Title);
-                TxtTempoBruto.Text = TimeSpan.FromMinutes(minutosBrutos).ToString(@"h\:mm");
-                TxtTempoPausa.Text = TimeSpan.FromMinutes(TempoPausa).ToString(@"h\:mm");
-            }
+            TimeSpan tempo = TimeSpan.FromMinutes(sessao.tempoEstudadoMinutos ?? 0);
+
+            TempoEstudo.Text = tempo.ToFormattedString(Title);
+            TxtTempoBruto.Text = TimeSpan.FromMinutes(sessao.duracaoMinutos ?? 0).ToString(@"h\:mm");
+            TxtTempoPausa.Text = TimeSpan.FromMinutes(Pausa ?? 0).ToString(@"h\:mm");
+
 
             Meta? meta = await db.Table<Meta>()
                 .Where(mbox => mbox.idMeta == IdMeta)
@@ -136,9 +136,9 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
         DateTime dataFim = DateTime.Now;
 
         await Models.Models_SessaoEstudo.SalvarPausaSessao(IdSessao, TempoPausa, null);
-        await Models.Models_SessaoEstudo.FinalizarSessao(titulo,descricao,dataFim, minutosBrutos, minutosLiquidos,IdSessao);
+        await Models.Models_SessaoEstudo.FinalizarSessao(titulo, descricao, dataFim, minutosBrutos, minutosLiquidos, IdSessao);
 
-        await DisplayAlertAsync("Sucesso!","Sessão finalizada com sucesso", "Ok");
+        await DisplayAlertAsync("Sucesso!", "Sessão finalizada com sucesso", "Ok");
 
         await Shell.Current.GoToAsync("//EscolherMeta");
 
@@ -149,15 +149,61 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
     protected override async void OnDisappearing()
     {
         base.OnDisappearing();
-
-        if (!SessaoSalva && !IndoParaCronometro)
-        {
-            await Models.Models_SessaoEstudo.DeletarSessao(IdSessao);
-        }
     }
 
-    private void Button_Clicked(object sender, EventArgs e)
+    private async void Button_Clicked(object sender, EventArgs e)
     {
+        try
+        {
+            CronometroPreferences cronometro = new CronometroPreferences();
+            cronometro.Carregar();
 
+            Sessao_Estudo? sessao = await db.Table<Sessao_Estudo>()
+                    .Where(mbox => mbox.idSessao == IdSessao)
+                    .FirstOrDefaultAsync();
+
+            if (cronometro.Iniciado && cronometro.IdSessao == IdSessao)
+            {
+                await Shell.Current.GoToAsync("..");
+            }
+            else if (sessao == null || sessao.DataFim != null) 
+            {
+                await Shell.Current.GoToAsync("..");
+            }
+            else if ((sessao.duracaoMinutos ?? 0) == 0) 
+            {
+                    CronometroService.Limpar();
+
+                await Models.Models_SessaoEstudo.DeletarSessao(IdSessao);
+                await Shell.Current.GoToAsync("..");
+            }
+            else 
+            {
+                bool resposta = await DisplayAlertAsync(
+                "Sair da sessão?",
+                "Se você sair agora, a sessão de estudo será apagada e não poderá ser recuperada. O tempo estudado acumulado na sua meta será mantido e salvo.\n\nDeseja realmente sair?",
+                "Sair",
+                "Continuar estudando"
+            );
+
+                if (resposta)
+                {
+                    if (!CronometroService.Iniciado && CronometroService.IdSessao == IdSessao) 
+                        CronometroService.Limpar();
+
+                    await Models.Models_SessaoEstudo.DeletarSessao(IdSessao);
+                    await Shell.Current.GoToAsync("..");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "ok");
+        }
+    }
+    protected override bool OnBackButtonPressed()
+    {
+        Button_Clicked(this, EventArgs.Empty);
+        return true;
     }
 }

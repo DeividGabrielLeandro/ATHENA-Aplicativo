@@ -119,6 +119,7 @@ public partial class MainPage : ContentPage
         await db.CreateTableAsync<Sessao_Estudo>();
         await db.CreateTableAsync<Registro_Tempo>();
         await db.CreateTableAsync<MensagemChat>();
+        await db.CreateTableAsync<Pausa_Sessao>();
     }
     protected override async void OnAppearing()
     {
