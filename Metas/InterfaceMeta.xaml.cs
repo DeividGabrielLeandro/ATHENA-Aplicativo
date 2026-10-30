@@ -1,6 +1,6 @@
 
 using ATHENA.Database;
-using ATHENA.Models;
+using ATHENA.Services;
 using ATHENA.SessaoEstudo;
 using Microsoft.Maui.Platform;
 using SQLite;

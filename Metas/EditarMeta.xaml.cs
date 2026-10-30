@@ -1,5 +1,6 @@
 using ATHENA.Database;
 using ATHENA.Models;
+using ATHENA.Services;
 using Microsoft.Maui.Platform;
 using SQLite;
 
@@ -147,6 +148,15 @@ public partial class EditarMeta : ContentPage
 
     private async void Button_Clicked_3(object sender, EventArgs e)
     {
+        CronometroPreferences cronometro = new CronometroPreferences();
+        cronometro.Carregar();
+
+        if (cronometro.Iniciado && cronometro.IdMeta == IdMeta)
+        {
+            await DisplayAlertAsync("Erro", "Você não pode deletar uma meta enquanto o cronômetro está ativo", "sair");
+            return;
+        }
+
         bool confirmar = await DisplayAlertAsync(
         "Excluir meta",
         "Tem certeza de que deseja excluir esta meta?\n\nEssa ação não pode ser desfeita.",

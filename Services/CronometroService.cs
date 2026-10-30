@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ATHENA.Models
+namespace ATHENA.Services
 {
     internal class CronometroService
     {
+        public static readonly CronometroPreferences cronometro = new CronometroPreferences();
 
         public static NewPage1.OrigemCronometro Origem { get; private set; }
             = NewPage1.OrigemCronometro.Nenhum;
@@ -37,6 +38,58 @@ namespace ATHENA.Models
         public static TimeSpan TempoPausado =>
             TempoBruto - TempoLiquido;
 
+
+        public static void Salvar()
+        {
+            cronometro.Origem = Origem.ToString();
+            cronometro.IdMeta = IdMeta;
+            cronometro.IdSessao = IdSessao;
+
+            cronometro.Iniciado = Iniciado;
+            cronometro.Rodando = Rodando;
+
+            cronometro.DataInicio = DataInicio;
+            cronometro.InicioTrecho = inicioTrecho;
+
+            cronometro.TempoLiquidoAcumulado =
+                tempoLiquidoAcumulado.Ticks;
+
+            cronometro.Salvar();
+        }
+
+        public void Carregar()
+        {
+            cronometro.Carregar();
+
+            if (Enum.TryParse(
+                cronometro.Origem,
+                out NewPage1.OrigemCronometro origem))
+            {
+                Origem = origem;
+            }
+            else
+            {
+                Origem = NewPage1.OrigemCronometro.Nenhum;
+            }
+
+            IdMeta = cronometro.IdMeta;
+            IdSessao = cronometro.IdSessao;
+
+            Iniciado = cronometro.Iniciado;
+            Rodando = cronometro.Rodando;
+
+            DataInicio = cronometro.DataInicio;
+            inicioTrecho = cronometro.InicioTrecho;
+
+            tempoLiquidoAcumulado = TimeSpan.FromTicks(
+                cronometro.TempoLiquidoAcumulado);
+
+            DataFim = null;
+            tempoLiquidoFinal = null;
+            tempoBrutoFinal = null;
+        }
+
+
         public static bool ConfigurarContexto(
     NewPage1.OrigemCronometro origem,
     int? idMeta = null,
@@ -65,7 +118,8 @@ namespace ATHENA.Models
 
         public static void Iniciar()
         {
-            if (Iniciado ||
+
+           if (Iniciado ||
                 Origem == NewPage1.OrigemCronometro.Nenhum)
                 return;
 
@@ -79,6 +133,8 @@ namespace ATHENA.Models
             inicioTrecho = DateTime.Now;
             Iniciado = true;
             Rodando = true;
+
+            Salvar();
         }
 
         public static void Pausar()
@@ -88,6 +144,8 @@ namespace ATHENA.Models
 
             tempoLiquidoAcumulado += DateTime.Now - inicioTrecho;
             Rodando = false;
+
+            Salvar();
         }
 
         public static void Continuar()
@@ -97,6 +155,8 @@ namespace ATHENA.Models
 
             inicioTrecho = DateTime.Now;
             Rodando = true;
+
+            Salvar();
         }
 
         public static NewPage1.ResultadoSessao? PrepararFinalizacao()
@@ -139,7 +199,28 @@ namespace ATHENA.Models
             tempoLiquidoAcumulado = TimeSpan.Zero;
             tempoLiquidoFinal = null;
             tempoBrutoFinal = null;
+
+            Salvar();
         }
+
+            public static void Erro()
+            {
+   
+                Iniciado = true;
+                Rodando = false;
+
+                DataFim = null;
+
+          
+                inicioTrecho = default;
+
+                tempoLiquidoFinal = null;
+                tempoBrutoFinal = null;
+
+            Salvar();
+
+            
+            }
     }
 
 }

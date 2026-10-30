@@ -1,6 +1,7 @@
 using ATHENA.Database;
 using ATHENA.Metas.xaml;
 using ATHENA.Models;
+using ATHENA.Services;
 using ATHENA.SessaoEstudo;
 using Microsoft.Win32;
 using SQLite;
@@ -229,6 +230,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     {
         base.OnAppearing();
 
+
         DateTime inicioDoDia = DateTime.Now.Date;
 
         Usuario? usuario = await db.Table<Usuario>()
@@ -259,7 +261,9 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
         }
         else
         {
+
             SessaoIniciada = true;
+            Contador();
             CronometroRodando = CronometroService.Rodando;
 
             BtnPausar.Text = CronometroService.Rodando
@@ -295,29 +299,8 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
         await CarregarInformacoes();
     }
 
-    protected override void OnDisappearing()
+    public void Contador()
     {
-        base.OnDisappearing();
-
-        // Não parar, zerar nem apagar IDs aqui.
-        // O cronômetro deve continuar existindo ao trocar de página.
-    }
-
-    private void BtnIniciar_Click(object sender, EventArgs e)
-    {
-        if (!CronometroService.Iniciado)
-            CronometroService.Iniciar();
-
-        SessaoIniciada = CronometroService.Iniciado;
-        CronometroRodando = CronometroService.Rodando;
-
-        if (!SessaoIniciada)
-            return;
-
-        BtnPausar.Text = CronometroRodando
-            ? "Ⅱ    PAUSAR"
-            : "▶    CONTINUAR";
-
         if (!TemporizadorTelaAtivo)
         {
             TemporizadorTelaAtivo = true;
@@ -349,6 +332,33 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
                     return true;
                 });
         }
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+
+    }
+
+    private void BtnIniciar_Click(object sender, EventArgs e)
+    {
+        if (!CronometroService.Iniciado)
+            CronometroService.Iniciar();
+
+        SessaoIniciada = CronometroService.Iniciado;
+        CronometroRodando = CronometroService.Rodando;
+
+        if (!SessaoIniciada)
+            return;
+
+        BtnPausar.Text = CronometroRodando
+            ? "Ⅱ    PAUSAR"
+            : "▶    CONTINUAR";
+
+        Contador();
+
+
+
     }
     private void BtnPausar_Click(object sender, EventArgs e)
     {
@@ -390,47 +400,48 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
 
         try
         {
+            try
+            {
+
+            await Models_Cronometro.SalvarEstudo(origem, idSessao, idMeta, resultadoSessao);
+            }
+            catch (Exception ex)
+            {
+                CronometroService.Erro();
+
+                SessaoIniciada = true;
+
+                Contador();
+                CronometroRodando = false;
+                BtnPausar.Text = "▶    CONTINUAR";
+
+                await DisplayAlertAsync("Erro", ex.Message, "Ok");
+
+                return;
+            }
+
+            CronometroService.Limpar();
             if (origem == OrigemCronometro.Livre)
             {
-                await Models_Cronometro.AdicionaTempoEstudoLivre(
-                    resultadoSessao);
-
-                await Models_Cronometro.Registro_Estudo(
-                    resultadoSessao);
+                await DisplayAlertAsync(
+                 "Estudo salvo",
+                 "Seu estudo livre foi registrado com sucesso!",
+                 "OK"
+                );
             }
             else if (origem == OrigemCronometro.Meta)
             {
-                if (idMeta == null)
-                    throw new Exception("Nenhuma meta foi selecionada.");
-
-                await Models_Cronometro.AdicionaTempoMeta(
-                    resultadoSessao, idMeta.Value);
-
-                await Models_Cronometro.Registro_Estudo(
-                    resultadoSessao);
-
-                CronometroService.Limpar();
 
                 await Shell.Current.GoToAsync("//EscolherMeta");
 
                 await Shell.Current.GoToAsync(
                     $"{nameof(InterfaceMeta)}?idMeta={idMeta}");
 
+
                 return;
             }
             else if (origem == OrigemCronometro.Sessao)
             {
-                if (idMeta == null || idSessao == null)
-                    throw new Exception("Os dados da sessão estão incompletos.");
-
-                await Models_Cronometro.AdicionaTempoMeta(
-                    resultadoSessao, idMeta.Value);
-
-                await Models_Cronometro.Registro_Estudo(
-                    resultadoSessao);
-
-                CronometroService.Limpar();
-
                 await Shell.Current.GoToAsync("//EscolherMeta");
 
                 await Shell.Current.GoToAsync(
@@ -443,6 +454,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
                         ["minutosLiquidos"] = resultadoSessao.MinutosLiquidos
                     });
 
+
                 return;
             }
             else
@@ -450,8 +462,6 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
                 throw new Exception("Origem do cronômetro inválida.");
             }
 
-            // Limpa o contexto depois de salvar o estudo livre.
-            CronometroService.Limpar();
 
             TxtCronometro.Text = "00:00:00";
             TxtTempoBruto.Text = "00:00:00";
@@ -463,7 +473,6 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
         }
         catch (Exception ex)
         {
-            // Mantém o estudo no service caso ocorra um erro.
             SessaoIniciada = true;
 
             await DisplayAlertAsync("Erro", ex.Message, "Ok");
