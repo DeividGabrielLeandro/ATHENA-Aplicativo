@@ -170,8 +170,9 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
             {
                 await Shell.Current.GoToAsync("..");
             }
-            else if ((sessao.duracaoMinutos ?? 0) == 0) 
+            else if ((sessao.duracaoMinutos ?? 0) == 0)
             {
+                if (!CronometroService.Iniciado && CronometroService.IdSessao == IdSessao)
                     CronometroService.Limpar();
 
                 await Models.Models_SessaoEstudo.DeletarSessao(IdSessao);

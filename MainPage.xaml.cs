@@ -15,6 +15,7 @@ public partial class MainPage : ContentPage
 
     readonly SQLiteAsyncConnection db;
     bool _carregando;
+    static bool _sessoesLimpas;
 
     public MainPage()
     {
@@ -180,10 +181,13 @@ public partial class MainPage : ContentPage
 
             await InicializarBanco();
 
+            if (!_sessoesLimpas)
+            {
+                await Models_SessaoEstudo.LimparSessaoVazia();
+                _sessoesLimpas = true;
+            }
+
             await CarregarInformacoes();
-
-            await Models_SessaoEstudo.LimparSessaoVazia();
-
         }
         catch (Exception ex)
         {
