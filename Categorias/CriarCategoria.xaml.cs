@@ -27,24 +27,35 @@ public partial class CriarCategoria : ContentPage
 
     private async void Button_Clicked(object sender, EventArgs e)
     {
-
-        string titulo = TituloTXT.Text;
-        string descricao = DescricaoTXT.Text;
-
-        int idCategoria = await Models_Categoria.CriarCategoria(titulo, descricao);
-
-        foreach (int idMeta in idsMetasSelecionadas)
+        try
         {
-            await Models_Categoria.AdicionarMetaCategoria(idMeta, idCategoria);
+            string titulo = TituloTXT.Text;
+            string descricao = DescricaoTXT.Text;
+
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                await DisplayAlertAsync("Atenção", "O título da categoria é obrigatório", "OK");
+                return;
+            }
+
+            int idCategoria = await Models_Categoria.CriarCategoria(titulo, descricao);
+
+            foreach (int idMeta in idsMetasSelecionadas)
+            {
+                await Models_Categoria.AdicionarMetaCategoria(idMeta, idCategoria);
+            }
+
+            await DisplayAlertAsync(
+                "Categoria criada com sucesso!",
+                "Sua categoria foi registrada e está pronta para ajudar você a organizar suas metas de estudo.",
+                "Continuar");
+
+            await Shell.Current.GoToAsync("..");
         }
-
-        await DisplayAlertAsync(
-    "Categoria criada com sucesso!",
-    "Sua categoria foi registrada e está pronta para ajudar você a organizar suas metas de estudo.",
-    "Continuar"
-);
-        await Shell.Current.GoToAsync("..");
-
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private async void Voltar_Clicked(object sender, EventArgs e)
@@ -54,14 +65,17 @@ public partial class CriarCategoria : ContentPage
 
     private async void BtnSelecionarMetas_Clicked(object sender, EventArgs e)
     {
-        List<Meta> metas = await db.Table<Meta>().ToListAsync();
-
-        if (metas == null)
+        try
         {
-            return;
+            List<Meta> metas = await db.Table<Meta>().ToListAsync();
+
+            ListaMetas.ItemsSource = metas;
+            ListaMetasContainer.IsVisible = true;
         }
-        ListaMetas.ItemsSource = metas;
-        ListaMetasContainer.IsVisible = true;
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private void ListaMetas_SelectionChanged(object sender, SelectionChangedEventArgs e)

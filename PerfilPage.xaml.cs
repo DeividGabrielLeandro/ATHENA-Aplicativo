@@ -38,95 +38,107 @@ public partial class PerfilPage : ContentPage
 
     public async void Informacoe()
     {
-        List<Sessao_Estudo> sessao = await db.Table<Sessao_Estudo>().ToListAsync();
-        List<Registro_Tempo> registros = await db.Table<Registro_Tempo>().ToListAsync();
-
-
-        double tempoTotal = registros.Sum(r => r.tempoEstudo);
-        int total = (int)tempoTotal;
-        int horas = total / 60;
-        int minutos = total % 60;
-
-        DateTime inicioDoDia = DateTime.Now.Date;
-
-        Usuario? usuario = await db.Table<Usuario>()
-                        .FirstOrDefaultAsync();
-
-        var registro_ = await db.Table<Registro_Tempo>()
-                .Where(r => r.data >= inicioDoDia)
-                .ToListAsync();
-
-        double tempoEstudado = registro_.Sum(r => r.tempoEstudo);
-        double totalMinutos = tempoEstudado;
-
-        double progresso = usuario != null && usuario.metaDiaria > 0
-    ? Math.Clamp(totalMinutos / usuario.metaDiaria.Value, 0, 1)
-    : 0;
-
-        int percentual = (int)(progresso * 100);
-
-        List<Registro_Tempo> tempo = await db
-    .Table<Registro_Tempo>()
-    .ToListAsync();
-
-        List<DateTime> diasEstudados = tempo
-            .Where(r => r.tempoEstudo > 0)
-            .Select(r => r.data.Date)
-            .Distinct()
-            .OrderByDescending(d => d)
-            .ToList();
-
-        int streak = 0;
-        DateTime hoje = DateTime.Today;
-
-        if (diasEstudados.Count > 0 &&
-            (diasEstudados[0] == hoje ||
-             diasEstudados[0] == hoje.AddDays(-1)))
+        try
         {
-            DateTime diaEsperado = diasEstudados[0];
+            List<Sessao_Estudo> sessao = await db.Table<Sessao_Estudo>().ToListAsync();
+            List<Registro_Tempo> registros = await db.Table<Registro_Tempo>().ToListAsync();
 
-            foreach (DateTime dia in diasEstudados)
+
+            double tempoTotal = registros.Sum(r => r.tempoEstudo);
+            int total = (int)tempoTotal;
+            int horas = total / 60;
+            int minutos = total % 60;
+
+            DateTime inicioDoDia = DateTime.Now.Date;
+
+            Usuario? usuario = await db.Table<Usuario>()
+                            .FirstOrDefaultAsync();
+
+            var registro_ = await db.Table<Registro_Tempo>()
+                    .Where(r => r.data >= inicioDoDia)
+                    .ToListAsync();
+
+            double tempoEstudado = registro_.Sum(r => r.tempoEstudo);
+            double totalMinutos = tempoEstudado;
+
+            double progresso = usuario != null && usuario.metaDiaria > 0
+        ? Math.Clamp(totalMinutos / usuario.metaDiaria.Value, 0, 1)
+        : 0;
+
+            int percentual = (int)(progresso * 100);
+
+            List<Registro_Tempo> tempo = await db
+        .Table<Registro_Tempo>()
+        .ToListAsync();
+
+            List<DateTime> diasEstudados = tempo
+                .Where(r => r.tempoEstudo > 0)
+                .Select(r => r.data.Date)
+                .Distinct()
+                .OrderByDescending(d => d)
+                .ToList();
+
+            int streak = 0;
+            DateTime hoje = DateTime.Today;
+
+            if (diasEstudados.Count > 0 &&
+                (diasEstudados[0] == hoje ||
+                 diasEstudados[0] == hoje.AddDays(-1)))
             {
-                if (dia == diaEsperado)
+                DateTime diaEsperado = diasEstudados[0];
+
+                foreach (DateTime dia in diasEstudados)
                 {
-                    streak++;
-                    diaEsperado = diaEsperado.AddDays(-1);
-                }
-                else
-                {
-                    break;
+                    if (dia == diaEsperado)
+                    {
+                        streak++;
+                        diaEsperado = diaEsperado.AddDays(-1);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
-        }
 
-        MainThread.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                TxtQuantidadeSessoes.Text = sessao.Count.ToString();
+                TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario?.metaDiaria} min";
+                TxtPercentualMetaDiaria.Text = $"{percentual}%";
+                TxtTempoTotal.Text = $"{horas}h {minutos:D2}min";
+                TxtStreak.Text = $"{streak.ToString()} dias";
+            });
+        }
+        catch (Exception ex)
         {
-            TxtQuantidadeSessoes.Text = sessao.Count.ToString();
-            TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario.metaDiaria} min";
-            TxtPercentualMetaDiaria.Text = $"{percentual}%";
-            TxtTempoTotal.Text = $"{horas}h {minutos:D2}min";
-            TxtStreak.Text = $"{streak.ToString()} dias";
-        });
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
     protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-
-        Usuario? usuario = await db.Table<Usuario>()
-            .FirstOrDefaultAsync();
-
-        if (usuario?.fotoPerfil != null &&
-            File.Exists(usuario.fotoPerfil))
+        try
         {
-            ImagemPerfil.Source = ImageSource.FromFile(
-                usuario.fotoPerfil);
-        }
-        else
-        {
-            ImagemPerfil.Source = null;
-        }
+            Usuario? usuario = await db.Table<Usuario>()
+                .FirstOrDefaultAsync();
 
+            if (usuario?.fotoPerfil != null &&
+                File.Exists(usuario.fotoPerfil))
+            {
+                ImagemPerfil.Source = ImageSource.FromFile(
+                    usuario.fotoPerfil);
+            }
+            else
+            {
+                ImagemPerfil.Source = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
 
         Informacoe();
     }
@@ -180,39 +192,55 @@ public partial class PerfilPage : ContentPage
 
     private async void MetaDiariaTXT_Completed(object sender, EventArgs e)
     {
-        string metaMinutos = MetaDiariaTXT.Text;
-
-        if (double.TryParse(metaMinutos, out double minutos))
+        try
         {
-            await Models_Usuario.AtualizarUsuario(null, minutos);
+            string metaMinutos = MetaDiariaTXT.Text;
+
+            if (double.TryParse(metaMinutos, out double minutos))
+            {
+                await Models_Usuario.AtualizarUsuario(null, minutos);
+            }
+
+            DateTime inicioDoDia = DateTime.Now.Date;
+
+            Usuario? usuario = await db.Table<Usuario>()
+                            .FirstOrDefaultAsync();
+
+            if (usuario == null)
+                return;
+
+            var registros = await db.Table<Registro_Tempo>()
+                    .Where(r => r.data >= inicioDoDia)
+                    .ToListAsync();
+
+            double tempoEstudado = registros.Sum(r => r.tempoEstudo);
+            double totalMinutos = tempoEstudado;
+
+            double progresso = usuario.metaDiaria > 0
+        ? Math.Min(totalMinutos / usuario.metaDiaria.Value, 1.0)
+        : 0;
+
+
+            TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario.metaDiaria} min";
+            TxtPercentualMetaDiaria.Text = $"{progresso:P0}";
         }
-
-        DateTime inicioDoDia = DateTime.Now.Date;
-
-        Usuario? usuario = await db.Table<Usuario>()
-                        .FirstOrDefaultAsync();
-
-        var registros = await db.Table<Registro_Tempo>()
-                .Where(r => r.data >= inicioDoDia)
-                .ToListAsync();
-
-        double tempoEstudado = registros.Sum(r => r.tempoEstudo);
-        double totalMinutos = tempoEstudado;
-
-        double progresso = usuario.metaDiaria > 0
-    ? Math.Min(totalMinutos / usuario.metaDiaria.Value, 1.0)
-    : 0;
-
-
-        TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario.metaDiaria} min";
-        TxtPercentualMetaDiaria.Text = $"{progresso:P0}";
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private async void NomeUsuario_Completed(object sender, EventArgs e)
     {
-        string nome = NomeUsuario.Text;
-        await Models_Usuario.AtualizarUsuario(nome, null);
-
+        try
+        {
+            string nome = NomeUsuario.Text;
+            await Models_Usuario.AtualizarUsuario(nome, null);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
     private async void BtnConfigurarIA_Clicked(object sender, EventArgs e)
     {
@@ -220,38 +248,52 @@ public partial class PerfilPage : ContentPage
     }
     private async void BtnAbrirAIStudio_Clicked(object sender, EventArgs e)
     {
-        string url = "https://aistudio.google.com/app/apikey";
-        await Launcher.Default.OpenAsync(url);
+        try
+        {
+            string url = "https://aistudio.google.com/app/apikey";
+            await Launcher.Default.OpenAsync(url);
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
 
 
     private async void BtnSalvarConfigIA_Clicked(object sender, EventArgs e)
     {
-        string novaChave = EntryApiKey.Text?.Trim() ?? "";
-        string? chaveSalva = await SecureStorage.Default.GetAsync("GeminiApiKey");
-        string? modelo = PickerModeloIA.SelectedItem?.ToString();
-        string instrucoes = EditorInstrucoesIA.Text?.Trim() ?? "";
-
-        bool temChave = !string.IsNullOrEmpty(novaChave) || !string.IsNullOrEmpty(chaveSalva);
-
-        if (!temChave || string.IsNullOrEmpty(modelo))
+        try
         {
-            await DisplayAlertAsync("Atenção", "É preciso ter uma chave de API e um modelo escolhido.", "OK");
-            return;
+            string novaChave = EntryApiKey.Text?.Trim() ?? "";
+            string? chaveSalva = await SecureStorage.Default.GetAsync("GeminiApiKey");
+            string? modelo = PickerModeloIA.SelectedItem?.ToString();
+            string instrucoes = EditorInstrucoesIA.Text?.Trim() ?? "";
+
+            bool temChave = !string.IsNullOrEmpty(novaChave) || !string.IsNullOrEmpty(chaveSalva);
+
+            if (!temChave || string.IsNullOrEmpty(modelo))
+            {
+                await DisplayAlertAsync("Atenção", "É preciso ter uma chave de API e um modelo escolhido.", "OK");
+                return;
+            }
+
+            IASettings settings = new IASettings();
+            settings.Model = modelo;
+            settings.SystemPrompt = instrucoes;
+            settings.Salvar();
+
+            if (!string.IsNullOrEmpty(novaChave))
+                await SecureStorage.Default.SetAsync("GeminiApiKey", novaChave);
+
+            EntryApiKey.Text = string.Empty;
+            await CarregarConfigIAAsync();
+            TxtStatusConfigIA.Text = "Configuração salva.";
         }
-
-        IASettings settings = new IASettings();
-        settings.Model = modelo;
-        settings.SystemPrompt = instrucoes;
-        settings.Salvar();
-
-        if (!string.IsNullOrEmpty(novaChave))
-            await SecureStorage.Default.SetAsync("GeminiApiKey", novaChave);
-
-        EntryApiKey.Text = string.Empty;
-        await CarregarConfigIAAsync();
-        TxtStatusConfigIA.Text = "Configuração salva.";
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private async void Voltar_Clicked(object sender, EventArgs e)

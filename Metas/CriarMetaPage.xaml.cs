@@ -42,9 +42,16 @@ public partial class NewPage2 : ContentPage
     {
         base.OnAppearing();
 
-        List<Categoria> categorias = await db.Table<Categoria>().ToListAsync();
+        try
+        {
+            List<Categoria> categorias = await db.Table<Categoria>().ToListAsync();
 
-        ListaCategorias.ItemsSource = categorias;
+            ListaCategorias.ItemsSource = categorias;
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
 
@@ -70,6 +77,12 @@ public partial class NewPage2 : ContentPage
 
         string titulo = TituloTXT.Text;
 
+        if (string.IsNullOrWhiteSpace(titulo))
+        {
+            await DisplayAlertAsync("Atenção", "O título da meta é obrigatório", "OK");
+            return;
+        }
+
         string? descricao = string.IsNullOrWhiteSpace(DescricaoTXT.Text) ? null : DescricaoTXT.Text;
             
         int? minutos = int.TryParse(MetaMinutosTXT.Text, out int valor) ? valor : null;
@@ -85,7 +98,7 @@ public partial class NewPage2 : ContentPage
             await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex) {
-            await DisplayAlertAsync("Erro", "O título da meta é obrigatório", "Ok");
+            await DisplayAlertAsync("Erro", ex.Message, "Ok");
 
         }
             
@@ -121,41 +134,48 @@ public partial class NewPage2 : ContentPage
      object sender,
      SelectionChangedEventArgs e)
     {
-        Categoria? categoriaSelecionada =
-            e.CurrentSelection.FirstOrDefault() as Categoria;
-
-        if (categoriaSelecionada is null)
+        try
         {
-            return;
+            Categoria? categoriaSelecionada =
+                e.CurrentSelection.FirstOrDefault() as Categoria;
+
+            if (categoriaSelecionada is null)
+            {
+                return;
+            }
+
+            IdCategoria =
+                categoriaSelecionada.idCategoria;
+
+            Categoria? categoria =
+                await db.Table<Categoria>()
+                    .Where(r => r.idCategoria == IdCategoria.Value)
+                    .FirstOrDefaultAsync();
+
+            if (categoria is null)
+            {
+                return;
+            }
+
+            TxtCategoriaSelecionada.Text =
+                categoria.tituloCategoria;
+
+            TxtStatusCategoria.Text =
+                "Categoria vinculada";
+
+            TxtResumoCategoria.Text =
+                categoria.tituloCategoria;
+
+            ListaCategoriasContainer.IsVisible =
+                false;
+
+            ListaCategorias.SelectedItem =
+                null;
         }
-
-        IdCategoria =
-            categoriaSelecionada.idCategoria;
-
-        Categoria? categoria =
-            await db.Table<Categoria>()
-                .Where(r => r.idCategoria == IdCategoria.Value)
-                .FirstOrDefaultAsync();
-
-        if (categoria is null)
+        catch (Exception ex)
         {
-            return;
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
         }
-
-        TxtCategoriaSelecionada.Text =
-            categoria.tituloCategoria;
-
-        TxtStatusCategoria.Text =
-            "Categoria vinculada";
-
-        TxtResumoCategoria.Text =
-            categoria.tituloCategoria;
-
-        ListaCategoriasContainer.IsVisible =
-            false;
-
-        ListaCategorias.SelectedItem =
-            null;
     }
     private async void Voltar_Clicked(object sender, EventArgs e)
     {

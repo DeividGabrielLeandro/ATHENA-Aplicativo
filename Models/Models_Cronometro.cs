@@ -115,9 +115,9 @@ namespace ATHENA.Models
                     if (meta == null)
                         throw new Exception("Meta não encontrada.");
 
-                    meta.minutosEstudados += ((int)minutos);                    
+                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + (int)minutos;
 
-                    conn.Update(meta);            
+                    conn.Update(meta);
 
 
                 }
@@ -127,15 +127,21 @@ namespace ATHENA.Models
                         throw new Exception("Os dados da sessão estão incompletos.");
 
                     var meta = conn.Find<Meta>(idMeta.Value);
-               
-                    meta.minutosEstudados += ((int)minutos);
-                    
+
+                    if (meta == null)
+                        throw new Exception("Meta não encontrada.");
+
+                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + (int)minutos;
+
                     conn.Update(meta);
 
                     var sessao = conn.Find<Sessao_Estudo>(idSessao.Value);
 
-                    sessao.tempoEstudadoMinutos += minutos;
-                    sessao.duracaoMinutos += minutosBruto;
+                    if (sessao == null)
+                        throw new Exception("Sessão não encontrada.");
+
+                    sessao.tempoEstudadoMinutos = (sessao.tempoEstudadoMinutos ?? 0) + minutos;
+                    sessao.duracaoMinutos = (sessao.duracaoMinutos ?? 0) + minutosBruto;
 
                     conn.Update(sessao);
 

@@ -35,20 +35,27 @@ public partial class ChatBot : ContentPage
     {
       base.OnAppearing();
 
-        await IAService.ApagarMensagem();
-
-        Usuario? usuario = await db.Table<Usuario>()
-           .FirstOrDefaultAsync();
-
-        if (usuario?.fotoPerfil != null &&
-            File.Exists(usuario.fotoPerfil))
+        try
         {
-            ImagemPerfil.Source = ImageSource.FromFile(
-                usuario.fotoPerfil);
+            await IAService.ApagarMensagem();
+
+            Usuario? usuario = await db.Table<Usuario>()
+               .FirstOrDefaultAsync();
+
+            if (usuario?.fotoPerfil != null &&
+                File.Exists(usuario.fotoPerfil))
+            {
+                ImagemPerfil.Source = ImageSource.FromFile(
+                    usuario.fotoPerfil);
+            }
+            else
+            {
+                ImagemPerfil.Source = null;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            ImagemPerfil.Source = null;
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
         }
     }
 

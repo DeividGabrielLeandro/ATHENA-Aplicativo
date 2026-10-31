@@ -230,73 +230,79 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     {
         base.OnAppearing();
 
-
-        DateTime inicioDoDia = DateTime.Now.Date;
-
-        Usuario? usuario = await db.Table<Usuario>()
-            .FirstOrDefaultAsync();
-
-        var registros = await db.Table<Registro_Tempo>()
-            .Where(r => r.data >= inicioDoDia)
-            .ToListAsync();
-
-        minutosEstudadosHoje = registros.Sum(r => r.tempoEstudo);
-        metaDiariaMinutos = usuario?.metaDiaria ?? 0;
-
-        AtualizarProgressoMetaDiaria(
-            minutosEstudadosHoje,
-            metaDiariaMinutos
-        );
-
-        if (!CronometroService.Iniciado)
+        try
         {
-            SessaoIniciada = false;
-            CronometroRodando = false;
+            DateTime inicioDoDia = DateTime.Now.Date;
 
-            TxtCronometro.Text = "00:00:00";
-            TxtTempoBruto.Text = "00:00:00";
-            TxtTempoPausas.Text = "00:00:00";
-
-            BtnPausar.Text = "Ⅱ    PAUSAR";
-        }
-        else
-        {
-
-            SessaoIniciada = true;
-            Contador();
-            CronometroRodando = CronometroService.Rodando;
-
-            BtnPausar.Text = CronometroService.Rodando
-                ? "Ⅱ    PAUSAR"
-                : "▶    CONTINUAR";
-        }
-
-        CronometroService.GarantirEstudoLivre();
-
-        Origem = CronometroService.Origem;
-        IdMeta = CronometroService.IdMeta;
-        IdSessao = CronometroService.IdSessao;
-
-        TxtInicioSessao.Text =
-            CronometroService.Iniciado
-                ? CronometroService.DataInicio.ToString("HH:mm")
-                : DateTime.Now.ToString("HH:mm");
-
-        Usuario? user = await db.Table<Usuario>()
+            Usuario? usuario = await db.Table<Usuario>()
                 .FirstOrDefaultAsync();
 
-        if (user?.fotoPerfil != null &&
-            File.Exists(user.fotoPerfil))
-        {
-            ImagemPerfil.Source = ImageSource.FromFile(
-                user.fotoPerfil);
-        }
-        else
-        {
-            ImagemPerfil.Source = null;
-        }
+            var registros = await db.Table<Registro_Tempo>()
+                .Where(r => r.data >= inicioDoDia)
+                .ToListAsync();
 
-        await CarregarInformacoes();
+            minutosEstudadosHoje = registros.Sum(r => r.tempoEstudo);
+            metaDiariaMinutos = usuario?.metaDiaria ?? 0;
+
+            AtualizarProgressoMetaDiaria(
+                minutosEstudadosHoje,
+                metaDiariaMinutos
+            );
+
+            if (!CronometroService.Iniciado)
+            {
+                SessaoIniciada = false;
+                CronometroRodando = false;
+
+                TxtCronometro.Text = "00:00:00";
+                TxtTempoBruto.Text = "00:00:00";
+                TxtTempoPausas.Text = "00:00:00";
+
+                BtnPausar.Text = "Ⅱ    PAUSAR";
+            }
+            else
+            {
+
+                SessaoIniciada = true;
+                Contador();
+                CronometroRodando = CronometroService.Rodando;
+
+                BtnPausar.Text = CronometroService.Rodando
+                    ? "Ⅱ    PAUSAR"
+                    : "▶    CONTINUAR";
+            }
+
+            CronometroService.GarantirEstudoLivre();
+
+            Origem = CronometroService.Origem;
+            IdMeta = CronometroService.IdMeta;
+            IdSessao = CronometroService.IdSessao;
+
+            TxtInicioSessao.Text =
+                CronometroService.Iniciado
+                    ? CronometroService.DataInicio.ToString("HH:mm")
+                    : DateTime.Now.ToString("HH:mm");
+
+            Usuario? user = await db.Table<Usuario>()
+                    .FirstOrDefaultAsync();
+
+            if (user?.fotoPerfil != null &&
+                File.Exists(user.fotoPerfil))
+            {
+                ImagemPerfil.Source = ImageSource.FromFile(
+                    user.fotoPerfil);
+            }
+            else
+            {
+                ImagemPerfil.Source = null;
+            }
+
+            await CarregarInformacoes();
+        }
+        catch (Exception ex)
+        {
+            await MostrarErroSeguro("Erro ao carregar o cronômetro", ex.Message);
+        }
     }
 
     public void Contador()

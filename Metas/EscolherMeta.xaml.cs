@@ -219,37 +219,44 @@ public partial class EscolherMeta : ContentPage
 
     private async void BtnFiltroPendentes_Clicked(object sender, EventArgs e)
     {
-        SelecionarFiltro(BtnFiltroPendentes);
-
-        List<Meta> metas = await db.Table<Meta>()
-          .Where(r => r.status == "Em andamento")
-          .ToListAsync();
-
-        var categorias = await db.Table<Categoria>().ToListAsync();
-        var listaMetas = new List<Informacoes>();
-
-        foreach (var meta in metas)
+        try
         {
-            var categoria = categorias.FirstOrDefault(
-    c => c.idCategoria == meta.idCategoria);
+            SelecionarFiltro(BtnFiltroPendentes);
 
+            List<Meta> metas = await db.Table<Meta>()
+              .Where(r => r.status == "Em andamento")
+              .ToListAsync();
 
+            var categorias = await db.Table<Categoria>().ToListAsync();
+            var listaMetas = new List<Informacoes>();
 
-            listaMetas.Add(new Informacoes
+            foreach (var meta in metas)
             {
-                idMeta = meta.idMeta,
-                tituloMeta = meta.tituloMeta,
-                descricaoMeta = meta.descricaoMeta,
-                prioridadeMeta = meta.prioridadeMeta,
-                status = meta.status,
-                minutosEstudados = meta.minutosEstudados,
-                metaMinutos = meta.metaMinutos,
-                Progresso = meta.Progresso,
-                CategoriaTexto = categoria?.tituloCategoria,
-                dataLimite = meta.TextoDataLimite,
-            });
+                var categoria = categorias.FirstOrDefault(
+        c => c.idCategoria == meta.idCategoria);
+
+
+
+                listaMetas.Add(new Informacoes
+                {
+                    idMeta = meta.idMeta,
+                    tituloMeta = meta.tituloMeta,
+                    descricaoMeta = meta.descricaoMeta,
+                    prioridadeMeta = meta.prioridadeMeta,
+                    status = meta.status,
+                    minutosEstudados = meta.minutosEstudados,
+                    metaMinutos = meta.metaMinutos,
+                    Progresso = meta.Progresso,
+                    CategoriaTexto = categoria?.tituloCategoria,
+                    dataLimite = meta.TextoDataLimite,
+                });
+            }
+            lista.ItemsSource = listaMetas;
         }
-        lista.ItemsSource = listaMetas;
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
     private async void BtnFiltroTodas_Clicked(object sender, EventArgs e)
     {
@@ -259,71 +266,85 @@ public partial class EscolherMeta : ContentPage
 
     private async void BtnFiltroConcluidas_Clicked(object sender, EventArgs e)
     {
-        SelecionarFiltro(BtnFiltroConcluidas);
-
-        List<Meta> metas = await db.Table<Meta>()
-            .Where(r => r.status == "Concluida")
-            .ToListAsync();
-
-        var categorias = await db.Table<Categoria>().ToListAsync();
-        var listaMetas = new List<Informacoes>();
-
-        foreach (var meta in metas)
+        try
         {
-            var categoria = categorias.FirstOrDefault(
-    c => c.idCategoria == meta.idCategoria);
+            SelecionarFiltro(BtnFiltroConcluidas);
 
+            List<Meta> metas = await db.Table<Meta>()
+                .Where(r => r.status == "Concluida")
+                .ToListAsync();
 
+            var categorias = await db.Table<Categoria>().ToListAsync();
+            var listaMetas = new List<Informacoes>();
 
-            listaMetas.Add(new Informacoes
+            foreach (var meta in metas)
             {
-                idMeta = meta.idMeta,
-                tituloMeta = meta.tituloMeta,
-                descricaoMeta = meta.descricaoMeta,
-                prioridadeMeta = meta.prioridadeMeta,
-                status = meta.status,
-                minutosEstudados = meta.minutosEstudados,
-                metaMinutos = meta.metaMinutos,
-                Progresso = meta.Progresso,
-                CategoriaTexto = categoria?.tituloCategoria,
-                dataLimite = meta.TextoDataLimite,
-            });
+                var categoria = categorias.FirstOrDefault(
+        c => c.idCategoria == meta.idCategoria);
+
+
+
+                listaMetas.Add(new Informacoes
+                {
+                    idMeta = meta.idMeta,
+                    tituloMeta = meta.tituloMeta,
+                    descricaoMeta = meta.descricaoMeta,
+                    prioridadeMeta = meta.prioridadeMeta,
+                    status = meta.status,
+                    minutosEstudados = meta.minutosEstudados,
+                    metaMinutos = meta.metaMinutos,
+                    Progresso = meta.Progresso,
+                    CategoriaTexto = categoria?.tituloCategoria,
+                    dataLimite = meta.TextoDataLimite,
+                });
+            }
+            lista.ItemsSource = listaMetas;
         }
-        lista.ItemsSource = listaMetas;
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private async void BuscaMetaTXT_Completed(object sender, EventArgs e)
     {
-        string busca = BuscaMetaTXT.Text;
-
-        List<Meta> metas = await db.Table<Meta>()
-            .Where(r =>  r.tituloMeta.Contains(busca))
-            .ToListAsync();
-
-        var categorias = await db.Table<Categoria>().ToListAsync();
-        var listaMetas = new List<Informacoes>();
-
-        foreach (var meta in metas)
+        try
         {
-            var categoria = categorias.FirstOrDefault(
-    c => c.idCategoria == meta.idCategoria);
+            string busca = BuscaMetaTXT.Text;
 
+            List<Meta> metas = await db.Table<Meta>()
+                .Where(r =>  r.tituloMeta.Contains(busca))
+                .ToListAsync();
 
+            var categorias = await db.Table<Categoria>().ToListAsync();
+            var listaMetas = new List<Informacoes>();
 
-            listaMetas.Add(new Informacoes
+            foreach (var meta in metas)
             {
-                idMeta = meta.idMeta,
-                tituloMeta = meta.tituloMeta,
-                descricaoMeta = meta.descricaoMeta,
-                prioridadeMeta = meta.prioridadeMeta,
-                status = meta.status,
-                minutosEstudados = meta.minutosEstudados,
-                metaMinutos = meta.metaMinutos,
-                Progresso = meta.Progresso,
-                CategoriaTexto = categoria?.tituloCategoria,
-                dataLimite = meta.TextoDataLimite,
-            });
+                var categoria = categorias.FirstOrDefault(
+        c => c.idCategoria == meta.idCategoria);
+
+
+
+                listaMetas.Add(new Informacoes
+                {
+                    idMeta = meta.idMeta,
+                    tituloMeta = meta.tituloMeta,
+                    descricaoMeta = meta.descricaoMeta,
+                    prioridadeMeta = meta.prioridadeMeta,
+                    status = meta.status,
+                    minutosEstudados = meta.minutosEstudados,
+                    metaMinutos = meta.metaMinutos,
+                    Progresso = meta.Progresso,
+                    CategoriaTexto = categoria?.tituloCategoria,
+                    dataLimite = meta.TextoDataLimite,
+                });
+            }
+            lista.ItemsSource = listaMetas;
         }
-        lista.ItemsSource = listaMetas;
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 }

@@ -200,64 +200,71 @@ public partial class ListarCategoria : ContentPage
 
     private async void BuscaCategoriaTXT_Completed(object sender, EventArgs e)
     {
-        string busca = BuscaCategoriaTXT.Text;
-
-        List<Categoria> categorias = await db.Table<Categoria>()
-            .Where(r => r.tituloCategoria.Contains(busca))
-            .ToListAsync();
-
-        List<Meta> metas = await db.Table<Meta>().ToListAsync();
-        var listaCategoria = new List<Informacoes>();
-
-
-        foreach (var categoria in categorias)
+        try
         {
-            int metaCategoria = metas.Count(
-                m => m.idCategoria == categoria.idCategoria);
+            string busca = BuscaCategoriaTXT.Text;
 
-            int metaConcluidaCategoria = metas.Count(
-                m =>
-                    m.idCategoria == categoria.idCategoria &&
-                    m.status == "Concluida");
+            List<Categoria> categorias = await db.Table<Categoria>()
+                .Where(r => r.tituloCategoria.Contains(busca))
+                .ToListAsync();
 
-            double progresso = metaCategoria > 0
-                ? (double)metaConcluidaCategoria / metaCategoria
-                : 0;
+            List<Meta> metas = await db.Table<Meta>().ToListAsync();
+            var listaCategoria = new List<Informacoes>();
 
-            bool progressoConcluido =
-                metaCategoria > 0 &&
-                metaConcluidaCategoria == metaCategoria;
 
-            string textoMetas =
-                metaCategoria == 1
-                    ? "1 meta"
-                    : $"{metaCategoria} metas";
-
-            string textoConcluidas =
-                metaConcluidaCategoria == 1
-                    ? "1 concluída"
-                    : $"{metaConcluidaCategoria} concluídas";
-
-            listaCategoria.Add(new Informacoes
+            foreach (var categoria in categorias)
             {
-                idCategoria = categoria.idCategoria,
+                int metaCategoria = metas.Count(
+                    m => m.idCategoria == categoria.idCategoria);
 
-                tituloCategoria = categoria.tituloCategoria,
-                descricaoCategoria = categoria.descricaoCategoria,
+                int metaConcluidaCategoria = metas.Count(
+                    m =>
+                        m.idCategoria == categoria.idCategoria &&
+                        m.status == "Concluida");
 
-                metasEmCategoria = metaCategoria,
-                metasConcluidas = metaConcluidaCategoria,
+                double progresso = metaCategoria > 0
+                    ? (double)metaConcluidaCategoria / metaCategoria
+                    : 0;
 
-                TextoMetas = textoMetas,
-                TextoConcluidas = textoConcluidas,
+                bool progressoConcluido =
+                    metaCategoria > 0 &&
+                    metaConcluidaCategoria == metaCategoria;
 
-                ProgressoConclusao = progresso,
+                string textoMetas =
+                    metaCategoria == 1
+                        ? "1 meta"
+                        : $"{metaCategoria} metas";
 
-                TextoProgresso = $"{progresso * 100:0}%",
+                string textoConcluidas =
+                    metaConcluidaCategoria == 1
+                        ? "1 concluída"
+                        : $"{metaConcluidaCategoria} concluídas";
 
-                ProgressoConcluido = progressoConcluido
-            });
-            lista.ItemsSource = listaCategoria;
+                listaCategoria.Add(new Informacoes
+                {
+                    idCategoria = categoria.idCategoria,
+
+                    tituloCategoria = categoria.tituloCategoria,
+                    descricaoCategoria = categoria.descricaoCategoria,
+
+                    metasEmCategoria = metaCategoria,
+                    metasConcluidas = metaConcluidaCategoria,
+
+                    TextoMetas = textoMetas,
+                    TextoConcluidas = textoConcluidas,
+
+                    ProgressoConclusao = progresso,
+
+                    TextoProgresso = $"{progresso * 100:0}%",
+
+                    ProgressoConcluido = progressoConcluido
+                });
+                lista.ItemsSource = listaCategoria;
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
         }
     }
 }

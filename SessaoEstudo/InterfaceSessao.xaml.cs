@@ -124,26 +124,39 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
 
     private async void Salvar_Clicked_1(object sender, EventArgs e)
     {
-        SessaoSalva = true;
-        string titulo = TituloTXT.Text;
-
-        if (string.IsNullOrWhiteSpace(titulo))
+        if (CronometroService.Iniciado && CronometroService.IdSessao == IdSessao)
         {
-            titulo = "Sem descrição";
+            await DisplayAlertAsync("Cronômetro ativo", "Pare o cronômetro antes de salvar a sessão.", "OK");
+            return;
         }
 
-        string descricao = DescricaoTXT.Text;
-        DateTime dataFim = DateTime.Now;
+        try
+        {
+            SessaoSalva = true;
+            string titulo = TituloTXT.Text;
 
-        await Models.Models_SessaoEstudo.SalvarPausaSessao(IdSessao, TempoPausa, null);
-        await Models.Models_SessaoEstudo.FinalizarSessao(titulo, descricao, dataFim, minutosBrutos, minutosLiquidos, IdSessao);
+            if (string.IsNullOrWhiteSpace(titulo))
+            {
+                titulo = "Sem descrição";
+            }
 
-        await DisplayAlertAsync("Sucesso!", "Sessão finalizada com sucesso", "Ok");
+            string descricao = DescricaoTXT.Text;
+            DateTime dataFim = DateTime.Now;
 
-        await Shell.Current.GoToAsync("//EscolherMeta");
+            await Models.Models_SessaoEstudo.SalvarPausaSessao(IdSessao, TempoPausa, null);
+            await Models.Models_SessaoEstudo.FinalizarSessao(titulo, descricao, dataFim, minutosBrutos, minutosLiquidos, IdSessao);
 
-        await Shell.Current.GoToAsync(
-            $"{nameof(InterfaceMeta)}?idMeta={IdMeta}");
+            await DisplayAlertAsync("Sucesso!", "Sessão finalizada com sucesso", "Ok");
+
+            await Shell.Current.GoToAsync("//EscolherMeta");
+
+            await Shell.Current.GoToAsync(
+                $"{nameof(InterfaceMeta)}?idMeta={IdMeta}");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     protected override async void OnDisappearing()

@@ -70,12 +70,18 @@ public partial class EditarMeta : ContentPage
         }
     private async void PrazoDate_DateSelected(object sender, DateChangedEventArgs e)
     {
-        DateTime? dataEscolhida = PrazoDate.Date;
+        try
+        {
+            DateTime? dataEscolhida = PrazoDate.Date;
 
-        await Models_Meta.AdicionarRemoverData(IdMeta, dataEscolhida, 'A');
+            await Models_Meta.AdicionarRemoverData(IdMeta, dataEscolhida, 'A');
 
-        DataLimiteTXT.Text = dataEscolhida.Value.ToString("dd/MM/yyyy");
-
+            DataLimiteTXT.Text = dataEscolhida.Value.ToString("dd/MM/yyyy");
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
     private void Button_Clicked(object sender, EventArgs e)
     {
@@ -84,10 +90,16 @@ public partial class EditarMeta : ContentPage
 
     private async void Button_Clicked_1(object sender, EventArgs e)
     {
-        await Models_Meta.AdicionarRemoverData(IdMeta, null, 'R');
+        try
+        {
+            await Models_Meta.AdicionarRemoverData(IdMeta, null, 'R');
 
-        DataLimiteTXT.Text = "Não possui prazo";
-
+            DataLimiteTXT.Text = "Não possui prazo";
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlertAsync("Erro", ex.Message, "OK");
+        }
     }
 
     private async void Button_Clicked_2(object sender, EventArgs e)
@@ -97,7 +109,7 @@ public partial class EditarMeta : ContentPage
 
             string status;
             string prioridade;
-            string titulo = TituloTXT.Text;
+            string? titulo = string.IsNullOrWhiteSpace(TituloTXT.Text) ? null : TituloTXT.Text;
             string descricao = DescricaoTXT.Text;
             int? minutos = null;
 
