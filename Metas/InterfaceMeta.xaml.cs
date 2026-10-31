@@ -2,7 +2,6 @@
 using ATHENA.Database;
 using ATHENA.Services;
 using ATHENA.SessaoEstudo;
-using Microsoft.Maui.Platform;
 using SQLite;
 using static ATHENA.NewPage1;
 
@@ -61,11 +60,10 @@ public partial class InterfaceMeta : ContentPage
             if (sessao == null)
                 return;
             UltimaSessaoCard.IsVisible = true;
-            TimeSpan tempo = TimeSpan.FromMinutes(sessao.tempoEstudadoMinutos ?? 0);
 
-            UltimaSessaoTempoTXT.Text = tempo.ToFormattedString(Title);
+            UltimaSessaoTempoTXT.Text = FormatadorTempo.Duracao(sessao.tempoEstudadoMinutos ?? 0);
             UltimaSessaoTituloTXT.Text = sessao.tituloSessao;
-            UltimaSessaoDataTXT.Text = sessao.DataFim.ToString();
+            UltimaSessaoDataTXT.Text = sessao.DataFim?.ToString("dd/MM/yyyy HH:mm") ?? "Em andamento";
             UltimaSessaoDescricaoTXT.Text = sessao.descricaoSessao;
         }
         catch (Exception ex)

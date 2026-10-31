@@ -1,5 +1,5 @@
 using ATHENA.Database;
-using Microsoft.Maui.Platform;
+using ATHENA.Services;
 using SQLite;
 
 namespace ATHENA.SessaoEstudo;
@@ -49,7 +49,7 @@ public partial class HistoridoSessao : ContentPage
             }
 
             double tempoTotal = sessao.Sum(s => s.tempoEstudadoMinutos ?? 0);
-            TempoTotalTXT.Text = TimeSpan.FromMinutes(tempoTotal).ToString(@"hh\:mm\:ss");
+            TempoTotalTXT.Text = FormatadorTempo.Duracao(tempoTotal);
 
             TotalSessoesTXT.Text = sessao.Count.ToString();
 

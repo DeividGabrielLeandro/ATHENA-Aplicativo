@@ -55,11 +55,6 @@ public partial class MainPage : ContentPage
 
             double tempoEstudado = registros.Sum(r => r.tempoEstudo);
 
-            double tempoTotal = registros.Sum(r => r.tempoEstudo);
-            int total = (int)tempoTotal;
-            int horas = total / 60;
-            int minutos = total % 60;
-
             if (meta is not null)
             {
                 lblTituloMaiorSessao.Text = meta.tituloMeta;
@@ -78,7 +73,7 @@ public partial class MainPage : ContentPage
                 lblQuantidadeMetas.Text = quantidadeMetas.ToString();
                 lblQuantidadeCategorias.Text = quantidadeCategorias.ToString();
                 lblQuantidadeSessoes.Text = quantidadeSessoes.ToString();
-                lblTempoEstudado.Text = $"{horas}h {minutos:D2}min";
+                lblTempoEstudado.Text = FormatadorTempo.Duracao(tempoEstudado);
             });
         }
         catch (Exception ex)

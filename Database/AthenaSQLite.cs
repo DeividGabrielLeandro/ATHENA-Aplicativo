@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using ATHENA.Services;
+using SQLite;
 
 namespace ATHENA.Database
 {
@@ -143,36 +144,14 @@ namespace ATHENA.Database
         public double? tempoEstudadoMinutos { get; set; } //Tempo líquido, sem as pausas
 
         [Ignore]
-        public string TempoLiquidoFormatado
-        {
-            get
-            {
-                TimeSpan tempo = TimeSpan.FromMinutes(tempoEstudadoMinutos ?? 0);
-                return tempo.ToString(@"hh\:mm\:ss");
-            }
-        }
+        public string TempoLiquidoFormatado => FormatadorTempo.Duracao(tempoEstudadoMinutos ?? 0);
 
         [Ignore]
-        public string TempoBrutoFormatado
-        {
-            get
-            {
-                TimeSpan tempo = TimeSpan.FromMinutes(duracaoMinutos ?? 0);
-                return tempo.ToString(@"hh\:mm\:ss");
-            }
-        }
+        public string TempoBrutoFormatado => FormatadorTempo.Duracao(duracaoMinutos ?? 0);
 
         [Ignore]
-        public string TempoPausaFormatado
-        {
-            get
-            {
-                double pausa = (duracaoMinutos ?? 0) - (tempoEstudadoMinutos ?? 0);
-
-                TimeSpan tempo = TimeSpan.FromMinutes(pausa);
-                return tempo.ToString(@"hh\:mm\:ss");
-            }
-        }
+        public string TempoPausaFormatado =>
+            FormatadorTempo.Duracao((duracaoMinutos ?? 0) - (tempoEstudadoMinutos ?? 0));
     }
 
     [Table("PausaSessao")]

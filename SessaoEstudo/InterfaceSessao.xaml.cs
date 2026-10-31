@@ -1,6 +1,5 @@
 using ATHENA.Database;
 using ATHENA.Services;
-using Microsoft.Maui.Platform;
 using SQLite;
 
 namespace ATHENA.SessaoEstudo;
@@ -46,13 +45,12 @@ public partial class InterfaceSessao : ContentPage
 
             int? IdMeta = sessao.idMeta;
 
-            double? Pausa = sessao.duracaoMinutos - sessao.tempoEstudadoMinutos;
+            double tempoEstudado = sessao.tempoEstudadoMinutos ?? 0;
+            double tempoBruto = sessao.duracaoMinutos ?? 0;
 
-            TimeSpan tempo = TimeSpan.FromMinutes(sessao.tempoEstudadoMinutos ?? 0);
-
-            TempoEstudo.Text = tempo.ToFormattedString(Title);
-            TxtTempoBruto.Text = TimeSpan.FromMinutes(sessao.duracaoMinutos ?? 0).ToString(@"h\:mm");
-            TxtTempoPausa.Text = TimeSpan.FromMinutes(Pausa ?? 0).ToString(@"h\:mm");
+            TempoEstudo.Text = FormatadorTempo.Duracao(tempoEstudado);
+            TxtTempoBruto.Text = FormatadorTempo.Duracao(tempoBruto);
+            TxtTempoPausa.Text = FormatadorTempo.Duracao(tempoBruto - tempoEstudado);
 
 
             Meta? meta = await db.Table<Meta>()

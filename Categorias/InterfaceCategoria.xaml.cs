@@ -1,6 +1,7 @@
 using ATHENA.Database;
 using ATHENA.Metas.xaml;
 using ATHENA.Models;
+using ATHENA.Services;
 using Microsoft.Maui.Controls;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Graphics;
@@ -54,9 +55,7 @@ public partial class InterfaceCategoria : ContentPage
                 .ToListAsync();
 
             int concluidas = metas.Count(m => EstaConcluida(m.status));
-            int totalMinutos = (int)metas.Sum(m => m.minutosEstudados ?? 0);
-            int horas = totalMinutos / 60;
-            int minutos = totalMinutos % 60;
+            double totalMinutos = metas.Sum(m => m.minutosEstudados ?? 0);
             double progresso = metas.Count > 0
                 ? (double)concluidas / metas.Count
                 : 0;
@@ -70,7 +69,7 @@ public partial class InterfaceCategoria : ContentPage
                 DescricaoCategoriaTXT.Text = categoria?.descricaoCategoria ?? "";
                 TotalMetasCategoriaTXT.Text = metas.Count.ToString();
                 MetasConcluidasCategoriaTXT.Text = concluidas.ToString();
-                TempoEstudadoCategoriaTXT.Text = $"{horas}h {minutos:D2}min";
+                TempoEstudadoCategoriaTXT.Text = FormatadorTempo.Duracao(totalMinutos);
                 BarraProgressoCategoria.Progress = progresso;
                 ProgressoCategoriaTXT.Text = $"{progresso:P0}";
 

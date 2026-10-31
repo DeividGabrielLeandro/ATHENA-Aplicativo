@@ -1,6 +1,7 @@
 using ATHENA.AthenaAI;
 using ATHENA.Database;
 using ATHENA.Models;
+using ATHENA.Services;
 using SQLite;
 
 namespace ATHENA;
@@ -46,9 +47,6 @@ public partial class PerfilPage : ContentPage
 
 
             double tempoTotal = registros.Sum(r => r.tempoEstudo);
-            int total = (int)tempoTotal;
-            int horas = total / 60;
-            int minutos = total % 60;
 
             DateTime inicioDoDia = DateTime.Now.Date;
 
@@ -107,7 +105,7 @@ public partial class PerfilPage : ContentPage
                 TxtQuantidadeSessoes.Text = sessao.Count.ToString();
                 TxtTempoEstudadoHoje.Text = $"{totalMinutos:F0} / {usuario?.metaDiaria} min";
                 TxtPercentualMetaDiaria.Text = $"{percentual}%";
-                TxtTempoTotal.Text = $"{horas}h {minutos:D2}min";
+                TxtTempoTotal.Text = FormatadorTempo.Duracao(tempoTotal);
                 TxtStreak.Text = $"{streak.ToString()} dias";
             });
         }

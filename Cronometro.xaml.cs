@@ -171,7 +171,7 @@ public partial class NewPage1 : ContentPage
                 $"{Math.Ceiling(restantes)} min restantes";
         }
 
-        TxtMinutosEstudadosMeta.Text = $"{minutosEstudados:F0}";
+        TxtMinutosEstudadosMeta.Text = $"{totalMinutos:F0}";
         TxtMetaMinutos.Text = metaMinutos.ToString();
     }
 
