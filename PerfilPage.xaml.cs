@@ -144,8 +144,6 @@ public partial class PerfilPage : ContentPage
         Informacoe();
     }
 
-    private string? caminhoFotoPerfil;
-
     private async void EscolherFoto_Clicked(object sender, EventArgs e)
     {
         try

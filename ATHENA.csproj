@@ -31,7 +31,7 @@
 		<ApplicationTitle>ATHENA</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.athena</ApplicationId>
+		<ApplicationId>com.deividgabriel.athena</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -47,12 +47,17 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 	</PropertyGroup>
 
+	<!-- Release para Android gera APK, que pode ser instalado direto no celular -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release' and $([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\athena_icon.png" ForegroundFile="Resources\AppIcon\athena_icon.png" BaseSize="512,512" />
-		
+		<MauiIcon Include="Resources\AppIcon\athena_icon.png" BaseSize="512,512" />
+
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\AppIcon\athena_icon.png" Color="#132443" BaseSize="256,256" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -64,6 +69,11 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+
+	<!-- Depois do publish, copia o APK assinado com um nome amigável, ex.: ATHENA-v1.0.apk -->
+	<Target Name="CopiarApkComNomeAthena" AfterTargets="Publish" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+		<Copy SourceFiles="$(PublishDir)$(ApplicationId)-Signed.apk" DestinationFiles="$(PublishDir)ATHENA-v$(ApplicationDisplayVersion).apk" Condition="Exists('$(PublishDir)$(ApplicationId)-Signed.apk')" />
+	</Target>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
