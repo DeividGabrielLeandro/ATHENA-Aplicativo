@@ -343,7 +343,10 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     private void BtnIniciar_Click(object sender, EventArgs e)
     {
         if (!CronometroService.Iniciado)
+        {
+            CronometroService.GarantirEstudoLivre();
             CronometroService.Iniciar();
+        }
 
         SessaoIniciada = CronometroService.Iniciado;
         CronometroRodando = CronometroService.Rodando;
@@ -421,6 +424,8 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
             }
 
             CronometroService.Limpar();
+
+            minutosEstudadosHoje += resultadoSessao.MinutosLiquidos;
             if (origem == OrigemCronometro.Livre)
             {
                 await DisplayAlertAsync(
@@ -443,6 +448,9 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
             else if (origem == OrigemCronometro.Sessao)
             {
                 await Shell.Current.GoToAsync("//EscolherMeta");
+
+                await Shell.Current.GoToAsync(
+                    $"{nameof(InterfaceMeta)}?idMeta={idMeta}");
 
                 await Shell.Current.GoToAsync(
                     nameof(InterfaceSessao),

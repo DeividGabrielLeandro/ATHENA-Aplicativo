@@ -181,6 +181,9 @@ public partial class MainPage : ContentPage
             await InicializarBanco();
 
             await CarregarInformacoes();
+
+            await Models_SessaoEstudo.LimparSessaoVazia();
+
         }
         catch (Exception ex)
         {

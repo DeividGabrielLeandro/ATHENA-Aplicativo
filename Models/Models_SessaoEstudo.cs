@@ -1,4 +1,5 @@
 ﻿using ATHENA.Database;
+using ATHENA.Services;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -110,6 +111,35 @@ namespace ATHENA.Models
                 return;
 
             await db.DeleteAsync(sessao);
+        }
+        public static async Task LimparSessaoVazia()
+        {
+            string dbPath = Path.Combine(
+         Environment.GetFolderPath(
+             Environment.SpecialFolder.LocalApplicationData),
+         "ATHENA.db"
+     );
+
+            var db = new SQLiteAsyncConnection(dbPath);
+
+            CronometroPreferences cronometro = new CronometroPreferences();
+            cronometro.Carregar();
+
+            List<Sessao_Estudo> sessoes = await db.Table<Sessao_Estudo>()
+                .Where(m => (m.duracaoMinutos == null || m.duracaoMinutos == 0) && m.DataFim == null &&  m.idMeta != null)
+                .ToListAsync() ;
+
+            foreach( var sessaoVazia in sessoes)
+            {
+
+                if(cronometro.IdSessao != sessaoVazia.idSessao)
+                {
+
+                await db.DeleteAsync(sessaoVazia);
+                }
+            }
+
+
         }
 
     }

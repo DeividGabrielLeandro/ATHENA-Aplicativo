@@ -40,7 +40,6 @@ public partial class EditarMeta : ContentPage
        .Where(mbox => mbox.idMeta == IdMeta)
        .FirstOrDefaultAsync();
 
-
             if (meta == null)
                 return;
             
@@ -50,6 +49,17 @@ public partial class EditarMeta : ContentPage
             DescricaoTXT.Placeholder = meta.descricaoMeta;
             MinutosTXT.Placeholder = meta.metaMinutos.ToString();
             DataLimiteTXT.Text = meta.TextoDataLimite;
+
+            SwitchConcluida.IsToggled = meta.status == "Concluida";
+
+            if (meta.prioridadeMeta == "Baixa")
+                RadioBaixa.IsChecked = true;
+            else if (meta.prioridadeMeta == "Média")
+                RadioMedia.IsChecked = true;
+            else if (meta.prioridadeMeta == "Alta")
+                RadioAlta.IsChecked = true;
+            else
+                RadioSemPrioridade.IsChecked = true;
 
 
         }

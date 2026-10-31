@@ -88,7 +88,7 @@ public partial class InterfaceMeta : ContentPage
                 await Shell.Current.GoToAsync(
                 $"{nameof(InterfaceSessao)}?idSessao={cronometro.IdSessao}&idMeta={IdMeta}");
             }
-            else if(cronometro.Iniciado && cronometro.IdMeta != IdMeta) 
+            else if(cronometro.Iniciado && cronometro.IdMeta != IdMeta && cronometro.IdSessao != null) 
             {
                 await DisplayAlertAsync("Aviso", "O cronômetro está ativo", "sair");
             }

@@ -80,7 +80,14 @@ namespace ATHENA.Models
                 meta.prioridadeMeta = prioridade;
 
             if (status != null)
+            {
+                if (status == "Concluida" && meta.dataConclusao == null)
+                    meta.dataConclusao = DateTime.Now;
+                else if (status != "Concluida")
+                    meta.dataConclusao = null;
+
                 meta.status = status;
+            }
 
             await db.UpdateAsync(meta);
         }
