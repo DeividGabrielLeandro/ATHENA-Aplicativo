@@ -114,8 +114,6 @@ public partial class InterfaceCategoria : ContentPage
 
         List<Meta> metasVisiveis = resultado.ToList();
 
-        // listaMeta agora é um VerticalStackLayout no XAML.
-        // BindableLayout cria um card visível para cada Meta desta coleção.
         BindableLayout.SetItemsSource(listaMeta, metasVisiveis);
 
         EstadoVazioMetas.IsVisible = metasVisiveis.Count == 0;

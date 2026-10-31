@@ -3,14 +3,11 @@ using ATHENA.Metas.xaml;
 using ATHENA.Models;
 using ATHENA.Services;
 using ATHENA.SessaoEstudo;
-using Microsoft.Win32;
 using SQLite;
-using System.Diagnostics;
-using static ATHENA.NewPage1;
 
 namespace ATHENA;
 
-public partial class NewPage1 : ContentPage, IQueryAttributable
+public partial class NewPage1 : ContentPage
 {
 
     public int? IdSessao { get; set; }
@@ -24,14 +21,6 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     private bool SessaoIniciada = false;
     private bool TemporizadorTelaAtivo = false;
 
-    DateTime dataInicio = DateTime.Now;
-
-    Stopwatch cronometro = new Stopwatch();  
-    Stopwatch tempoBruto = new Stopwatch();
-    Stopwatch tempoLiquido = new Stopwatch();
-    Stopwatch tempoPausado = new Stopwatch();
-
-
     public enum OrigemCronometro
     {
         Nenhum,
@@ -41,19 +30,6 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
     }
 
     public OrigemCronometro Origem { get; set; }
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (query.TryGetValue("IdMeta", out object? idMeta))
-            IdMeta = (int)idMeta;
-
-        if (query.TryGetValue("IdSessao", out object? idSessao))
-            IdSessao = (int)idSessao;
-
-        if (query.TryGetValue("Origem", out object? origem))
-            Origem = (OrigemCronometro)origem;
-
-    }
 
     public class ResultadoSessao
     {
@@ -81,17 +57,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
         /// <summary>Total de minutos acumulados em pausa.</summary>
         public double MinutosPausa => TempoPausa.TotalMinutes;
     }
-    public static ResultadoSessao FinalizarSessao(Stopwatch tempoLiquido, Stopwatch tempoBruto, DateTime dataInicio, DateTime dataFim)
-    {
-        return new ResultadoSessao
-        {
-            DataInicio = dataInicio,
-            DataFim = dataFim,
-            TempoLiquido = tempoLiquido.Elapsed,
-            TempoBruto = tempoBruto.Elapsed,
 
-        };      
-    }
     SQLiteAsyncConnection db;
     public NewPage1()
     {
@@ -416,7 +382,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
             }
             catch (Exception ex)
             {
-                CronometroService.Erro();
+                CronometroService.CancelarFinalizacao();
 
                 SessaoIniciada = true;
 
@@ -459,14 +425,7 @@ public partial class NewPage1 : ContentPage, IQueryAttributable
                     $"{nameof(InterfaceMeta)}?idMeta={idMeta}");
 
                 await Shell.Current.GoToAsync(
-                    nameof(InterfaceSessao),
-                    new Dictionary<string, object>
-                    {
-                        ["IdSessao"] = idSessao.Value,
-                        ["IdMeta"] = idMeta.Value,
-                        ["minutosBrutos"] = resultadoSessao.MinutosBrutos,
-                        ["minutosLiquidos"] = resultadoSessao.MinutosLiquidos
-                    });
+                    $"{nameof(InterfaceSessao)}?idSessao={idSessao}&idMeta={idMeta}");
 
 
                 return;

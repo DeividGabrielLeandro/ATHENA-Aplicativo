@@ -14,7 +14,6 @@
             Padding="16,16,16,32"
             Spacing="20">
 
-            <!-- CABEÇALHO: mesmo padrão da criação de meta, sem foto de perfil -->
             <Grid
                 ColumnDefinitions="Auto,*,Auto"
                 RowDefinitions="Auto,Auto"
@@ -118,7 +117,6 @@
 
             </Grid>
 
-            <!-- INTRODUÇÃO -->
             <VerticalStackLayout Spacing="5">
 
                 <HorizontalStackLayout Spacing="8">
@@ -166,7 +164,6 @@
 
             </VerticalStackLayout>
 
-            <!-- INFORMAÇÕES PRINCIPAIS -->
             <Border
                 BackgroundColor="{StaticResource AthenaCard}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -209,7 +206,6 @@
 
                     <BoxView HeightRequest="1" Color="{StaticResource AthenaDivider}" />
 
-                    <!-- TÍTULO: nome preservado do seu C# -->
                     <VerticalStackLayout Spacing="7">
 
                         <Label
@@ -243,7 +239,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- DESCRIÇÃO: opcional -->
                     <VerticalStackLayout Spacing="7">
 
                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
@@ -300,7 +295,6 @@
 
             </Border>
 
-            <!-- METAS: vinculação opcional, sem criar uma nova página -->
             <Border
                 BackgroundColor="{StaticResource AthenaCard}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -348,7 +342,6 @@
                         TextColor="{StaticResource AthenaTextSecondary}"
                         LineBreakMode="WordWrap" />
 
-                    <!-- Botão ocupa toda a linha, não somente a seta. -->
                     <Button
                         x:Name="BtnSelecionarMetas"
                         Text="＋  SELECIONAR METAS"
@@ -364,18 +357,12 @@
                         TextColor="{StaticResource AthenaBlueLight}"
                         HorizontalOptions="Fill" />
 
-                    <!-- Atualize este texto no evento SelectionChanged. -->
                     <Label
                         x:Name="TxtMetasSelecionadas"
                         Text="Nenhuma meta selecionada"
                         FontSize="11"
                         TextColor="{StaticResource AthenaTextMuted}" />
 
-                    <!--
-                        Painel inicialmente recolhido.
-                        O C# alterna ListaMetasContainer.IsVisible.
-                        O Grid fornece altura limitada para a lista rolar dentro do painel.
-                    -->
                     <Border
                         x:Name="ListaMetasContainer"
                         IsVisible="False"
@@ -434,12 +421,6 @@
 
                                     <DataTemplate>
 
-                                        <!--
-                                            A seleção é nativa da CollectionView.
-                                            Toda a área do item pode ser tocada.
-                                            Não desenhamos outro quadrado junto ao título.
-                                            O estado selecionado também destaca o fundo e a borda em azul.
-                                        -->
                                         <Border
                                             BackgroundColor="{StaticResource AthenaCard}"
                                             Stroke="{StaticResource AthenaBorderSoft}"
@@ -516,7 +497,6 @@
 
             </Border>
 
-            <!-- AÇÃO PRINCIPAL -->
             <VerticalStackLayout Spacing="8" Padding="0,0,0,4">
 
                 <Button

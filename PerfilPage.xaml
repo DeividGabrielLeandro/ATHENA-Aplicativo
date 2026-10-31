@@ -13,14 +13,12 @@
             Padding="16,16,16,32"
             Spacing="16">
 
-            <!-- CABEÇALHO PADRÃO -->
             <Grid
     ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="10"
     Margin="0,0,0,0">
 
-                <!-- BOTÃO VOLTAR -->
                 <Button
         Grid.Column="0"
         Grid.Row="0"
@@ -38,7 +36,6 @@
         HorizontalOptions="Start"
         VerticalOptions="Start" />
 
-                <!-- LOGO E IDENTIFICAÇÃO DA PÁGINA -->
                 <VerticalStackLayout
         Grid.Column="1"
         Grid.Row="0"
@@ -61,7 +58,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- FOTO PEQUENA DO CABEÇALHO -->
                 <Border
         Grid.Column="2"
         Grid.Row="0"
@@ -80,7 +76,6 @@
 
                 </Border>
 
-                <!-- LINHA DIVISÓRIA -->
                 <BoxView
         Grid.Row="1"
         Grid.ColumnSpan="3"
@@ -91,7 +86,6 @@
 
             </Grid>
 
-            <!-- TÍTULO PRINCIPAL DA PÁGINA -->
             <VerticalStackLayout
     Spacing="3"
     Margin="0,0,0,0">
@@ -111,7 +105,6 @@
 
 
 
-            <!-- CARD PRINCIPAL DO PERFIL -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -123,7 +116,6 @@
                     Spacing="12"
                     HorizontalOptions="Fill">
 
-                    <!-- FOTO E CÂMERA -->
                     <Grid
                         WidthRequest="100"
                         HeightRequest="100"
@@ -148,7 +140,6 @@
 
                         </Border>
 
-                        <!-- BOTÃO DA CÂMERA -->
                         <Button
                             x:Name="EscolherFoto"
                             Text="📷"
@@ -173,7 +164,6 @@
                         TextColor="{StaticResource AthenaTextMuted}"
                         HorizontalOptions="Center" />
 
-                    <!-- NOME -->
                     <VerticalStackLayout
                         Spacing="6"
                         Margin="0,4,0,0">
@@ -235,7 +225,6 @@
 
             </Border>
 
-            <!-- META DIÁRIA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -246,7 +235,6 @@
                 <VerticalStackLayout
                     Spacing="12">
 
-                    <!-- TÍTULO E PORCENTAGEM -->
                     <Grid
                         ColumnDefinitions="Auto,*,Auto"
                         ColumnSpacing="10">
@@ -299,7 +287,6 @@
 
                     </Grid>
 
-                    <!-- TEMPO ESTUDADO E META -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="10">
@@ -357,7 +344,6 @@
 
                     </Grid>
 
-                    <!-- BARRA DE PROGRESSO -->
                     <ProgressBar
                         x:Name="ProgressMetaDiaria"
                         Progress="0"
@@ -366,7 +352,6 @@
                         BackgroundColor="{StaticResource AthenaProgressTrack}"
                         HorizontalOptions="Fill" />
 
-                    <!-- MINUTOS RESTANTES -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="8">
@@ -397,7 +382,6 @@
 
             </Border>
 
-            <!-- SEÇÃO DE PROGRESSO -->
             <VerticalStackLayout
                 Spacing="10">
 
@@ -422,12 +406,10 @@
 
                 </Grid>
 
-                <!-- ESTATÍSTICAS -->
                 <Grid
                     ColumnDefinitions="*,*,*"
                     ColumnSpacing="8">
 
-                    <!-- TEMPO TOTAL -->
                     <Border
                         Grid.Column="0"
                         BackgroundColor="{StaticResource AthenaSurface}"
@@ -460,7 +442,6 @@
 
                     </Border>
 
-                    <!-- SESSÕES -->
                     <Border
                         Grid.Column="1"
                         BackgroundColor="{StaticResource AthenaSurface}"
@@ -492,7 +473,6 @@
 
                     </Border>
 
-                    <!-- STREAK -->
                     <Border
                         Grid.Column="2"
                         BackgroundColor="{StaticResource AthenaSurface}"
@@ -528,7 +508,6 @@
 
             </VerticalStackLayout>
 
-            <!-- CONFIGURAR IA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -539,7 +518,6 @@
                 <VerticalStackLayout
                     Spacing="12">
 
-                    <!-- TÍTULO DA SEÇÃO -->
                     <Grid
                         ColumnDefinitions="Auto,*"
                         ColumnSpacing="10">
@@ -583,7 +561,6 @@
 
                     </Grid>
 
-                    <!-- BOTÃO CONFIGURE SUA IA -->
                     <Button
                         x:Name="BtnConfigurarIA"
                         Text="☆ CONFIGURE SUA IA"
@@ -603,7 +580,6 @@
 
             </Border>
 
-            <!-- PAINEL DE CONFIGURAÇÃO DA IA (COMEÇA ESCONDIDO; ABRE AO TOCAR EM "CONFIGURE SUA IA") -->
             <Border
                 x:Name="PainelConfigIA"
                 IsVisible="False"
@@ -616,7 +592,6 @@
                 <VerticalStackLayout
                     Spacing="14">
 
-                    <!-- CHAVE DE API -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -655,7 +630,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- COMO PEGAR A CHAVE -->
                     <Border
                         BackgroundColor="{StaticResource AthenaCard}"
                         Stroke="{StaticResource AthenaBorderSoft}"
@@ -705,7 +679,6 @@
 
                     </Border>
 
-                    <!-- MODELO DE IA -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -756,7 +729,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- COMO A IA DEVE RESPONDER -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -796,7 +768,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- BOTÃO SALVAR -->
                     <Button
                         x:Name="BtnSalvarConfigIA"
                         Text="SALVAR CONFIGURAÇÃO"
@@ -811,7 +782,6 @@
                         BorderWidth="0"
                         HorizontalOptions="Fill" />
 
-                    <!-- STATUS DO SALVAMENTO DA IA -->
                     <Label
                         x:Name="TxtStatusConfigIA"
                         Text=""
@@ -824,7 +794,6 @@
 
             </Border>
 
-            <!-- SOBRE O ATHENA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -885,7 +854,6 @@
 
             </Border>
 
-            <!-- STATUS DO SALVAMENTO -->
             <Label
                 x:Name="TxtStatusPerfil"
                 Text=""
@@ -894,7 +862,6 @@
                 HorizontalTextAlignment="Center"
                 HorizontalOptions="Center" />
 
-            <!-- INFORMAÇÕES TÉCNICAS -->
             <VerticalStackLayout
                 Spacing="4"
                 HorizontalOptions="Center"

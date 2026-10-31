@@ -1,41 +1,16 @@
 using ATHENA.Database;
-using ATHENA.Metas.xaml;
 using ATHENA.Services;
 using Microsoft.Maui.Platform;
 using SQLite;
-using static ATHENA.NewPage1;
 
 namespace ATHENA.SessaoEstudo;
 
 [QueryProperty(nameof(IdSessao), "idSessao")]
 [QueryProperty(nameof(IdMeta), "idMeta")]
-public partial class InterfaceSessao : ContentPage, IQueryAttributable
+public partial class InterfaceSessao : ContentPage
 {
     public int IdSessao { get; set; }
     public int IdMeta { get; set; }
-    public double minutosBrutos { get; set; }
-    public double minutosLiquidos { get; set; }
-
-    public double TempoPausa => minutosBrutos - minutosLiquidos;
-
-    public void ApplyQueryAttributes(IDictionary<string, object> query)
-    {
-        if (query.TryGetValue("IdSessao", out object? idSessao))
-            IdSessao = (int)idSessao;
-
-        if (query.TryGetValue("IdMeta", out object? idMeta))
-            IdMeta = (int)idMeta;
-
-        if (query.TryGetValue("minutosBrutos", out object? minutosBrutos))
-            this.minutosBrutos = (double)minutosBrutos;
-
-        if (query.TryGetValue("minutosLiquidos", out object? minutosLiquidos))
-            this.minutosLiquidos = (double)minutosLiquidos;
-
-    }
-
-    bool SessaoSalva = false;
-    bool IndoParaCronometro = false;
 
     SQLiteAsyncConnection db;
 
@@ -71,8 +46,6 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
 
             int? IdMeta = sessao.idMeta;
 
-            double? TempoEstudado = sessao.tempoEstudadoMinutos;
-
             double? Pausa = sessao.duracaoMinutos - sessao.tempoEstudadoMinutos;
 
             TimeSpan tempo = TimeSpan.FromMinutes(sessao.tempoEstudadoMinutos ?? 0);
@@ -101,9 +74,6 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
 
     private async void Contar_tempo_Clicked(object sender, EventArgs e)
     {
-        IndoParaCronometro = true;
-        await Task.Delay(100);
-
         bool configurado = CronometroService.ConfigurarContexto(
             NewPage1.OrigemCronometro.Sessao,
             idMeta: IdMeta,
@@ -132,7 +102,6 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
 
         try
         {
-            SessaoSalva = true;
             string titulo = TituloTXT.Text;
 
             if (string.IsNullOrWhiteSpace(titulo))
@@ -143,25 +112,16 @@ public partial class InterfaceSessao : ContentPage, IQueryAttributable
             string descricao = DescricaoTXT.Text;
             DateTime dataFim = DateTime.Now;
 
-            await Models.Models_SessaoEstudo.SalvarPausaSessao(IdSessao, TempoPausa, null);
-            await Models.Models_SessaoEstudo.FinalizarSessao(titulo, descricao, dataFim, minutosBrutos, minutosLiquidos, IdSessao);
+            await Models.Models_SessaoEstudo.FinalizarSessao(titulo, descricao, dataFim, IdSessao);
 
             await DisplayAlertAsync("Sucesso!", "Sessão finalizada com sucesso", "Ok");
 
-            await Shell.Current.GoToAsync("//EscolherMeta");
-
-            await Shell.Current.GoToAsync(
-                $"{nameof(InterfaceMeta)}?idMeta={IdMeta}");
+            await Shell.Current.GoToAsync("..");
         }
         catch (Exception ex)
         {
             await DisplayAlertAsync("Erro", ex.Message, "OK");
         }
-    }
-
-    protected override async void OnDisappearing()
-    {
-        base.OnDisappearing();
     }
 
     private async void Button_Clicked(object sender, EventArgs e)

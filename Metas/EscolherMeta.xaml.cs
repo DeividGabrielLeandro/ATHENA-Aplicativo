@@ -184,9 +184,6 @@ public partial class EscolherMeta : ContentPage
             SelecionarFiltro(BtnFiltroTodas);
 
             await CarregarInformacoes();
-
-            SelecionarFiltro(BtnFiltroTodas);
-            await CarregarInformacoes();
         }
         catch (Exception ex)
         {

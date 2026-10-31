@@ -14,13 +14,11 @@
             Spacing="16"
             HorizontalOptions="Fill">
 
-            <!-- CABEÇALHO -->
             <Grid
                 ColumnDefinitions="*,Auto"
                 RowDefinitions="Auto,Auto"
                 Margin="0,0,0,4">
 
-                <!-- LOGO E IDENTIFICAÇÃO -->
                 <VerticalStackLayout
                     Grid.Column="0"
                     Grid.Row="0"
@@ -43,7 +41,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- FOTO DE PERFIL -->
                 <Border
                     Grid.Column="1"
                     Grid.Row="0"
@@ -78,7 +75,6 @@
 
                 </Border>
 
-                <!-- DIVISÓRIA -->
                 <BoxView
                     Grid.Row="1"
                     Grid.Column="0"
@@ -90,7 +86,6 @@
 
             </Grid>
 
-            <!-- TÍTULO DA TELA -->
             <VerticalStackLayout
                 Spacing="3"
                 Margin="0,0,0,2">
@@ -109,7 +104,6 @@
 
             </VerticalStackLayout>
 
-            <!-- CONTEXTO DO ESTUDO -->
             <Border
     BackgroundColor="{StaticResource AthenaSurface}"
     Stroke="{StaticResource AthenaBorderSoft}"
@@ -121,7 +115,6 @@
         ColumnDefinitions="Auto,*,Auto"
         ColumnSpacing="10">
 
-                    <!-- ÍCONE DO CONTEXTO -->
                     <Border
             Grid.Column="0"
             WidthRequest="38"
@@ -142,7 +135,6 @@
 
                     </Border>
 
-                    <!-- INFORMAÇÕES DINÂMICAS -->
                     <VerticalStackLayout
             Grid.Column="1"
             Spacing="2"
@@ -151,7 +143,6 @@
                         <HorizontalStackLayout
                 Spacing="5">
 
-                            <!-- META, SESSÃO OU OUTRO TIPO DE CONTEXTO -->
                             <Label
                     x:Name="TxtTipoContexto"
                     Text="ESTUDO"
@@ -166,7 +157,6 @@
                     FontSize="10"
                     TextColor="{StaticResource AthenaTextMuted}" />
 
-                            <!-- DESCRIÇÃO OPCIONAL -->
                             <Label
                     x:Name="TxtDetalheContexto"
                     Text="Foco atual"
@@ -177,7 +167,6 @@
 
                         </HorizontalStackLayout>
 
-                        <!-- NOME DA META OU DA SESSÃO -->
                         <Label
                 x:Name="TxtNomeContexto"
                 Text="Nenhum estudo selecionado"
@@ -189,7 +178,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- CATEGORIA OPCIONAL -->
                     <Border
             x:Name="CategoriaContextoBorder"
             Grid.Column="2"
@@ -217,7 +205,6 @@
             </Border>
 
 
-            <!-- CARD PRINCIPAL DO CRONÔMETRO -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -228,7 +215,6 @@
                 <VerticalStackLayout
                     Spacing="10">
 
-                    <!-- TÍTULO DO CRONÔMETRO -->
                     <Label
                         Text="TEMPO DE FOCO"
                         FontSize="11"
@@ -237,14 +223,12 @@
                         TextColor="{StaticResource AthenaTextSecondary}"
                         HorizontalOptions="Center" />
 
-                    <!-- ANEL E VISOR -->
                     <Grid
                         WidthRequest="220"
                         HeightRequest="220"
                         HorizontalOptions="Center"
                         Margin="0,4,0,2">
 
-                        <!-- TRILHA DO ANEL -->
                         <Ellipse
                             WidthRequest="204"
                             HeightRequest="204"
@@ -254,7 +238,6 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center" />
 
-                        <!-- ANEL ATIVO VISUAL -->
                         <Ellipse
                             WidthRequest="204"
                             HeightRequest="204"
@@ -264,13 +247,11 @@
                             HorizontalOptions="Center"
                             VerticalOptions="Center" />
 
-                        <!-- CENTRO DO CRONÔMETRO -->
                         <VerticalStackLayout
                             Spacing="8"
                             HorizontalOptions="Center"
                             VerticalOptions="Center">
 
-                            <!-- TEMPO -->
                             <Label
                                 x:Name="TxtCronometro"
                                 Text="00:00:00"
@@ -280,7 +261,6 @@
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center" />
 
-                            <!-- STATUS -->
                             <Border
                                 BackgroundColor="{StaticResource AthenaCard}"
                                 StrokeThickness="0"
@@ -313,7 +293,6 @@
 
                     </Grid>
 
-                    <!-- PROGRESSO DA META -->
                     <Border
     BackgroundColor="{StaticResource AthenaCard}"
     Stroke="{StaticResource AthenaBorderSoft}"
@@ -409,7 +388,6 @@
 
             </Border>
 
-            <!-- BOTÃO PRINCIPAL -->
             <Button
                 x:Name="BtnIniciar"
                 Text="▶    INICIAR ESTUDO"
@@ -424,12 +402,10 @@
                 BorderWidth="0"
                 HorizontalOptions="Fill" />
 
-            <!-- BOTÕES SECUNDÁRIOS -->
             <Grid
                 ColumnDefinitions="*,*"
                 ColumnSpacing="10">
 
-                <!-- PAUSAR / CONTINUAR -->
                 <Button
                     Grid.Column="0"
                     x:Name="BtnPausar"
@@ -445,7 +421,6 @@
                     BorderWidth="1"
                     HorizontalOptions="Fill" />
 
-                <!-- FINALIZAR -->
                 <Button
                     Grid.Column="1"
                     x:Name="BtnParar"
@@ -463,13 +438,11 @@
 
             </Grid>
 
-            <!-- MÉTRICAS DA SESSÃO -->
             <Grid
     ColumnDefinitions="*,*,*"
     ColumnSpacing="8"
     Margin="0,2,0,0">
 
-                <!-- INÍCIO -->
                 <Border
         Grid.Column="0"
         BackgroundColor="{StaticResource AthenaSurface}"
@@ -507,7 +480,6 @@
 
                 </Border>
 
-                <!-- TEMPO BRUTO -->
                 <Border
         Grid.Column="1"
         BackgroundColor="{StaticResource AthenaSurface}"
@@ -545,7 +517,6 @@
 
                 </Border>
 
-                <!-- PAUSAS -->
                 <Border
         Grid.Column="2"
         BackgroundColor="{StaticResource AthenaSurface}"
@@ -586,7 +557,6 @@
             </Grid>
 
 
-            <!-- FRASE MOTIVACIONAL -->
             <VerticalStackLayout
                 Spacing="4"
                 HorizontalOptions="Center"

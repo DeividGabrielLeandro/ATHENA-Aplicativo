@@ -14,14 +14,12 @@
             Padding="16,16,16,32"
             Spacing="16">
 
-            <!-- CABEÇALHO PADRÃO -->
             <Grid
     ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="10"
     RowSpacing="8">
 
-                <!-- BOTÃO VOLTAR -->
                 <Button
         Grid.Column="0"
         Grid.Row="0"
@@ -39,7 +37,6 @@
         HorizontalOptions="Start"
         VerticalOptions="Start" />
 
-                <!-- LOGO E NOME DA PÁGINA -->
                 <VerticalStackLayout
         Grid.Column="1"
         Grid.Row="0"
@@ -61,7 +58,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- INDICADOR DE EDIÇÃO -->
                 <Border
         Grid.Column="2"
         Grid.Row="0"
@@ -93,7 +89,6 @@
 
                 </Border>
 
-                <!-- DIVISÓRIA -->
                 <BoxView
         Grid.Row="1"
         Grid.ColumnSpan="3"
@@ -105,7 +100,6 @@
             </Grid>
 
 
-            <!-- MODO DE EDIÇÃO -->
             <HorizontalStackLayout
                 Spacing="7"
                 Padding="2,0">
@@ -127,7 +121,6 @@
 
             </HorizontalStackLayout>
 
-            <!-- RESUMO DA META ATUAL -->
             <CollectionView
                 x:Name="listaMetas"
                 HeightRequest="166"
@@ -172,7 +165,6 @@
                                 ColumnDefinitions="4,*"
                                 ColumnSpacing="0">
 
-                                <!-- ACENTO DOURADO -->
                                 <BoxView
                                     Grid.Column="0"
                                     Color="{StaticResource AthenaGold}"
@@ -185,7 +177,6 @@
                                     Padding="16"
                                     Spacing="10">
 
-                                    <!-- TÍTULO DO CARD -->
                                     <Grid
                                         ColumnDefinitions="*,Auto"
                                         ColumnSpacing="8">
@@ -241,7 +232,6 @@
 
                                     </Grid>
 
-                                    <!-- TÍTULO ATUAL -->
                                     <Label
                                         x:Name="TituloPrincipalTXT"
                                         Text="{Binding tituloMeta}"
@@ -251,7 +241,6 @@
                                         LineBreakMode="TailTruncation"
                                         MaxLines="2" />
 
-                                    <!-- PROGRESSO DA META -->
                                     <Grid
                                         ColumnDefinitions="*,Auto"
                                         ColumnSpacing="8">
@@ -292,7 +281,6 @@
 
                                     </Grid>
 
-                                    <!-- BARRA DE PROGRESSO -->
                                     <ProgressBar
                                         Progress="{Binding Progresso}"
                                         HeightRequest="6"
@@ -319,7 +307,6 @@
 
             </CollectionView>
 
-            <!-- INFORMAÇÕES DA META -->
             <VerticalStackLayout
                 Spacing="10">
 
@@ -330,7 +317,6 @@
                     CharacterSpacing="0.8"
                     TextColor="{StaticResource AthenaTextSecondary}" />
 
-                <!-- TÍTULO -->
                 <VerticalStackLayout
                     Spacing="6">
 
@@ -361,7 +347,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- DESCRIÇÃO -->
                 <VerticalStackLayout
                     Spacing="6"
                     Margin="0,4,0,0">
@@ -408,7 +393,6 @@
 
             </VerticalStackLayout>
 
-            <!-- OBJETIVO DE TEMPO -->
             <VerticalStackLayout
                 Spacing="10">
 
@@ -498,7 +482,6 @@
 
             </VerticalStackLayout>
 
-            <!-- PRIORIDADE -->
             <VerticalStackLayout
                 Spacing="10">
 
@@ -558,11 +541,9 @@
 
             </VerticalStackLayout>
 
-            <!-- DATA LIMITE -->
             <VerticalStackLayout
     Spacing="8">
 
-                <!-- TÍTULO E INDICAÇÃO DE OPCIONAL -->
                 <Grid
         ColumnDefinitions="*,Auto"
         ColumnSpacing="8">
@@ -578,7 +559,6 @@
 
                 </Grid>
 
-                <!-- ÁREA DA DATA -->
                 <Border
         x:Name="DataLimitePicker"
         BackgroundColor="{StaticResource AthenaSurface}"
@@ -592,7 +572,6 @@
             ColumnDefinitions="Auto,*,Auto"
             ColumnSpacing="9">
 
-                        <!-- ÍCONE -->
                         <Border
                 Grid.Column="0"
                 WidthRequest="30"
@@ -612,7 +591,6 @@
 
                         </Border>
 
-                        <!-- DATA EXIBIDA -->
                         <Label
                 x:Name="DataLimiteTXT"
                 Grid.Column="1"
@@ -624,7 +602,6 @@
                 MaxLines="1"
                 VerticalOptions="Center" />
 
-                        <!-- BOTÃO REMOVER -->
                         <Button
                 x:Name="BtnRemoverData"
                 Grid.Column="2"
@@ -642,10 +619,6 @@
                 HeightRequest="30"
                 VerticalOptions="Center" />
 
-                        <!--
-                Apenas o lado esquerdo abre o calendário.
-                O botão Remover continua independente.
-            -->
                         <Button
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
@@ -661,7 +634,6 @@
 
                 </Border>
 
-                <!-- CALENDÁRIO NATIVO -->
                 <DatePicker
         x:Name="PrazoDate"
         IsVisible="False"
@@ -673,7 +645,6 @@
             </VerticalStackLayout>
 
 
-            <!-- STATUS DA META -->
             <VerticalStackLayout
                 Spacing="10">
 
@@ -728,12 +699,10 @@
 
             </VerticalStackLayout>
 
-            <!-- AÇÕES FINAIS -->
             <VerticalStackLayout
                 Spacing="10"
                 Padding="0,8,0,0">
 
-                <!-- SALVAR -->
                 <Button
                     Text="▣  SALVAR ALTERAÇÕES"
                     Clicked="Button_Clicked_2"
@@ -747,7 +716,6 @@
                     BorderWidth="0"
                     HorizontalOptions="Fill" />
 
-                <!-- EXCLUIR -->
                 <Button
                     Text="▥  EXCLUIR META"
                     Clicked="Button_Clicked_3"

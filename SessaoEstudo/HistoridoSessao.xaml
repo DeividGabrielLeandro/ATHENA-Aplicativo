@@ -8,18 +8,9 @@
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="True">
 
-    <!--
-        Padrão das telas principais do ATHENA:
-        Row 0: cabeçalho
-        Row 1: título
-        Row 2: resumo
-        Row 3: pesquisa e ações
-        Row 4: somente a lista rola
-    -->
     <Grid
         RowDefinitions="Auto,Auto,Auto,Auto,*">
 
-        <!-- CABEÇALHO -->
         <Grid
             Grid.Row="0"
             ColumnDefinitions="Auto,*"
@@ -30,7 +21,6 @@
 
 
 
-            <!-- BOTÃO VOLTAR -->
             <Button
                 x:Name="BtnVoltarHistorico"
                 Grid.Column="0"
@@ -85,7 +75,6 @@
 
         </Grid>
 
-        <!-- TÍTULO -->
         <VerticalStackLayout
             Grid.Row="1"
             Padding="16,4,16,0"
@@ -142,7 +131,6 @@
 
         </VerticalStackLayout>
 
-        <!-- RESUMO -->
         <Border
             Grid.Row="2"
             BackgroundColor="{StaticResource AthenaSurface}"
@@ -284,13 +272,11 @@
 
         </Border>
 
-        <!-- PESQUISA E LIMPEZA -->
         <VerticalStackLayout
             Grid.Row="3"
             Padding="16,0,16,0"
             Spacing="8">
 
-            <!-- PESQUISA POR TÍTULO -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -333,7 +319,6 @@
 
             </Border>
 
-            <!-- DATA E BOTÃO EXPLÍCITO DE LIMPEZA -->
             <Grid
                 ColumnDefinitions="*,Auto,Auto"
                 ColumnSpacing="8"
@@ -392,7 +377,6 @@
 
         </VerticalStackLayout>
 
-        <!-- SOMENTE A LISTA ROLA -->
         <CollectionView
             Grid.Row="4"
             x:Name="HistoricoSessao"
@@ -450,7 +434,6 @@
                             RowDefinitions="Auto,Auto,Auto,Auto"
                             RowSpacing="9">
 
-                            <!-- TÍTULO E DATA -->
                             <Grid
                                 Grid.Row="0"
                                 ColumnDefinitions="*,Auto"
@@ -477,7 +460,6 @@
 
                             </Grid>
 
-                            <!-- DESCRIÇÃO -->
                             <Label
                                 Grid.Row="1"
                                 Text="{Binding descricaoSessao, TargetNullValue=Sem anotação registrada., FallbackValue=Sem anotação registrada.}"
@@ -492,7 +474,6 @@
                                 Color="#24344B"
                                 HorizontalOptions="Fill" />
 
-                            <!-- TEMPOS -->
                             <Grid
                                 Grid.Row="3"
                                 ColumnDefinitions="*,Auto,*,Auto,*"

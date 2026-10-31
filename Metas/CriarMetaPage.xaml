@@ -13,14 +13,12 @@
             Padding="16,16,16,32"
             Spacing="20">
 
-            <!-- CABEÇALHO -->
             <Grid
     ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="10"
     RowSpacing="8">
 
-                <!-- BOTÃO VOLTAR -->
                 <Button
         Grid.Column="0"
         Grid.Row="0"
@@ -38,7 +36,6 @@
         HorizontalOptions="Start"
         VerticalOptions="Start" />
 
-                <!-- IDENTIFICAÇÃO -->
                 <VerticalStackLayout
         Grid.Column="1"
         Grid.Row="0"
@@ -80,7 +77,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- STATUS -->
                 <Border
         Grid.Column="2"
         Grid.Row="0"
@@ -112,7 +108,6 @@
 
                 </Border>
 
-                <!-- DIVISÓRIA -->
                 <BoxView
         Grid.Row="1"
         Grid.ColumnSpan="3"
@@ -124,7 +119,6 @@
             </Grid>
 
 
-            <!-- INTRODUÇÃO -->
             <VerticalStackLayout
                 Spacing="5">
 
@@ -173,7 +167,6 @@
 
             </VerticalStackLayout>
 
-            <!-- INFORMAÇÕES PRINCIPAIS -->
             <Border
                 BackgroundColor="{StaticResource AthenaCard}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -184,7 +177,6 @@
                 <VerticalStackLayout
                     Spacing="16">
 
-                    <!-- CABEÇALHO DA SEÇÃO -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="8">
@@ -225,7 +217,6 @@
                         Color="{StaticResource AthenaDivider}"
                         Opacity="0.8" />
 
-                    <!-- TÍTULO -->
                     <VerticalStackLayout
                         Spacing="7">
 
@@ -297,7 +288,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- DESCRIÇÃO -->
                     <VerticalStackLayout
                         Spacing="7">
 
@@ -356,7 +346,6 @@
 
             </Border>
 
-            <!-- PLANEJAMENTO -->
             <Border
                 BackgroundColor="{StaticResource AthenaCard}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -367,7 +356,6 @@
                 <VerticalStackLayout
                     Spacing="16">
 
-                    <!-- CABEÇALHO DA SEÇÃO -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="8">
@@ -407,7 +395,6 @@
                         Color="{StaticResource AthenaDivider}"
                         Opacity="0.8" />
 
-                    <!-- OBJETIVO DE TEMPO -->
                     <VerticalStackLayout
                         Spacing="7">
 
@@ -489,7 +476,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- PRIORIDADE -->
                     <VerticalStackLayout
                         Spacing="8">
 
@@ -559,7 +545,6 @@
 
             </Border>
 
-            <!-- ORGANIZAÇÃO -->
             <Border
                 BackgroundColor="{StaticResource AthenaCard}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -570,7 +555,6 @@
                 <VerticalStackLayout
                     Spacing="16">
 
-                    <!-- CABEÇALHO DA SEÇÃO -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="8">
@@ -610,7 +594,6 @@
                         Color="{StaticResource AthenaDivider}"
                         Opacity="0.8" />
 
-                    <!-- CATEGORIA -->
                     <VerticalStackLayout
                         Spacing="8">
 
@@ -643,10 +626,6 @@
 
                         </Grid>
 
-                        <!--
-                            O BORDER INTEIRO É CLICÁVEL.
-                            A SETA É APENAS DECORATIVA.
-                        -->
                         <Border
                             x:Name="CategoriaPicker"
                             BackgroundColor="{StaticResource AthenaSurface}"
@@ -716,7 +695,6 @@
 
                         </Border>
 
-                        <!-- LISTA DE CATEGORIAS -->
                         <Border
                             x:Name="ListaCategoriasContainer"
                             IsVisible="False"
@@ -762,10 +740,6 @@
 
                                         <DataTemplate>
 
-                                            <!--
-                                                O CARD INTEIRO É UM ITEM SELECIONÁVEL.
-                                                Não existe botão apenas na seta.
-                                            -->
                                             <Border
                                                 BackgroundColor="{StaticResource AthenaCard}"
                                                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -835,7 +809,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- DATA LIMITE -->
                     <VerticalStackLayout
                         Spacing="8">
 
@@ -868,10 +841,6 @@
 
                         </Grid>
 
-                        <!--
-                            O BORDER INTEIRO ABRE O CALENDÁRIO.
-                            O BOTÃO REMOVER FICA SEPARADO.
-                        -->
                         <Border
                             x:Name="DataLimitePicker"
                             BackgroundColor="{StaticResource AthenaSurface}"
@@ -941,10 +910,6 @@
 
                         </Border>
 
-                        <!--
-                            O DatePicker é usado pelo calendário.
-                            Ele não é usado para título, resumo ou minutos.
-                        -->
                         <DatePicker
                             x:Name="PrazoDate"
                             IsVisible="False"
@@ -959,7 +924,6 @@
 
             </Border>
 
-            <!-- RESUMO DA META -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -970,7 +934,6 @@
                 <VerticalStackLayout
                     Spacing="10">
 
-                    <!-- CABEÇALHO DO RESUMO -->
                     <Grid
                         ColumnDefinitions="*,Auto"
                         ColumnSpacing="8">
@@ -1013,13 +976,9 @@
 
                     </Grid>
 
-                    <!-- TÍTULO E DESCRIÇÃO -->
                     <VerticalStackLayout
                         Spacing="3">
 
-                        <!--
-                            O título vem diretamente do Entry TituloTXT.
-                        -->
                         <Label
                             x:Name="TxtResumoTitulo"
                             Text="{Binding Source={x:Reference TituloTXT}, Path=Text}"
@@ -1029,9 +988,6 @@
                             LineBreakMode="TailTruncation"
                             MaxLines="1" />
 
-                        <!--
-                            A descrição vem diretamente do Editor DescricaoTXT.
-                        -->
                         <Label
                             x:Name="TxtResumoDescricao"
                             Text="{Binding Source={x:Reference DescricaoTXT}, Path=Text}"
@@ -1042,14 +998,12 @@
 
                     </VerticalStackLayout>
 
-                    <!-- CHIPS DO RESUMO -->
                     <FlexLayout
                         Direction="Row"
                         Wrap="Wrap"
                         AlignItems="Start"
                         JustifyContent="Start">
 
-                        <!-- TEMPO -->
                         <Border
                             BackgroundColor="{StaticResource AthenaBackground}"
                             Stroke="{StaticResource AthenaBorderSoft}"
@@ -1067,7 +1021,6 @@
 
                         </Border>
 
-                        <!-- PRIORIDADE -->
                         <Border
                             BackgroundColor="{StaticResource AthenaBackground}"
                             Stroke="{StaticResource AthenaBorderSoft}"
@@ -1124,7 +1077,6 @@
 
                         </Border>
 
-                        <!-- CATEGORIA -->
                         <Border
                             BackgroundColor="{StaticResource AthenaBackground}"
                             Stroke="{StaticResource AthenaBorderSoft}"
@@ -1142,7 +1094,6 @@
 
                         </Border>
 
-                        <!-- PRAZO -->
                         <Border
                             BackgroundColor="{StaticResource AthenaBackground}"
                             Stroke="{StaticResource AthenaBorderSoft}"
@@ -1166,7 +1117,6 @@
 
             </Border>
 
-            <!-- BOTÃO CRIAR META -->
             <VerticalStackLayout
                 Spacing="8"
                 Padding="0,0,0,4">
@@ -1195,7 +1145,6 @@
 
             </VerticalStackLayout>
 
-            <!-- MANTIDO PARA COMPATIBILIDADE -->
             <Label
                 x:Name="ResultadoTXT"
                 Text=""

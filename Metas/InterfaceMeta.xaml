@@ -16,14 +16,12 @@
                     Padding="16,36,16,32"
                     Spacing="16">
 
-            <!-- CABEÇALHO PADRÃO DO ATHENA -->
             <Grid
     ColumnDefinitions="Auto,*,Auto"
     RowDefinitions="Auto,Auto"
     ColumnSpacing="10"
     RowSpacing="8">
 
-                <!-- BOTÃO VOLTAR -->
                 <Button
         Grid.Column="0"
         Grid.Row="0"
@@ -41,7 +39,6 @@
         HorizontalOptions="Start"
         VerticalOptions="Start" />
 
-                <!-- LOGO E TÍTULO DA PÁGINA -->
                 <VerticalStackLayout
         Grid.Column="1"
         Grid.Row="0"
@@ -64,7 +61,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- STATUS DA META -->
                 <Border
         Grid.Column="2"
         Grid.Row="0"
@@ -124,7 +120,6 @@
 
                 </Border>
 
-                <!-- DIVISÓRIA -->
                 <BoxView
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
@@ -136,7 +131,6 @@
             </Grid>
 
 
-            <!-- CARD PRINCIPAL DA META -->
             <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
@@ -148,7 +142,6 @@
                             ColumnDefinitions="4,*"
                             ColumnSpacing="0">
 
-                    <!-- ACENTO DOURADO LATERAL -->
                     <BoxView
                                 Grid.Column="0"
                                 Color="{StaticResource AthenaGold}"
@@ -161,7 +154,6 @@
                                 Padding="16"
                                 Spacing="12">
 
-                        <!-- IDENTIFICAÇÃO -->
                         <HorizontalStackLayout
                                     Spacing="8">
 
@@ -181,7 +173,6 @@
 
                         </HorizontalStackLayout>
 
-                        <!-- TÍTULO -->
                         <Label
                                     Text="{Binding tituloMeta}"
                                     FontSize="26"
@@ -190,7 +181,6 @@
                                     LineBreakMode="WordWrap"
                                     MaxLines="3" />
 
-                        <!-- DESCRIÇÃO -->
                         <Label
                                     Text="{Binding descricaoMeta, TargetNullValue=Sem descrição, FallbackValue=Sem descrição}"
                                     FontSize="14"
@@ -199,14 +189,12 @@
                                     LineBreakMode="WordWrap"
                                     MaxLines="5" />
 
-                        <!-- CATEGORIA E PRIORIDADE -->
                         <FlexLayout
                                     Direction="Row"
                                     Wrap="Wrap"
                                     JustifyContent="Start"
                                     AlignItems="Start">
 
-                            <!-- CATEGORIA -->
                             <Border
                                         BackgroundColor="#101F38"
                                         Stroke="{StaticResource AthenaBorder}"
@@ -238,7 +226,6 @@
 
                             </Border>
 
-                            <!-- PRIORIDADE -->
                             <HorizontalStackLayout
                                         Spacing="6"
                                         Padding="4,6">
@@ -267,7 +254,6 @@
 
             </Border>
 
-            <!-- CARD DE PROGRESSO -->
             <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
@@ -278,7 +264,6 @@
                 <VerticalStackLayout
                             Spacing="14">
 
-                    <!-- TÍTULO E PORCENTAGEM -->
                     <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
@@ -354,7 +339,6 @@
 
                     </Grid>
 
-                    <!-- MINUTOS ESTUDADOS -->
                     <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
@@ -403,7 +387,6 @@
 
                     </Grid>
 
-                    <!-- BARRA DE PROGRESSO -->
                     <ProgressBar
                                 Progress="{Binding Progresso}"
                                 HeightRequest="7"
@@ -439,7 +422,6 @@
 
                     </ProgressBar>
 
-                    <!-- RODAPÉ -->
                     <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
@@ -471,7 +453,6 @@
 
             </Border>
 
-            <!-- ÚLTIMA SESSÃO DA META -->
             <Border
                         x:Name="UltimaSessaoCard"
                         IsVisible="False"
@@ -484,7 +465,6 @@
                 <VerticalStackLayout
                             Spacing="12">
 
-                    <!-- CABEÇALHO DA SEÇÃO -->
                     <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
@@ -553,7 +533,6 @@
 
                     </Grid>
 
-                    <!-- TÍTULO E DATA -->
                     <VerticalStackLayout
                                 Spacing="3">
 
@@ -576,7 +555,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- TEMPO LÍQUIDO -->
                     <Border
                                 BackgroundColor="#080B10"
                                 StrokeThickness="0"
@@ -639,7 +617,6 @@
 
                     </Border>
 
-                    <!-- PRÉVIA DA ANOTAÇÃO -->
                     <Border
                                 BackgroundColor="#101A2B"
                                 StrokeThickness="0"
@@ -682,7 +659,6 @@
 
                     </Border>
 
-                    <!-- ORIENTAÇÃO -->
                     <Grid
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="8">
@@ -722,7 +698,6 @@
 
             </Border>
 
-            <!-- ESTADO SEM ÚLTIMA SESSÃO -->
             <Border
                         x:Name="EstadoSemUltimaSessao"
                         BackgroundColor="#0D1726"
@@ -784,7 +759,6 @@
 
             </Border>
 
-            <!-- INFORMAÇÕES COMPLEMENTARES -->
             <Border
                         BackgroundColor="#0D1726"
                         Stroke="#1B2A40"
@@ -799,7 +773,6 @@
                             ColumnSpacing="1"
                             BackgroundColor="#263650">
 
-                    <!-- PRIORIDADE -->
                     <Border
                                 Grid.Row="0"
                                 Grid.Column="0"
@@ -838,7 +811,6 @@
 
                     </Border>
 
-                    <!-- STATUS -->
                     <Border
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -877,7 +849,6 @@
 
                     </Border>
 
-                    <!-- DATA DE CRIAÇÃO -->
                     <Border
                                 Grid.Row="1"
                                 Grid.Column="0"
@@ -915,7 +886,6 @@
 
                     </Border>
 
-                    <!-- DATA LIMITE -->
                     <Border
                                 Grid.Row="1"
                                 Grid.Column="1"
@@ -959,7 +929,6 @@
 
             </Border>
 
-            <!-- AÇÕES -->
             <VerticalStackLayout
                         Spacing="10"
                         Padding="2,10,2,0">
@@ -975,7 +944,6 @@
                             FontSize="13"
                             TextColor="{StaticResource AthenaTextSecondary}" />
 
-                <!-- CRIAR SESSÃO -->
                 <VerticalStackLayout
                             Spacing="6"
                             Padding="0,4,0,0">
@@ -1001,7 +969,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- COMEÇAR A ESTUDAR -->
                 <VerticalStackLayout
                             Spacing="6"
                             Padding="0,4,0,0">
@@ -1028,7 +995,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- HISTÓRICO -->
                 <Border
                             BackgroundColor="#0D1726"
                             Stroke="#1B2A40"
@@ -1087,7 +1053,6 @@
                                     TextColor="{StaticResource AthenaTextSecondary}"
                                     VerticalOptions="Center" />
 
-                        <!-- TODA A ÁREA É CLICÁVEL -->
                         <Button
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"
@@ -1103,7 +1068,6 @@
 
                 </Border>
 
-                <!-- EDITAR META -->
                 <Border
                             BackgroundColor="#0D1726"
                             Stroke="#1B2A40"
@@ -1161,7 +1125,6 @@
                                     TextColor="{StaticResource AthenaTextSecondary}"
                                     VerticalOptions="Center" />
 
-                        <!-- TODA A ÁREA É CLICÁVEL -->
                         <Button
                                     Grid.Column="0"
                                     Grid.ColumnSpan="3"

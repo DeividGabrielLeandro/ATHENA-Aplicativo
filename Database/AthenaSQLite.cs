@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using SQLite;
+﻿using SQLite;
 
 namespace ATHENA.Database
 {
@@ -12,18 +7,18 @@ namespace ATHENA.Database
     public class Usuario
     {
         [PrimaryKey, AutoIncrement]
-        public int id { get; set; } //Id do cliente
+        public int id { get; set; }
 
         [MaxLength(100), NotNull]
-        public string nome { get; set; } //Nome de exibição
+        public string nome { get; set; }
 
         [MaxLength(255)]
-        public string? email { get; set; } //Email da conta
+        public string? email { get; set; }
 
         public double? metaDiaria { get; set; } = 60;
         public string? fotoPerfil { get; set; }
 
-        public DateTime dataCriacao { get; set; } = DateTime.Now; //Criação da conta
+        public DateTime dataCriacao { get; set; } = DateTime.Now;
     }
 
     [Table("Registro_Tempo")]
@@ -39,37 +34,36 @@ namespace ATHENA.Database
     public class Meta
     {
         [AutoIncrement, PrimaryKey]
-        public int idMeta { get; set; } //Id da meta
+        public int idMeta { get; set; }
 
-        //[NotNull]
-        public int? idUsuario { get; set; } // Liga a meta ao idUsuario
+        public int? idUsuario { get; set; }
 
-        public int? idSessao { get; set; } // Criação de sessão de estudo
+        public int? idSessao { get; set; }
 
-        public int? idCategoria { get; set; } //Para poder adicionar meta à categoria
+        public int? idCategoria { get; set; }
 
         [MaxLength(150), NotNull]
-        public string tituloMeta { get; set; } //Título da meta
+        public string tituloMeta { get; set; }
 
         [MaxLength(1000)]
-        public string? descricaoMeta { get; set; } //Descrição da meta, pode ser nula
+        public string? descricaoMeta { get; set; }
 
-        public int metaMinutos { get; set; } = 0; //Define um objetivo de tempo à ser estudado
+        public int metaMinutos { get; set; } = 0; //Objetivo de tempo a ser estudado
 
-        public int? minutosEstudados { get; set; } = 0;//Total de tempo estudado na meta
-
-        [MaxLength(20), NotNull]
-        public string prioridadeMeta { get; set; } = "Sem prioridade"; //Sem prioridade, Baixa, Média e Alta
+        public int? minutosEstudados { get; set; } = 0; //Total estudado na meta, somando todas as origens
 
         [MaxLength(20), NotNull]
-        public string status { get; set; } = "Em andamento"; //Status Concluído ou Em andamento
+        public string prioridadeMeta { get; set; } = "Sem prioridade"; //Sem prioridade, Baixa, Média ou Alta
+
+        [MaxLength(20), NotNull]
+        public string status { get; set; } = "Em andamento"; //Em andamento ou Concluida
 
         [NotNull]
-        public DateTime dataCriacao { get; set; } = DateTime.Now; //Data de criação da meta
+        public DateTime dataCriacao { get; set; } = DateTime.Now;
 
-        public DateTime? dataLimite { get; set; } //Pode ser adicionado uma data limite para completar a meta
+        public DateTime? dataLimite { get; set; }
 
-        public DateTime? dataConclusao { get; set; } //Data da conclusão
+        public DateTime? dataConclusao { get; set; }
 
         [Ignore]
         public double Progresso
@@ -100,55 +94,53 @@ namespace ATHENA.Database
     }
 
 
-        [Table("Categoria")]
+    [Table("Categoria")]
     public class Categoria
     {
         [AutoIncrement,PrimaryKey]
-        public int idCategoria { get; set; } //Id categoria
+        public int idCategoria { get; set; }
 
-        //[NotNull]
-        public int? idUsuario { get; set; } //Facilita pesquisas
+        public int? idUsuario { get; set; }
 
-        //[NotNull]
-        public int? idMeta { get; set; } //Uma categoria pode ter várias metas
+        public int? idMeta { get; set; }
 
         [MaxLength(100), NotNull]
-        public string tituloCategoria { get; set; } //Titulo
+        public string tituloCategoria { get; set; }
 
         [MaxLength(500)]
-        public string? descricaoCategoria { get; set; } //Descrição
+        public string? descricaoCategoria { get; set; }
 
-        public DateTime dataCriacao { get; set; } = DateTime.Now; //Data criaçao
+        public DateTime dataCriacao { get; set; } = DateTime.Now;
     }
 
     [Table("SessaoEstudo")]
     public class Sessao_Estudo
     {
-        //A meta de estudo pode ser dividido em sessões. ex: sessão 1 - 20min estudados
+        //Uma meta pode ser dividida em sessões. Ex.: Sessão 1 - 20 min estudados.
+        //O estudo livre também é gravado aqui, sem meta (idMeta nulo).
 
         [PrimaryKey, AutoIncrement]
         public int idSessao { get; set; }
 
-        //[NotNull]
-        public int? idUsuario { get; set; } //Facilita pesquisas
+        public int? idUsuario { get; set; }
 
-        public int? idMeta { get; set; } //Sessão pertence à meta
+        public int? idMeta { get; set; }
 
         [MaxLength(100)]
-        public string? tituloSessao { get; set; } //Titulo
+        public string? tituloSessao { get; set; }
 
         [MaxLength(500)]
-        public string? descricaoSessao { get; set; } //Descrição
+        public string? descricaoSessao { get; set; }
 
-        public DateTime? DataInicio { get; set; } //Inicio da sessão
+        public DateTime? DataInicio { get; set; }
 
-        public DateTime? DataFim { get; set; } //Fim da sessão
+        public DateTime? DataFim { get; set; } //Nulo enquanto a sessão não foi salva
 
-        public DateTime DataCriacao { get; set; } = DateTime.Now; //Data criação
+        public DateTime DataCriacao { get; set; } = DateTime.Now;
 
-        public double? duracaoMinutos { get; set; } //Duração
+        public double? duracaoMinutos { get; set; } //Tempo bruto, incluindo as pausas
 
-        public double? tempoEstudadoMinutos { get; set; } //Tempo realmente estudado
+        public double? tempoEstudadoMinutos { get; set; } //Tempo líquido, sem as pausas
 
         [Ignore]
         public string TempoLiquidoFormatado
@@ -187,16 +179,16 @@ namespace ATHENA.Database
     public class Pausa_Sessao
     {
         [AutoIncrement, PrimaryKey]
-        public int idPausa { get; set; } //Id pausa
+        public int idPausa { get; set; }
 
         [NotNull]
-        public int idSessao { get; set; } //Id sessão
+        public int idSessao { get; set; }
 
 
-        public double duracaoMinutos { get; set; } //Duração da pausa
+        public double duracaoMinutos { get; set; }
 
         [MaxLength(255)]
-        public string? motivoPausa { get; set; } //Motivo
+        public string? motivoPausa { get; set; }
     }
 
 
@@ -204,13 +196,13 @@ namespace ATHENA.Database
     public class MensagemChat
     {
         [AutoIncrement, PrimaryKey]
-        public int id { get; set; } //Id 
+        public int id { get; set; }
 
         [NotNull]
-        public string Papel { get; set; } //user ou model
+        public string Papel { get; set; } //"user" ou "model", como a API do Gemini espera
 
-        public string Conteudo { get; set; } //Mensagens    
+        public string Conteudo { get; set; }
 
-        public DateTime dataCriacao { get; set; } //Data daquela mensagem
+        public DateTime dataCriacao { get; set; }
     }
 }

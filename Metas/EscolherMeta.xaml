@@ -7,19 +7,9 @@
     BackgroundColor="{StaticResource AthenaBackground}"
     Shell.NavBarIsVisible="False">
 
-    <!--
-        Estrutura baseada na tela de categorias:
-
-        Row 0: cabeçalho fixo
-        Row 1: título e botão fixos
-        Row 2: resumo fixo
-        Row 3: busca e filtros fixos
-        Row 4: somente a lista rola
-    -->
     <Grid
         RowDefinitions="Auto,Auto,Auto,Auto,*">
 
-        <!-- CABEÇALHO FIXO -->
         <Grid
             Grid.Row="0"
             ColumnDefinitions="*,Auto"
@@ -27,7 +17,6 @@
             Padding="16,16,16,0"
             Margin="0,0,0,14">
 
-            <!-- LOGO E IDENTIFICAÇÃO -->
             <VerticalStackLayout
                 Grid.Column="0"
                 Grid.Row="0"
@@ -50,7 +39,6 @@
 
             </VerticalStackLayout>
 
-            <!-- FOTO DE PERFIL -->
             <Border
                 Grid.Column="1"
                 Grid.Row="0"
@@ -72,7 +60,6 @@
 
             </Border>
 
-            <!-- LINHA DIVISÓRIA -->
             <BoxView
                 Grid.Row="1"
                 Grid.Column="0"
@@ -84,13 +71,11 @@
 
         </Grid>
 
-        <!-- TÍTULO E BOTÃO FIXOS -->
         <VerticalStackLayout
             Grid.Row="1"
             Padding="16,4,16,0"
             Spacing="0">
 
-            <!-- TÍTULO -->
             <Grid
                 ColumnDefinitions="*,Auto"
                 ColumnSpacing="10"
@@ -114,7 +99,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- ÍCONE DECORATIVO -->
                 <Border
                     Grid.Column="1"
                     WidthRequest="44"
@@ -136,7 +120,6 @@
 
             </Grid>
 
-            <!-- BOTÃO CRIAR NOVA META -->
             <Button
                 Text="+    CRIAR NOVA META"
                 Clicked="Button_Clicked"
@@ -153,7 +136,6 @@
 
         </VerticalStackLayout>
 
-        <!-- RESUMO FIXO -->
         <Border
             Grid.Row="2"
             BackgroundColor="{StaticResource AthenaCard}"
@@ -167,7 +149,6 @@
                 ColumnDefinitions="*,*,*"
                 ColumnSpacing="5">
 
-                <!-- TOTAL -->
                 <Border
                     Grid.Column="0"
                     BackgroundColor="{StaticResource AthenaSurface}"
@@ -210,7 +191,6 @@
 
                 </Border>
 
-                <!-- EM ANDAMENTO -->
                 <Border
                     Grid.Column="1"
                     BackgroundColor="{StaticResource AthenaSurface}"
@@ -266,7 +246,6 @@
 
                 </Border>
 
-                <!-- CONCLUÍDAS -->
                 <Border
                     Grid.Column="2"
                     BackgroundColor="{StaticResource AthenaSurface}"
@@ -326,13 +305,11 @@
 
         </Border>
 
-        <!-- BUSCA E FILTROS FIXOS -->
         <VerticalStackLayout
             Grid.Row="3"
             Padding="16,0,16,0"
             Spacing="0">
 
-            <!-- CAMPO DE BUSCA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorderSoft}"
@@ -375,7 +352,6 @@
 
             </Border>
 
-            <!-- FILTROS -->
             <ScrollView
                 Orientation="Horizontal"
                 HorizontalScrollBarVisibility="Never"
@@ -384,7 +360,6 @@
                 <HorizontalStackLayout
                     Spacing="7">
 
-                    <!-- TODAS -->
                     <Button
                         x:Name="BtnFiltroTodas"
                         Text="▣  Todas"
@@ -398,7 +373,6 @@
                         BorderWidth="1"
                         TextColor="{StaticResource AthenaTextPrimary}" />
 
-                    <!-- EM ANDAMENTO -->
                     <Button
                         x:Name="BtnFiltroPendentes"
                         Text="●  Em andamento"
@@ -412,7 +386,6 @@
                         BorderWidth="1"
                         TextColor="{StaticResource AthenaTextSecondary}" />
 
-                    <!-- CONCLUÍDAS -->
                     <Button
                         x:Name="BtnFiltroConcluidas"
                         Text="●  Concluídas"
@@ -432,7 +405,6 @@
 
         </VerticalStackLayout>
 
-        <!-- SOMENTE A LISTA ROLA -->
         <CollectionView
             Grid.Row="4"
             x:Name="lista"
@@ -442,7 +414,6 @@
             ItemsUpdatingScrollMode="KeepItemsInView"
             Margin="16,0,16,0">
 
-            <!-- ESTADO VAZIO -->
             <CollectionView.EmptyView>
 
                 <VerticalStackLayout
@@ -491,7 +462,6 @@
 
             </CollectionView.EmptyView>
 
-            <!-- CARD INDIVIDUAL DE META -->
             <CollectionView.ItemTemplate>
 
                 <DataTemplate>
@@ -509,13 +479,11 @@
                             ColumnDefinitions="*"
                             RowSpacing="8">
 
-                            <!-- CATEGORIA, PRIORIDADE, STATUS E SETA -->
                             <Grid
                                 Grid.Row="0"
                                 ColumnDefinitions="*,Auto"
                                 ColumnSpacing="6">
 
-                                <!-- CATEGORIA E PRIORIDADE -->
                                 <HorizontalStackLayout
                                     Grid.Column="0"
                                     Spacing="6"
@@ -566,7 +534,6 @@
 
                                 </HorizontalStackLayout>
 
-                                <!-- STATUS E SETA -->
                                 <HorizontalStackLayout
                                     Grid.Column="1"
                                     Spacing="5"
@@ -646,7 +613,6 @@
 
                             </Grid>
 
-                            <!-- TÍTULO -->
                             <Label
                                 Grid.Row="1"
                                 Text="{Binding tituloMeta}"
@@ -692,7 +658,6 @@
 
                             </Label>
 
-                            <!-- DESCRIÇÃO -->
                             <Label
                                 Grid.Row="2"
                                 Text="{Binding descricaoMeta, TargetNullValue=Sem descrição, FallbackValue=Sem descrição}"
@@ -701,7 +666,6 @@
                                 LineBreakMode="TailTruncation"
                                 MaxLines="1" />
 
-                            <!-- PROGRESSO -->
                             <Grid
                                 Grid.Row="3"
                                 RowDefinitions="Auto,Auto"
@@ -814,7 +778,6 @@
 
                             </Grid>
 
-                            <!-- PRAZO E INFORMAÇÕES EXTRAS -->
                             <Grid
                                 Grid.Row="4"
                                 ColumnDefinitions="*,Auto"
@@ -839,8 +802,6 @@
 
                             </Grid>
 
-                            <!-- TOQUE EM QUALQUER LUGAR DO CARD -->
-                            <!-- Este botão precisa ser filho direto do Grid principal da meta. -->
                             <Button
                                 Grid.Row="0"
                                 Grid.RowSpan="5"

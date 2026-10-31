@@ -42,8 +42,6 @@ namespace ATHENA.Models
            string? tituloSessao,
            string descricaoSessao,
            DateTime dataFim,
-           double duracaoMinutosBruto,
-           double duracaoMinutosLiquido,
            int idSessao
            )
         {
@@ -70,28 +68,6 @@ namespace ATHENA.Models
             await db.UpdateAsync(sessao);
         }
 
-        public static async Task SalvarPausaSessao(
-            int idSessao,
-            double duracaoMinutos,
-            string? motivoPausa
-            )
-        {
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.LocalApplicationData), "ATHENA.db"
-);
-
-            var db = new SQLiteAsyncConnection(dbPath);
-
-            await db.CreateTableAsync<Pausa_Sessao>();
-
-            var Pausa = new Pausa_Sessao
-            {
-                idSessao = idSessao,
-                duracaoMinutos = duracaoMinutos,
-                motivoPausa = motivoPausa
-            };
-
-            await db.InsertAsync(Pausa);
-        }
 
         public static async Task DeletarSessao(int idSessao)
         {

@@ -7,7 +7,7 @@ namespace ATHENA.Services
 {
     internal class CronometroService
     {
-        public static readonly CronometroPreferences cronometro = new CronometroPreferences();
+        private static readonly CronometroPreferences cronometro = new CronometroPreferences();
 
         public static NewPage1.OrigemCronometro Origem { get; private set; }
             = NewPage1.OrigemCronometro.Nenhum;
@@ -57,7 +57,7 @@ namespace ATHENA.Services
             cronometro.Salvar();
         }
 
-        public void Carregar()
+        public static void Carregar()
         {
             cronometro.Carregar();
 
@@ -203,24 +203,20 @@ namespace ATHENA.Services
             Salvar();
         }
 
-            public static void Erro()
-            {
-   
-                Iniciado = true;
-                Rodando = false;
+        public static void CancelarFinalizacao()
+        {
+            Iniciado = true;
+            Rodando = false;
 
-                DataFim = null;
+            DataFim = null;
 
-          
-                inicioTrecho = default;
+            inicioTrecho = default;
 
-                tempoLiquidoFinal = null;
-                tempoBrutoFinal = null;
+            tempoLiquidoFinal = null;
+            tempoBrutoFinal = null;
 
             Salvar();
-
-            
-            }
+        }
     }
 
 }

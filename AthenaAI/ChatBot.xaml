@@ -7,18 +7,15 @@
     BackgroundColor="{StaticResource AthenaBackground}"
     Shell.NavBarIsVisible="False">
 
-    <!-- LINHA 0: CABEÇALHO | LINHA 1: MENSAGENS | LINHA 2: DIGITANDO (ALTURA FIXA) | LINHA 3: CAMPO DE ENVIO -->
     <Grid
         RowDefinitions="Auto,*,28,Auto"
         Padding="16,16,16,12">
 
-        <!-- CABEÇALHO PADRÃO (FIXO NO TOPO) -->
         <Grid
             Grid.Row="0"
             ColumnDefinitions="*,Auto"
             RowDefinitions="Auto,Auto">
 
-            <!-- LOGO E IDENTIFICAÇÃO DA PÁGINA -->
             <VerticalStackLayout
                 Grid.Column="0"
                 Grid.Row="0"
@@ -41,7 +38,6 @@
 
             </VerticalStackLayout>
 
-            <!-- FOTO DE PERFIL -->
             <Border
                 Grid.Column="1"
                 Grid.Row="0"
@@ -63,7 +59,6 @@
 
             </Border>
 
-            <!-- LINHA DIVISÓRIA -->
             <BoxView
                 Grid.Row="1"
                 Grid.ColumnSpan="2"
@@ -74,7 +69,6 @@
 
         </Grid>
 
-        <!-- LISTA DE MENSAGENS -->
         <CollectionView
             x:Name="ListaMensagens"
             Grid.Row="1"
@@ -89,10 +83,8 @@
                     ItemSpacing="12" />
             </CollectionView.ItemsLayout>
 
-            <!-- TÍTULO DA TELA (ROLA JUNTO COM A CONVERSA) -->
             <CollectionView.Header>
 
-                <!-- TÍTULO DA TELA -->
                 <VerticalStackLayout
                     Spacing="3"
                     Padding="0,14,0,12">
@@ -111,7 +103,6 @@
                             MaxLines="1"
                             VerticalOptions="Center" />
 
-                        <!-- INDICADOR DE STATUS DA IA -->
                         <Border
                             Grid.Column="1"
                             Padding="9,5"
@@ -153,7 +144,6 @@
 
             </CollectionView.Header>
 
-            <!-- ESTADO VAZIO (ANTES DA PRIMEIRA PERGUNTA) -->
             <CollectionView.EmptyView>
 
                 <VerticalStackLayout
@@ -193,7 +183,6 @@
                         TextColor="{StaticResource AthenaTextSecondary}"
                         HorizontalTextAlignment="Center" />
 
-                    <!-- SUGESTÕES RÁPIDAS (2 LINHAS) -->
                     <VerticalStackLayout
                         Spacing="8"
                         Margin="0,8,0,0"
@@ -277,13 +266,11 @@
 
             </CollectionView.EmptyView>
 
-            <!-- MODELO DE CADA MENSAGEM -->
             <CollectionView.ItemTemplate>
                 <DataTemplate>
 
                     <Grid>
 
-                        <!-- MENSAGEM DA IA -->
                         <HorizontalStackLayout
                             IsVisible="{Binding EhIA}"
                             Spacing="8"
@@ -337,7 +324,6 @@
 
                         </HorizontalStackLayout>
 
-                        <!-- MENSAGEM DO USUÁRIO -->
                         <VerticalStackLayout
                             IsVisible="{Binding EhUsuario}"
                             Spacing="3"
@@ -377,7 +363,6 @@
 
         </CollectionView>
 
-        <!-- INDICADOR DE "DIGITANDO" -->
         <HorizontalStackLayout
             x:Name="AreaDigitando"
             Grid.Row="2"
@@ -402,7 +387,6 @@
 
         </HorizontalStackLayout>
 
-        <!-- ÁREA DE ENVIO -->
         <VerticalStackLayout
             Grid.Row="3"
             Spacing="6">
@@ -418,7 +402,6 @@
                     ColumnDefinitions="*,Auto"
                     ColumnSpacing="10">
 
-                    <!-- CAMPO DE TEXTO -->
                     <Border
                         Grid.Column="0"
                         BackgroundColor="{StaticResource AthenaCard}"
@@ -444,7 +427,6 @@
 
                     </Border>
 
-                    <!-- BOTÃO ENVIAR -->
                     <Button
                         x:Name="BtnEnviar"
                         Grid.Column="1"
@@ -465,7 +447,6 @@
 
             </Border>
 
-            <!-- AVISO E CONTADOR -->
             <Grid
                 ColumnDefinitions="*,Auto"
                 ColumnSpacing="8"

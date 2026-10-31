@@ -13,13 +13,11 @@
             Padding="16,16,16,24"
             Spacing="0">
 
-            <!-- CABEÇALHO PADRÃO -->
             <Grid
     ColumnDefinitions="*,Auto"
     RowDefinitions="Auto,Auto"
     Margin="0,0,0,18">
 
-                <!-- LOGO E SUBTÍTULO -->
                 <VerticalStackLayout
         Grid.Column="0"
         Grid.Row="0"
@@ -42,7 +40,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- FOTO DE PERFIL -->
                 <Border
         Grid.Column="1"
         Grid.Row="0"
@@ -63,7 +60,6 @@
 
                 </Border>
 
-                <!-- LINHA DIVISÓRIA -->
                 <BoxView
         Grid.Row="1"
         Grid.ColumnSpan="2"
@@ -74,7 +70,6 @@
 
             </Grid>
 
-            <!-- BOTÃO MEU PERFIL -->
             <Button
                 x:Name="BtnMeuPerfil"
                 Text="◉    MEU PERFIL"
@@ -92,7 +87,6 @@
                 Margin="0,0,0,18" />
 
 
-            <!-- SAUDAÇÃO -->
             <Grid
                 ColumnDefinitions="*,Auto"
                 ColumnSpacing="8"
@@ -110,7 +104,6 @@
                 VerticalOptions="Center" />
 
 
-                <!-- INDICADOR DE FOCO -->
                 <Border
                     Grid.Column="1"
                     Padding="9,5"
@@ -151,7 +144,6 @@
                 Margin="0,0,0,18" />
 
 
-            <!-- CARTÕES DE RESUMO -->
             <Grid
                 ColumnDefinitions="*,*"
                 RowDefinitions="Auto,Auto"
@@ -159,7 +151,6 @@
                 RowSpacing="12"
                 Margin="0,0,0,24">
 
-                <!-- TEMPO HOJE -->
                 <Border
                     Grid.Row="0"
                     Grid.Column="0"
@@ -203,7 +194,6 @@
 
                 </Border>
 
-                <!-- SESSÕES HOJE -->
                 <Border
                     Grid.Row="0"
                     Grid.Column="1"
@@ -247,7 +237,6 @@
 
                 </Border>
 
-                <!-- METAS CRIADAS -->
                 <Border
                     Grid.Row="1"
                     Grid.Column="0"
@@ -291,7 +280,6 @@
 
                 </Border>
 
-                <!-- CATEGORIAS -->
                 <Border
                     Grid.Row="1"
                     Grid.Column="1"
@@ -337,7 +325,6 @@
 
             </Grid>
 
-            <!-- ÁREA PRINCIPAL DE AÇÃO -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -349,7 +336,6 @@
                 <VerticalStackLayout
                     Spacing="0">
 
-                    <!-- CABEÇALHO DA SEÇÃO -->
                     <Grid
                         ColumnDefinitions="*"
                         Margin="0,0,0,4">
@@ -395,7 +381,6 @@
                         TextColor="{StaticResource AthenaTextSecondary}"
                         Margin="0,0,0,16" />
 
-                    <!-- BOTÃO ESTUDO LIVRE -->
                     <Button
                         Text="▶    ESTUDO LIVRE"
                         Clicked="Button_Clicked"
@@ -410,7 +395,6 @@
                         HorizontalOptions="Fill"
                         Margin="0,0,0,10" />
 
-                    <!-- BOTÃO ESCOLHER META -->
                     <Button
                         Text="◎    ESCOLHER META"
                         Clicked="Button_Clicked_1"
@@ -429,7 +413,6 @@
 
             </Border>
 
-            <!-- TÍTULO DA MAIOR META -->
             <Grid
     x:Name="AreaMaiorMetaTitulo"
     ColumnDefinitions="*,Auto"
@@ -455,7 +438,6 @@
 
             </Grid>
 
-            <!-- CARD DA MAIOR META -->
             <Border
     x:Name="CardMaiorMeta"
     BackgroundColor="{StaticResource AthenaCard}"
@@ -470,7 +452,6 @@
         ColumnDefinitions="Auto,*,Auto"
         ColumnSpacing="12">
 
-                    <!-- INDICADOR DA META -->
                     <Border
             Grid.Column="0"
             WidthRequest="34"
@@ -490,7 +471,6 @@
 
                     </Border>
 
-                    <!-- DADOS DA META -->
                     <VerticalStackLayout
             Grid.Column="1"
             Spacing="3"
@@ -523,7 +503,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- TEMPO E INDICADOR VISUAL -->
                     <VerticalStackLayout
             Grid.Column="2"
             Spacing="3"
@@ -546,7 +525,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- TOQUE EM QUALQUER LUGAR DO CARD -->
                     <Button
             x:Name="BtnEntrarMaiorMeta"
             Grid.Column="0"

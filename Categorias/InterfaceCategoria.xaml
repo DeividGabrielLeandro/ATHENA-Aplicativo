@@ -8,16 +8,8 @@
     Shell.NavBarIsVisible="False"
     Shell.TabBarIsVisible="True">
 
-    <!--
-        Página de uma única categoria.
-        Dados da categoria e resumo: controles nomeados, preenchidos pelo C#.
-        Metas: BindableLayout.SetItemsSource(listaMeta, metas) recebe os objetos Meta.
-        Somente a lista de metas rola na tela principal.
-        A tab bar continua sendo a do AppShell; não é desenhada novamente aqui.
-    -->
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,*">
 
-        <!-- CABEÇALHO PADRÃO DAS PÁGINAS INTERNAS -->
         <Grid
             Grid.Row="0"
             ColumnDefinitions="Auto,*,Auto"
@@ -95,7 +87,6 @@
 
         </Grid>
 
-        <!-- IDENTIFICAÇÃO DA CATEGORIA: não fica dentro de DataTemplate -->
         <VerticalStackLayout
             Grid.Row="1"
             Padding="16,0,16,0"
@@ -133,7 +124,6 @@
 
         </VerticalStackLayout>
 
-        <!-- RESUMO: sempre representa a categoria inteira, não só o filtro -->
         <Border
             Grid.Row="2"
             BackgroundColor="{StaticResource AthenaCard}"
@@ -237,7 +227,6 @@
 
                 </Grid>
 
-                <!-- Mesmos controles de progresso; agora em uma única linha compacta. -->
                 <Grid
                     ColumnDefinitions="Auto,*,Auto"
                     ColumnSpacing="8"
@@ -276,7 +265,6 @@
 
         </Border>
 
-        <!-- AÇÃO PRINCIPAL: abre o painel de inclusão desta própria página -->
         <Button
             x:Name="BtnAdicionarMetas"
             Grid.Row="3"
@@ -294,7 +282,6 @@
             HorizontalOptions="Fill"
             Margin="16,0,16,8" />
 
-        <!-- BUSCA E FILTROS -->
         <VerticalStackLayout Grid.Row="4" Padding="16,0,16,0" Spacing="0">
 
             <Border
@@ -333,7 +320,6 @@
                 Margin="0,6,0,6">
 
                 <HorizontalStackLayout Spacing="7">
-                    <!-- O C# altera o destaque ao aplicar o filtro escolhido. -->
                     <Button
                         x:Name="BtnFiltroTodas"
                         Text="▣  Todas"
@@ -379,7 +365,6 @@
 
         </VerticalStackLayout>
 
-        <!-- LISTA PRINCIPAL: cards comuns; somente esta região rola. -->
         <ScrollView
             x:Name="ScrollMetasCategoria"
             Grid.Row="5"
@@ -414,7 +399,6 @@
 
                 </VerticalStackLayout>
 
-                <!-- Preenchido pelo C# com BindableLayout.SetItemsSource. -->
                 <VerticalStackLayout
                     x:Name="listaMeta"
                     Spacing="10"
@@ -434,7 +418,6 @@
 
                                 <Grid ColumnDefinitions="*,44" ColumnSpacing="6">
 
-                                    <!-- O conteúdo define a altura real de cada card. -->
                                     <VerticalStackLayout
                                         Grid.ColumnSpan="2"
                                         Spacing="8"
@@ -581,7 +564,6 @@
 
                                     </VerticalStackLayout>
 
-                                    <!-- Cobre o card sem controlar sua altura. -->
                                     <Button
                                         x:Name="BtnAbrirMeta"
                                         Grid.ColumnSpan="2"
@@ -595,16 +577,8 @@
                                         ZIndex="10"
                                         SemanticProperties.Description="{Binding tituloMeta}" />
 
-                                    <!--
-                                        Independente do botão que abre a meta.
-                                        Sem VisualStateManager.VisualStateGroups aqui: dentro de um
-                                        DataTemplate usado por BindableLayout, com mais de um item
-                                        (esta categoria tem várias metas), esse bloco inline conflita
-                                        com os estados já aplicados pelo tema/estilo do Button e
-                                        derruba a tela com "VisualStateGroup Names must be unique".
-                                        A cor muda só via estilo normal; perde-se apenas o destaque
-                                        de hover/pressed, nada funcional.
-                                    -->
+                                    <!-- Sem VisualStateManager aqui: dentro deste DataTemplate, com várias metas,
+                                         ele gera "VisualStateGroup Names must be unique" e derruba a tela. -->
                                     <Button
                                         x:Name="BtnOpcoesMeta"
                                         Grid.Column="1"
@@ -643,10 +617,6 @@
 
         </ScrollView>
 
-        <!--
-            PAINEL DE INCLUSÃO: sobrepõe o conteúdo, não aumenta o cabeçalho fixo.
-            IsVisible é controlado pelo C#. Nenhuma alteração no banco ao selecionar.
-        -->
         <Grid
             x:Name="PainelAdicionarMetas"
             Grid.Row="0"
@@ -699,7 +669,6 @@
                             SemanticProperties.Description="Fechar seleção de metas" />
                     </Grid>
 
-                    <!-- Reaproveita a navegação existente para criar meta com IdCategoria. -->
                     <Button
                         x:Name="ButtonCriarMeta"
                         Grid.Row="1"
@@ -730,7 +699,6 @@
                             TextColor="{StaticResource AthenaTextSecondary}" />
                     </VerticalStackLayout>
 
-                    <!-- Nome preservado; agora seleção múltipla com confirmação. -->
                     <CollectionView
                         x:Name="listaMetaEscolha"
                         Grid.Row="3"
@@ -829,12 +797,6 @@
 
         </Grid>
 
-        <!--
-            OPÇÕES DA META: painel real, fora de DataTemplate e inicialmente escondido.
-            No Button_Clicked dos três pontos, atribua ao BindingContext deste painel
-            a Meta do botão pressionado e depois torne IsVisible true.
-            Não altera o nome nem o evento dos três pontos existente.
-        -->
         <Grid
             x:Name="PainelOpcoesMeta"
             Grid.Row="0"
@@ -844,7 +806,6 @@
             Padding="16"
             BackgroundColor="#99080B10">
 
-            <!-- Tocar fora do pequeno card fecha as opções sem remover a meta. -->
             <Button
                 x:Name="BtnFundoOpcoesMeta"
                 Text=""
@@ -896,7 +857,6 @@
                             SemanticProperties.Description="Fechar opções da meta" />
                     </Grid>
 
-                    <!-- Recebe o título da Meta atribuída ao BindingContext do painel. -->
                     <Label
                         Text="{Binding tituloMeta}"
                         FontSize="12"

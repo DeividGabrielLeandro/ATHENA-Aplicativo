@@ -16,7 +16,6 @@
             Padding="16,36,16,32"
             Spacing="16">
 
-            <!-- CABEÇALHO -->
             <Grid
                 ColumnDefinitions="Auto,*,Auto"
                 RowDefinitions="Auto,Auto"
@@ -124,7 +123,6 @@
 
             </Grid>
 
-            <!-- APRESENTAÇÃO -->
             <VerticalStackLayout
                 Spacing="6"
                 Margin="0,2,0,4">
@@ -151,7 +149,6 @@
 
             </VerticalStackLayout>
 
-            <!-- META RELACIONADA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -219,7 +216,6 @@
 
             </Border>
 
-            <!-- INFORMAÇÕES DA SESSÃO -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -269,7 +265,6 @@
                         Color="#24344B"
                         HorizontalOptions="Fill" />
 
-                    <!-- TÍTULO EDITÁVEL -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -300,7 +295,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- RESUMO DOS TEMPOS -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -447,7 +441,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- DESCRIÇÃO / ANOTAÇÃO -->
                     <VerticalStackLayout
                         Spacing="6">
 
@@ -502,7 +495,6 @@
 
             </Border>
 
-            <!-- ACESSO AO CRONÔMETRO -->
             <VerticalStackLayout
                 Spacing="6">
 
@@ -530,7 +522,6 @@
 
             </VerticalStackLayout>
 
-            <!-- AVISO -->
             <Border
                 BackgroundColor="#0D1726"
                 Stroke="#1B2A40"
@@ -559,7 +550,6 @@
 
             </Border>
 
-            <!-- FINALIZAÇÃO -->
             <VerticalStackLayout
                 Spacing="8"
                 Padding="0,2,0,0">

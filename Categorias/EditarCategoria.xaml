@@ -15,7 +15,6 @@
             Padding="{OnPlatform Default='16,36,16,32', WinUI='16,16,16,32'}"
             Spacing="16">
 
-            <!-- CABEÇALHO PADRÃO, SEM FOTO DE PERFIL -->
             <Grid
                 ColumnDefinitions="Auto,*,Auto"
                 RowDefinitions="Auto,Auto"
@@ -104,7 +103,6 @@
 
             </Grid>
 
-            <!-- TÍTULO DA PÁGINA -->
             <VerticalStackLayout Spacing="4">
                 <Label
                     Text="Editar categoria"
@@ -118,7 +116,6 @@
                     LineBreakMode="WordWrap" />
             </VerticalStackLayout>
 
-            <!-- SOMENTE OS DOIS CAMPOS DA CATEGORIA -->
             <Border
                 BackgroundColor="{StaticResource AthenaSurface}"
                 Stroke="{StaticResource AthenaBorder}"
@@ -149,7 +146,6 @@
                         Color="{StaticResource AthenaBorder}"
                         HorizontalOptions="Fill" />
 
-                    <!-- TÍTULO: preenchido e lido diretamente pelo C# -->
                     <VerticalStackLayout Spacing="7">
 
                         <Label
@@ -182,7 +178,6 @@
 
                     </VerticalStackLayout>
 
-                    <!-- DESCRIÇÃO: opcional -->
                     <VerticalStackLayout Spacing="7">
 
                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
@@ -227,7 +222,6 @@
 
             </Border>
 
-            <!-- SALVAR: mantém o evento usado na tela de referência -->
             <Button
                 x:Name="BtnSalvarCategoria"
                 Text="SALVAR ALTERAÇÕES"
@@ -243,7 +237,6 @@
                 BorderWidth="0"
                 HorizontalOptions="Fill" />
 
-            <!-- EXCLUIR: ação secundária, separada do salvamento -->
             <VerticalStackLayout Spacing="8" Margin="0,4,0,0">
 
                 <BoxView
