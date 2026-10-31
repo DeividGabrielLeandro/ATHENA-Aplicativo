@@ -88,6 +88,11 @@ namespace ATHENA.Models
 
             await db.DeleteAsync(sessao);
         }
+
+        /// <summary>
+        /// Apaga sessões abandonadas: sem data de fim, sem tempo, com meta e que não sejam a sessão do cronômetro.
+        /// Deve rodar só quando o app abre, momento em que nenhuma tela de sessão pode estar aberta (ver MainPage).
+        /// </summary>
         public static async Task LimparSessaoVazia()
         {
             string dbPath = Path.Combine(

@@ -10,6 +10,7 @@ namespace ATHENA
         {
             InitializeComponent();
 
+            // Restaura o cronômetro salvo antes de qualquer tela aparecer.
             CronometroService.Carregar();
         }
 

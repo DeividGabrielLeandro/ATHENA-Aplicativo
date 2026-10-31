@@ -43,7 +43,7 @@ public partial class InterfaceSessao : ContentPage
                 return;
             }
 
-            int? IdMeta = sessao.idMeta;
+            int? idMetaSessao = sessao.idMeta;
 
             double tempoEstudado = sessao.tempoEstudadoMinutos ?? 0;
             double tempoBruto = sessao.duracaoMinutos ?? 0;
@@ -54,12 +54,21 @@ public partial class InterfaceSessao : ContentPage
 
 
             Meta? meta = await db.Table<Meta>()
-                .Where(mbox => mbox.idMeta == IdMeta)
+                .Where(mbox => mbox.idMeta == idMetaSessao)
                 .FirstOrDefaultAsync();
 
             if (meta != null)
             {
                 TituloTXT.Text = sessao.tituloSessao;
+                TxtMetaRelacionada.Text = meta.tituloMeta;
+
+                int? idCategoria = meta.idCategoria;
+
+                Categoria? categoria = await db.Table<Categoria>()
+                    .Where(c => c.idCategoria == idCategoria)
+                    .FirstOrDefaultAsync();
+
+                TxtCategoriaRelacionada.Text = categoria?.tituloCategoria ?? "Sem categoria";
             }
 
         }
@@ -122,6 +131,12 @@ public partial class InterfaceSessao : ContentPage
         }
     }
 
+    /// <summary>
+    /// Saída da tela, usada pelo botão ‹ e pelo voltar do Android.
+    /// Cronômetro rodando para esta sessão ou sessão já salva: só volta.
+    /// Sessão sem tempo: apaga. Sessão com tempo: pergunta antes de apagar
+    /// (o tempo já somado na meta é mantido).
+    /// </summary>
     private async void Button_Clicked(object sender, EventArgs e)
     {
         try
@@ -175,6 +190,7 @@ public partial class InterfaceSessao : ContentPage
     }
     protected override bool OnBackButtonPressed()
     {
+        // true impede o Android de voltar sozinho; quem decide e navega é o Button_Clicked.
         Button_Clicked(this, EventArgs.Empty);
         return true;
     }

@@ -74,6 +74,10 @@ public partial class InterfaceMeta : ContentPage
 
     bool abrindoSessao = false;
 
+    /// <summary>
+    /// Se já existe uma sessão desta meta com o cronômetro iniciado, abre essa sessão em vez de criar outra.
+    /// Uma sessão em andamento em outra meta bloqueia; nos demais casos, cria uma sessão nova.
+    /// </summary>
     private async void Button_Clicked(object sender, EventArgs e)
     {
         if (abrindoSessao)

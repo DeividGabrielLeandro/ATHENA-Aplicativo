@@ -88,14 +88,16 @@ public partial class NewPage1 : ContentPage
                 Meta? meta = await db.Table<Meta>()
                 .FirstOrDefaultAsync(r => r.idMeta == IdMeta);
 
+                int? idCategoria = meta?.idCategoria;
+
                 Categoria? categoria = await db.Table<Categoria>()
-                .FirstOrDefaultAsync(r => r.idCategoria == meta.idCategoria);
+                .FirstOrDefaultAsync(r => r.idCategoria == idCategoria);
 
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     TxtTipoContexto.Text = "META";
                     TxtDetalheContexto.Text = "Foco atual";
-                    TxtNomeContexto.Text = meta.tituloMeta;
+                    TxtNomeContexto.Text = meta?.tituloMeta ?? "Meta não encontrada";
                     TxtCategoriaContexto.Text = categoria?.tituloCategoria?? "Sem categoria";
                     CategoriaContextoBorder.IsVisible = true;
 
@@ -106,13 +108,22 @@ public partial class NewPage1 : ContentPage
                 Sessao_Estudo? sessao = await db.Table<Sessao_Estudo>()
                  .FirstOrDefaultAsync(r => r.idSessao == IdSessao);
 
+                Meta? meta = await db.Table<Meta>()
+                .FirstOrDefaultAsync(r => r.idMeta == IdMeta);
+
+                int? idCategoria = meta?.idCategoria;
+
+                Categoria? categoria = await db.Table<Categoria>()
+                .FirstOrDefaultAsync(r => r.idCategoria == idCategoria);
+
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     TxtTipoContexto.Text = "SESSÃO";
                     TxtDetalheContexto.Text = "Foco atual";
-                    TxtNomeContexto.Text = sessao.tituloSessao;
+                    TxtNomeContexto.Text = sessao?.tituloSessao ?? "Sessão não encontrada";
+                    TxtCategoriaContexto.Text = categoria?.tituloCategoria ?? "Sem categoria";
                     CategoriaContextoBorder.IsVisible = true;
-                    
+
                 });
             }
             
@@ -271,6 +282,10 @@ public partial class NewPage1 : ContentPage
         }
     }
 
+    /// <summary>
+    /// Atualiza os números da tela a cada 100 ms. O tempo vem do CronometroService;
+    /// este timer só desenha. Ele para sozinho quando SessaoIniciada fica falso.
+    /// </summary>
     public void Contador()
     {
         if (!TemporizadorTelaAtivo)
@@ -304,12 +319,6 @@ public partial class NewPage1 : ContentPage
                     return true;
                 });
         }
-    }
-
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
-
     }
 
     private void BtnIniciar_Click(object sender, EventArgs e)
@@ -355,6 +364,10 @@ public partial class NewPage1 : ContentPage
     }
 
 
+    /// <summary>
+    /// Salva o estudo primeiro e só zera o cronômetro se o save der certo.
+    /// Se falhar, CancelarFinalizacao devolve o cronômetro pausado, sem perder o tempo.
+    /// </summary>
     private async void BtnParar_Clicked(object sender, EventArgs e)
     {
         if (!CronometroService.Iniciado)

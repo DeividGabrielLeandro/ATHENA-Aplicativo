@@ -22,6 +22,11 @@ namespace ATHENA.Models
             db = new SQLiteAsyncConnection(dbPath);
         }
 
+        /// <summary>
+        /// Salva o resultado do cronômetro numa única transação: ou todas as gravações acontecem, ou nenhuma.
+        /// Meta e Sessão somam o tempo na meta (a Sessão também soma na própria sessão);
+        /// o estudo livre vira uma sessão sem meta. Toda origem gera um Registro_Tempo para as estatísticas do dia.
+        /// </summary>
         public async static Task SalvarEstudo(NewPage1.OrigemCronometro origem, int? idSessao, int? idMeta, NewPage1.ResultadoSessao resultadoSessao)
         {
 

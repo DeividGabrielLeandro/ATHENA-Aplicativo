@@ -15,7 +15,7 @@ public partial class MainPage : ContentPage
 
     readonly SQLiteAsyncConnection db;
     bool _carregando;
-    static bool _sessoesLimpas;
+    static bool _sessoesLimpas; // static: continua true enquanto o app está aberto, então a limpeza roda uma vez por abertura
 
     public MainPage()
     {
@@ -153,6 +153,8 @@ public partial class MainPage : ContentPage
             string mensagem = $"{saudacao}, " + usuario.nome;
 
             lblBoasVindas.Text = mensagem;
+
+            lblStatusFoco.Text = CronometroService.Iniciado ? "Foco Ativo" : "Pronto para focar";
 
 
             Usuario? user = await db.Table<Usuario>()

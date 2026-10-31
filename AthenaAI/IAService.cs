@@ -12,6 +12,10 @@ namespace ATHENA.AthenaAI
     {
         private static readonly HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// Envia ao Gemini o histórico salvo junto com a nova pergunta e devolve a resposta em texto.
+        /// A pergunta e a resposta só são gravadas no histórico quando a API responde com sucesso.
+        /// </summary>
         public static async Task<string> Mensagens(string prompt)
         {
             IASettings settings = new IASettings();
@@ -125,20 +129,17 @@ namespace ATHENA.AthenaAI
 
             await db.CreateTableAsync<MensagemChat>();
 
-            MensagemChat? MensagemChat = await db.Table<MensagemChat>()
-           .FirstOrDefaultAsync();
+            var mensagem = new MensagemChat
+            {
+                Papel = papel,
+                Conteudo = mensage,
+                dataCriacao = DateTime.Now
+            };
 
-                MensagemChat = new MensagemChat
-                {
-                    Papel = papel,
-                    Conteudo = mensage,
-                    dataCriacao = DateTime.Now
-                };
-
-                await db.InsertAsync(MensagemChat);
-
-            
+            await db.InsertAsync(mensagem);
         }
+
+        /// <summary>Apaga todo o histórico quando a primeira mensagem tem mais de 24 horas.</summary>
         public async static Task ApagarMensagem()
         {
             string dbPath = Path.Combine(

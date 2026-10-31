@@ -3,6 +3,7 @@ using Microsoft.Maui.Storage;
 
 namespace ATHENA.Services
 {
+    /// <summary>Cópia do estado do CronometroService guardada no Preferences do aparelho.</summary>
     internal class CronometroPreferences
     {
         public string Origem { get; set; } = string.Empty;

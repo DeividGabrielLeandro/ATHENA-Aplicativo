@@ -1,10 +1,12 @@
-﻿using ATHENA.Database;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ATHENA.Services
+﻿namespace ATHENA.Services
 {
+    /// <summary>
+    /// Estado único do cronômetro, compartilhado por todas as telas.
+    /// O tempo é calculado a partir de horários (DataInicio e inicioTrecho), e não contando segundos,
+    /// por isso continua certo mesmo com o app em segundo plano.
+    /// Toda mudança de estado é gravada no Preferences para o cronômetro sobreviver
+    /// quando o Android fecha o app.
+    /// </summary>
     internal class CronometroService
     {
         private static readonly CronometroPreferences cronometro = new CronometroPreferences();
@@ -26,6 +28,7 @@ namespace ATHENA.Services
         private static TimeSpan? tempoLiquidoFinal;
         private static TimeSpan? tempoBrutoFinal;
 
+        /// <summary>Tempo estudado: o que já foi acumulado mais o trecho que está rodando agora.</summary>
         public static TimeSpan TempoLiquido =>
             tempoLiquidoFinal ??
             (tempoLiquidoAcumulado +
@@ -39,6 +42,7 @@ namespace ATHENA.Services
             TempoBruto - TempoLiquido;
 
 
+        /// <summary>Grava o estado atual no Preferences. É chamado em toda mudança de estado.</summary>
         public static void Salvar()
         {
             cronometro.Origem = Origem.ToString();
@@ -57,6 +61,7 @@ namespace ATHENA.Services
             cronometro.Salvar();
         }
 
+        /// <summary>Restaura o estado salvo. É chamado uma vez, quando o app abre (App.xaml.cs).</summary>
         public static void Carregar()
         {
             cronometro.Carregar();
@@ -90,12 +95,15 @@ namespace ATHENA.Services
         }
 
 
+        /// <summary>
+        /// Define o que será cronometrado: uma meta, uma sessão ou um estudo livre.
+        /// Retorna false se já existe um cronômetro iniciado, para não misturar dois estudos.
+        /// </summary>
         public static bool ConfigurarContexto(
     NewPage1.OrigemCronometro origem,
     int? idMeta = null,
     int? idSessao = null)
         {
-            // Depois que o cronômetro começou, preserva o estudo atual.
             if (Iniciado)
                 return false;
 
@@ -106,6 +114,7 @@ namespace ATHENA.Services
             return true;
         }
 
+        /// <summary>Se nenhuma origem foi escolhida, o cronômetro conta como estudo livre.</summary>
         public static void GarantirEstudoLivre()
         {
             if (Origem == NewPage1.OrigemCronometro.Nenhum)
@@ -159,6 +168,11 @@ namespace ATHENA.Services
             Salvar();
         }
 
+        /// <summary>
+        /// Congela os tempos e devolve o resultado para ser salvo no banco.
+        /// O cronômetro só é zerado depois que o save der certo (Limpar);
+        /// se der errado, CancelarFinalizacao desfaz este passo.
+        /// </summary>
         public static NewPage1.ResultadoSessao? PrepararFinalizacao()
         {
             if (!Iniciado)
@@ -183,6 +197,7 @@ namespace ATHENA.Services
             };
         }
 
+        /// <summary>Zera o cronômetro e salva o estado vazio, para ele não voltar quando o app for reaberto.</summary>
         public static void Limpar()
         {
             Origem = NewPage1.OrigemCronometro.Nenhum;
@@ -203,6 +218,7 @@ namespace ATHENA.Services
             Salvar();
         }
 
+        /// <summary>Desfaz o PrepararFinalizacao quando o save falha: o cronômetro volta pausado, com o tempo intacto.</summary>
         public static void CancelarFinalizacao()
         {
             Iniciado = true;
