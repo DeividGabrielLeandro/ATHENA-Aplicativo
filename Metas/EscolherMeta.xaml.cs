@@ -161,7 +161,7 @@ public partial class EscolherMeta : ContentPage
                     metaMinutos = meta.metaMinutos,
                     Progresso = meta.Progresso,
                     CategoriaTexto = categoria?.tituloCategoria,
-                    dataLimite = meta.TextoDataLimite,
+                    dataLimite = meta.dataLimite?.ToString("dd MMM"),
                 });
             }
             lista.ItemsSource = listaMetas;
@@ -248,7 +248,7 @@ public partial class EscolherMeta : ContentPage
                     metaMinutos = meta.metaMinutos,
                     Progresso = meta.Progresso,
                     CategoriaTexto = categoria?.tituloCategoria,
-                    dataLimite = meta.TextoDataLimite,
+                    dataLimite = meta.dataLimite?.ToString("dd MMM"),
                 });
             }
             lista.ItemsSource = listaMetas;
@@ -295,7 +295,7 @@ public partial class EscolherMeta : ContentPage
                     metaMinutos = meta.metaMinutos,
                     Progresso = meta.Progresso,
                     CategoriaTexto = categoria?.tituloCategoria,
-                    dataLimite = meta.TextoDataLimite,
+                    dataLimite = meta.dataLimite?.ToString("dd MMM"),
                 });
             }
             lista.ItemsSource = listaMetas;
@@ -337,7 +337,7 @@ public partial class EscolherMeta : ContentPage
                     metaMinutos = meta.metaMinutos,
                     Progresso = meta.Progresso,
                     CategoriaTexto = categoria?.tituloCategoria,
-                    dataLimite = meta.TextoDataLimite,
+                    dataLimite = meta.dataLimite?.ToString("dd MMM"),
                 });
             }
             lista.ItemsSource = listaMetas;

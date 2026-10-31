@@ -98,7 +98,10 @@ namespace ATHENA.Models
                     var sessao = new Sessao_Estudo
                     {
                         tituloSessao = "Estudo livre",
-                        duracaoMinutos = minutos,
+                        DataInicio = resultadoSessao.DataInicio,
+                        DataFim = resultadoSessao.DataFim,
+                        duracaoMinutos = minutosBruto,
+                        tempoEstudadoMinutos = minutos,
                         idMeta = null
                     };
 

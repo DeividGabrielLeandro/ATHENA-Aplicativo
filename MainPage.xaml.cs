@@ -46,10 +46,8 @@ public partial class MainPage : ContentPage
            .OrderByDescending(m => m.minutosEstudados)
            .FirstOrDefaultAsync();
 
-            if (meta == null)
-                return;
-
-            IdMeta = meta.idMeta;
+            if (meta != null)
+                IdMeta = meta.idMeta;
 
             var registros = await db.Table<Registro_Tempo>()
                 .Where(r => r.data >= inicioDoDia)
@@ -77,9 +75,6 @@ public partial class MainPage : ContentPage
 
             MainThread.BeginInvokeOnMainThread(() =>
             {
-                lblTituloMaiorSessao.Text = meta.tituloMeta;
-                lblDescricaoMaiorSessao.Text = meta.descricaoMeta;
-                lblMinutosSessao.Text = $"{meta.minutosEstudados.ToString()} minutos estudados";
                 lblQuantidadeMetas.Text = quantidadeMetas.ToString();
                 lblQuantidadeCategorias.Text = quantidadeCategorias.ToString();
                 lblQuantidadeSessoes.Text = quantidadeSessoes.ToString();

@@ -24,6 +24,7 @@ public partial class PerfilPage : ContentPage
     private async Task CarregarConfigIAAsync()
     {
         IASettings settings = new IASettings();
+        settings.Carregar();
 
         if (!string.IsNullOrEmpty(settings.Model))
             PickerModeloIA.SelectedItem = settings.Model;
@@ -134,6 +135,8 @@ public partial class PerfilPage : ContentPage
             {
                 ImagemPerfil.Source = null;
             }
+
+            await CarregarConfigIAAsync();
         }
         catch (Exception ex)
         {

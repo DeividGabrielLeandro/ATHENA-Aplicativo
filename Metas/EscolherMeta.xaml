@@ -822,7 +822,7 @@
 
                                 <Label
                                     Grid.Column="0"
-                                    Text="{Binding dataLimite, StringFormat='Prazo: {0:dd MMM}', TargetNullValue=Sem prazo}"
+                                    Text="{Binding dataLimite, StringFormat='Prazo: {0}', TargetNullValue=Sem prazo}"
                                     FontSize="11"
                                     TextColor="{StaticResource AthenaTextMuted}"
                                     LineBreakMode="TailTruncation"

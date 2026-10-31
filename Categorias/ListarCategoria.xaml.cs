@@ -259,8 +259,9 @@ public partial class ListarCategoria : ContentPage
 
                     ProgressoConcluido = progressoConcluido
                 });
-                lista.ItemsSource = listaCategoria;
             }
+
+            lista.ItemsSource = listaCategoria;
         }
         catch (Exception ex)
         {

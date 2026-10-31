@@ -47,6 +47,12 @@ public partial class InterfaceMeta : ContentPage
 
             ConteudoMeta.BindingContext = meta;
 
+            Categoria? categoria = await db.Table<Categoria>()
+           .Where(m => m.idCategoria == meta.idCategoria)
+           .FirstOrDefaultAsync();
+
+            txtTituloCategoria.Text = categoria?.tituloCategoria ?? "Sem categoria";
+
             Sessao_Estudo? sessao = await db.Table<Sessao_Estudo>()
             .Where(s => s.idMeta == meta.idMeta)
             .OrderByDescending(s => s.idSessao)
@@ -55,20 +61,12 @@ public partial class InterfaceMeta : ContentPage
             if (sessao == null)
                 return;
             UltimaSessaoCard.IsVisible = true;
-            TimeSpan tempo = TimeSpan.FromMinutes((double)sessao.tempoEstudadoMinutos);
+            TimeSpan tempo = TimeSpan.FromMinutes(sessao.tempoEstudadoMinutos ?? 0);
 
             UltimaSessaoTempoTXT.Text = tempo.ToFormattedString(Title);
             UltimaSessaoTituloTXT.Text = sessao.tituloSessao;
             UltimaSessaoDataTXT.Text = sessao.DataFim.ToString();
             UltimaSessaoDescricaoTXT.Text = sessao.descricaoSessao;
-
-            Categoria? categoria = await db.Table<Categoria>()
-           .Where(m => m.idCategoria == meta.idCategoria)
-           .FirstOrDefaultAsync();
-
-            txtTituloCategoria.Text = categoria.tituloCategoria;
-
-
         }
         catch (Exception ex)
         {
@@ -76,8 +74,15 @@ public partial class InterfaceMeta : ContentPage
         }
     }
 
+    bool abrindoSessao = false;
+
     private async void Button_Clicked(object sender, EventArgs e)
     {
+        if (abrindoSessao)
+            return;
+
+        abrindoSessao = true;
+
         CronometroPreferences cronometro = new CronometroPreferences();
         cronometro.Carregar();
 
@@ -88,9 +93,9 @@ public partial class InterfaceMeta : ContentPage
                 await Shell.Current.GoToAsync(
                 $"{nameof(InterfaceSessao)}?idSessao={cronometro.IdSessao}&idMeta={IdMeta}");
             }
-            else if(cronometro.Iniciado && cronometro.IdMeta != IdMeta && cronometro.IdSessao != null) 
+            else if(cronometro.Iniciado && cronometro.IdMeta != IdMeta && cronometro.IdSessao != null)
             {
-                await DisplayAlertAsync("Aviso", "O cronômetro está ativo", "sair");
+                await DisplayAlertAsync("Aviso", "Você tem uma sessão em andamento em outra meta.", "OK");
             }
             else
             {
@@ -105,6 +110,10 @@ public partial class InterfaceMeta : ContentPage
         catch (Exception ex)
         {
             await DisplayAlertAsync("erro", ex.Message, "Sair");
+        }
+        finally
+        {
+            abrindoSessao = false;
         }
     }
 

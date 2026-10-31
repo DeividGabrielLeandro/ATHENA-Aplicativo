@@ -115,6 +115,8 @@ public partial class NewPage2 : ContentPage
         BtnRemoverData.IsVisible = false;
         PrazoDate.IsVisible = false;
 
+        dataLimite = null;
+
         TxtDataLimite.Text = "Sem data limite";
         TxtResumoPrazo.Text = "Sem data limite";
     }
