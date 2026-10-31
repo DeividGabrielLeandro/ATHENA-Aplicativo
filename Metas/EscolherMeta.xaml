@@ -682,7 +682,7 @@
                                         VerticalOptions="Center">
 
                                         <Label
-                                            Text="{Binding minutosEstudados, TargetNullValue=0}"
+                                            Text="{Binding minutosEstudados, StringFormat='{0:F0}', TargetNullValue=0}"
                                             FontSize="12"
                                             TextColor="{StaticResource AthenaTextPrimary}" />
 

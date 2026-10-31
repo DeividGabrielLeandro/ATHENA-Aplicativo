@@ -50,7 +50,7 @@ namespace ATHENA.Database
 
         public int metaMinutos { get; set; } = 0; //Objetivo de tempo a ser estudado
 
-        public int? minutosEstudados { get; set; } = 0; //Total estudado na meta, somando todas as origens
+        public double? minutosEstudados { get; set; } = 0; //Total estudado na meta, somando todas as origens
 
         [MaxLength(20), NotNull]
         public string prioridadeMeta { get; set; } = "Sem prioridade"; //Sem prioridade, Baixa, Média ou Alta

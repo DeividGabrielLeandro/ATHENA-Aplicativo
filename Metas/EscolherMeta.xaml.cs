@@ -14,7 +14,7 @@ public partial class EscolherMeta : ContentPage
             public string? descricaoMeta { get; set; }
             public string? prioridadeMeta { get; set; }
             public string? status { get; set; }
-            public int? minutosEstudados { get; set; }
+            public double? minutosEstudados { get; set; }
             public int metaMinutos { get; set; }
             public double Progresso { get; set; }
             public string? CategoriaTexto { get; set; }

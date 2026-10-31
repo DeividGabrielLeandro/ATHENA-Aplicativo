@@ -65,7 +65,7 @@ public partial class MainPage : ContentPage
                 lblTituloMaiorSessao.Text = meta.tituloMeta;
                 lblDescricaoMaiorSessao.Text = meta.descricaoMeta;
                 lblMinutosSessao.Text =
-                    $"{meta.minutosEstudados ?? 0} / {meta.metaMinutos} min";
+                    $"{(meta.minutosEstudados ?? 0):F0} / {meta.metaMinutos} min";
 
                 AreaMaiorMetaTitulo.IsVisible = true;
                 CardMaiorMeta.IsVisible = true;

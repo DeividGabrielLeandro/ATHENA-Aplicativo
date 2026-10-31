@@ -512,7 +512,7 @@
                                         <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
                                             <HorizontalStackLayout Spacing="2">
                                                 <Label
-                                                    Text="{Binding minutosEstudados, TargetNullValue=0}"
+                                                    Text="{Binding minutosEstudados, StringFormat='{0:F0}', TargetNullValue=0}"
                                                     FontSize="11"
                                                     TextColor="{StaticResource AthenaTextMuted}" />
                                                 <Label Text=" / " FontSize="11" TextColor="{StaticResource AthenaTextMuted}" />

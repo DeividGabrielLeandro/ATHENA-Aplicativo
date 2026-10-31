@@ -54,7 +54,7 @@ public partial class InterfaceCategoria : ContentPage
                 .ToListAsync();
 
             int concluidas = metas.Count(m => EstaConcluida(m.status));
-            int totalMinutos = metas.Sum(m => m.minutosEstudados ?? 0);
+            int totalMinutos = (int)metas.Sum(m => m.minutosEstudados ?? 0);
             int horas = totalMinutos / 60;
             int minutos = totalMinutos % 60;
             double progresso = metas.Count > 0

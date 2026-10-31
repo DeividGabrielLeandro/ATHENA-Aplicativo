@@ -25,8 +25,8 @@ namespace ATHENA.Models
         public async static Task SalvarEstudo(NewPage1.OrigemCronometro origem, int? idSessao, int? idMeta, NewPage1.ResultadoSessao resultadoSessao)
         {
 
-            double minutos = (int)resultadoSessao.MinutosLiquidos;
-            double minutosBruto = (int)resultadoSessao.MinutosBrutos;
+            double minutos = resultadoSessao.MinutosLiquidos;
+            double minutosBruto = resultadoSessao.MinutosBrutos;
 
 
 
@@ -57,7 +57,7 @@ namespace ATHENA.Models
                     if (meta == null)
                         throw new Exception("Meta não encontrada.");
 
-                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + (int)minutos;
+                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + minutos;
 
                     conn.Update(meta);
 
@@ -73,7 +73,7 @@ namespace ATHENA.Models
                     if (meta == null)
                         throw new Exception("Meta não encontrada.");
 
-                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + (int)minutos;
+                    meta.minutosEstudados = (meta.minutosEstudados ?? 0) + minutos;
 
                     conn.Update(meta);
 
